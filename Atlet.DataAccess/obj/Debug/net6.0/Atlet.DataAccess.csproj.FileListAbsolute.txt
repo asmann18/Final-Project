@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.DataAccess.deps.json
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.DataAccess.dll
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.DataAccess.pdb
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.dll
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\refint\Atlet.DataAccess.dll
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.pdb
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\ref\Atlet.DataAccess.dll
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.DataAccess.runtimeconfig.json
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.Core.dll
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\bin\Debug\net6.0\Atlet.Core.pdb
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.csproj.CopyComplete
+C:\Users\Admin\source\repos\Atlet.az-Final Project\Atlet.DataAccess\obj\Debug\net6.0\Atlet.DataAccess.genruntimeconfig.cache
