@@ -1,10 +1,5 @@
 ﻿using Atlet.Core.Abstract.Interfaces;
 using Atlet.Core.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Atlet.Core.Entities.E_Commerce
 {

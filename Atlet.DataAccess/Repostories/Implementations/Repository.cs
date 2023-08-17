@@ -1,9 +1,4 @@
-﻿using Atlet.Core.Abstract.Interfaces;
-using Atlet.Core.Entities.Common;
-using Atlet.DataAccess.Contexts;
-using Atlet.DataAccess.Repostories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿
 
 namespace Atlet.DataAccess.Repostories.Implementations;
 
@@ -23,29 +18,53 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
     {
         if(entity is BaseAuditableEntity)
         {
-            (BaseAuditableEntity)entity.IsDeleted
+            entity.IsDeleted= true;
+            return;
         }
         _context.Set<T>().Remove(entity);
     }
 
-    public IQueryable<T> GetAll()
+    public IQueryable<T> GetAll(params string[] includes)
     {
-      return  _context.Set<T>();
+        var query = _context.Set<T>().AsQueryable();
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+        return query;
     }
 
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(int id, params string[] includes)
     {
-        return await _context.Set<T>().FirstOrDefaultAsync(x=>x.Id==id);
+            var query=_context.Set<T>().AsQueryable();
+        foreach (string include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.SingleOrDefaultAsync(q => q.Id == id);
     }
 
-    public IQueryable<T> GetFiltered(Expression<Func<T, bool>> expression)
+
+
+    public IQueryable<T> GetFiltered(Expression<Func<T, bool>> expression, params string[] includes)
     {
-        return _context.Set<T>().Where(expression);
+            var query=_context.Set<T>().Where(expression).AsQueryable();
+        foreach (string include in includes)
+        {
+            query = query.Include(include);
+        }
+        return query;
     }
 
-    public async Task<T> GetSingleAsync(Expression<Func<T, bool>> expression)
+    public async Task<T> GetSingleAsync(Expression<Func<T, bool>> expression, params string[] includes)
     {
-        return await _context.Set<T>().FirstOrDefaultAsync(expression);
+            var query=_context.Set<T>().AsQueryable();
+        foreach (string include in includes)
+        {
+            query = query.Include(include);
+        }
+        return await query.FirstOrDefaultAsync(expression);
     }
 
     public async Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
@@ -58,6 +77,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
         return await _context.SaveChangesAsync();
     }
 
+    
 
     public void Update(T entity)
     {

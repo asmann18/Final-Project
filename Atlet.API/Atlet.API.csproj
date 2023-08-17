@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Atlet.Business\Atlet.Business.csproj" />
+  </ItemGroup>
+
 </Project>

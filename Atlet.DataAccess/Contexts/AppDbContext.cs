@@ -1,10 +1,10 @@
 ﻿using Atlet.Core.Entities;
-using Atlet.Core.Entities.Blog;
-using Atlet.Core.Entities.Blog.ManyToMany;
+using Atlet.Core.Entities.Blogs;
+using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
-using Atlet.Core.Entities.Move;
-using Atlet.Core.Entities.Move.ManyToMany;
+using Atlet.Core.Entities.Moves;
+using Atlet.Core.Entities.Moves.ManyToMany;
 using Atlet.DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
