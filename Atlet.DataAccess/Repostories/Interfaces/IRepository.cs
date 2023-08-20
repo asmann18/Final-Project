@@ -1,8 +1,4 @@
-﻿using Atlet.Core.Abstract.Interfaces;
-using Atlet.Core.Entities.Common;
-using System.Linq.Expressions;
-
-namespace Atlet.DataAccess.Repostories.Interfaces;
+﻿namespace Atlet.DataAccess.Repostories.Interfaces;
 
 public interface IRepository<T>where T:BaseEntity,IEntity,new()
 {

@@ -1,5 +1,5 @@
 ﻿using Atlet.Business.DTOs.Common;
-using Atlet.Business.DTOs.E_Commerce.Product;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.ProductExceptions;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
@@ -26,6 +26,8 @@ public class ProductService : IProductService
     {
         var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "ProductCategory","Brand","Aroma","ProductImage","Comment").ToListAsync();
         var query=_mapper.Map<List<ProductGetDto>>(Products);
+        if (query.Count == 0)
+            throw new ProductNotFoundException();
         return new DataResultDto<List<ProductGetDto>>(query);
     }
 
@@ -48,16 +50,29 @@ public class ProductService : IProductService
     }
 
     public async Task<ResultDto> UpdateProductAsync(ProductPutDto productPutDto)
-    {
+    { var isExist = await _productRepository.IsExistAsync(p => p.Name == productPutDto.Name && p.Id != productPutDto.Id);
+        if (isExist is true)
+            throw new ProductAlreadyExistException();
+
+        var uptadedProduct = _productRepository.GetSingleAsync(p => p.Id == productPutDto.Id);
+        if (uptadedProduct is null)
+            throw new ProductNotFoundException();
+
         var product=_mapper.Map<Product>(productPutDto);
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product successfully uptated");
     }
 
-    public Task<ResultDto> DeleteProductAsync(int Id)
+    public async Task<ResultDto> DeleteProductAsync(int Id)
     {
-        throw new NotImplementedException();
+        var product =await _productRepository.GetByIdAsync(Id);
+        if (product is null)
+            throw new ProductNotFoundException();
+        _productRepository.Delete(product);
+        await _productRepository.SaveAsync();
+        return new ResultDto(true, "Product is successfully deleted");
+
     }
 
 }

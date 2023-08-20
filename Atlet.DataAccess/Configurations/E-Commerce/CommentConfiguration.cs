@@ -8,8 +8,6 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
         builder.Property(c => c.Rating).IsRequired(true);
         builder.HasCheckConstraint("Rating", "Rating BETWEEN 0 AND 5");
         builder.Property(p => p.IsDeleted).HasDefaultValue(false);
-        
-
 
     }
 }

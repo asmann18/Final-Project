@@ -12,6 +12,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
     public async Task CreateAsync(T entity)
     {
         await _context.Set<T>().AddAsync(entity);
+        await SaveAsync();
     }
 
     public void Delete(T entity)
@@ -22,6 +23,8 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
             return;
         }
         _context.Set<T>().Remove(entity);
+
+
     }
 
     public IQueryable<T> GetAll(params string[] includes)

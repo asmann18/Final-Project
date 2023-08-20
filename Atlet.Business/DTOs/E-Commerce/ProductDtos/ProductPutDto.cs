@@ -2,7 +2,7 @@
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
 
-namespace Atlet.Business.DTOs.E_Commerce.Product;
+namespace Atlet.Business.DTOs.E_Commerce.ProductDtos;
 
 public class ProductPutDto:IDto
 {

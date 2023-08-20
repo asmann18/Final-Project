@@ -1,5 +1,5 @@
 ﻿using Atlet.Business.DTOs.Common;
-using Atlet.Business.DTOs.E_Commerce.Product;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 
 namespace Atlet.Business.Services.Interfaces.E_Commerce
 {

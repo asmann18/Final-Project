@@ -13,10 +13,6 @@
   <ItemGroup>
     <Folder Include="DTOs\Blogs\Blog\" />
     <Folder Include="DTOs\Blogs\BlogCategory\" />
-    <Folder Include="DTOs\E-Commerce\Brand\" />
-    <Folder Include="DTOs\E-Commerce\Aroma\" />
-    <Folder Include="DTOs\E-Commerce\Comment\" />
-    <Folder Include="DTOs\E-Commerce\ProductCategory\" />
     <Folder Include="DTOs\Moves\Move\" />
     <Folder Include="DTOs\Moves\Part\" />
     <Folder Include="Exceptions\Blogs\" />

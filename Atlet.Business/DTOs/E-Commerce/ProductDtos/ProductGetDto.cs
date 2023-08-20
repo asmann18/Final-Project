@@ -1,12 +1,11 @@
 ﻿using Atlet.Business.DTOs.Abstract;
-using Atlet.Core.Entities.E_Commerce.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
+using Atlet.Core.Entities.E_Commerce.ManyToMany;
 
-namespace Atlet.Business.DTOs.E_Commerce.Product;
+namespace Atlet.Business.DTOs.E_Commerce.ProductDtos;
 
-public class ProductDeleteDto:IDto
+public class ProductGetDto:IDto
 {
-
     public string Name { get; set; }
     public string Description { get; set; }
     public double Price { get; set; }
@@ -20,5 +19,6 @@ public class ProductDeleteDto:IDto
     public Brand Brand { get; set; }
     public int AromaId { get; set; }
     public Aroma Aroma { get; set; }
-    public ProductImage ProductImage { get; set; }
+    public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

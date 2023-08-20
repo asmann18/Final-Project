@@ -1,5 +1,5 @@
 ﻿namespace Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 
-internal interface ICommentRepository:IRepository<Comment>
+public interface ICommentRepository:IRepository<Comment>
 {
 }

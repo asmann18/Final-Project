@@ -5,5 +5,6 @@ public class AromaRepository:Repository<Aroma>,IAromaRepository
 	public AromaRepository(AppDbContext context) : base(context)
     {
 
+
     }
 }
