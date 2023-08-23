@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Atlet.DataAccess\Atlet.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\Blogs\Blog\" />
+    <Folder Include="DTOs\Blogs\BlogCategory\" />
+    <Folder Include="DTOs\Moves\Move\" />
+    <Folder Include="DTOs\Moves\Part\" />
+    <Folder Include="Exceptions\Blogs\" />
+    <Folder Include="Exceptions\Common\" />
+    <Folder Include="Exceptions\Moves\" />
+    <Folder Include="Mappers\Blogs\" />
+    <Folder Include="Mappers\Common\" />
+    <Folder Include="Mappers\Moves\" />
+    <Folder Include="Services\Implementations\Blogs\" />
+    <Folder Include="Services\Implementations\Moves\" />
+    <Folder Include="Services\Interfaces\Blogs\" />
+    <Folder Include="Services\Interfaces\Moves\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>
