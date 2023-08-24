@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "+BoZ1O8GK/AETeZ1j10UVrC48NVx+9s5ftTaUQW/hqlspbYDYnZTR4XdzPeMnk2AfpIOGH8jK8lSKzLLzk3LuQ==",
+  "dgSpecHash": "b4ZLTnxah3v0Iq9hO+nje9D9QiOcHPTEWnEO/jZZnaPOkm4cz8bB/ehpnI2V4PxfAc806/YI8oT9+wKmzGtNVQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\DELL\\source\\repos\\Atlet.az-Final Project\\Atlet.Business\\Atlet.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",

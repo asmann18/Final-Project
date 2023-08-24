@@ -9,7 +9,6 @@ public class CommentDeleteDto:IDto
     public string Text { get; init; }
     public int Rating { get; init; }
     public int ProductId { get; init; }
-    public Product Product { get; init; }
     public int? ParentId { get; init; }
-    public Comment? Parent { get; init; }
+    public int UserId { get; set; }
 }

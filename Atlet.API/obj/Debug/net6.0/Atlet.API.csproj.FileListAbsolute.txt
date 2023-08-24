@@ -147,3 +147,6 @@ C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Mic
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

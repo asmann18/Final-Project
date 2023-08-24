@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "XqshTYOFBXvB0QHtrxD7xRSZAiBPiFZ/OpD9crVPvay1EuBP5s81cFNFMOBJWsj0g9Tmm8D7CaiEhgLXT/155Q==",
+  "dgSpecHash": "8+pyIUTV3NB5Jq+CTf+tPuaU1YCUXRfc6z4trZpERuh4TLm/6Rm6nvSNsRHpnAPxSD2OEd9gTh2jaMXOZ8WOCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\DELL\\source\\repos\\Atlet.az-Final Project\\Atlet.API\\Atlet.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.21\\microsoft.aspnetcore.jsonpatch.6.0.21.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.21\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.21.nupkg.sha512",

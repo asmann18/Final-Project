@@ -1,6 +1,5 @@
 ﻿using Atlet.Core.Abstract.Interfaces;
 using Atlet.Core.Entities.Common;
-using Atlet.Core.Entities.E_Commerce;
 
 namespace Atlet.Core.Entities.Blogs;
 

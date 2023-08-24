@@ -1,6 +1,7 @@
 using Atlet.Business.Mappers.E_Commerce;
 using Atlet.Business.Services.Implementations.E_Commerce;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Atlet.Business.Validators.E_Commerce;
 using Atlet.DataAccess.Contexts;
 using Atlet.DataAccess.Repostories.Implementations;
 using Atlet.DataAccess.Repostories.Implementations.Blogs;
@@ -9,13 +10,15 @@ using Atlet.DataAccess.Repostories.Implementations.Moves;
 using Atlet.DataAccess.Repostories.Interfaces;
 using Atlet.DataAccess.Repostories.Interfaces.Blogs;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
-using Atlet.DataAccess.Repostories.Interfaces.Moves; 
+using Atlet.DataAccess.Repostories.Interfaces.Moves;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args); 
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining(typeof(ProductPostDtoValidators)));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")); 
