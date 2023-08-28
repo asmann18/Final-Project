@@ -1,16 +1,7 @@
-using Atlet.Business.Mappers.E_Commerce;
-using Atlet.Business.Services.Implementations.E_Commerce;
-using Atlet.Business.Services.Interfaces.E_Commerce;
-using Atlet.Business.Validators.E_Commerce;
+using Atlet.API.Extensions;
+using Atlet.Business.Validators.E_CommerceValidators;
 using Atlet.DataAccess.Contexts;
-using Atlet.DataAccess.Repostories.Implementations;
-using Atlet.DataAccess.Repostories.Implementations.Blogs;
-using Atlet.DataAccess.Repostories.Implementations.E_Commerce;
-using Atlet.DataAccess.Repostories.Implementations.Moves;
-using Atlet.DataAccess.Repostories.Interfaces;
-using Atlet.DataAccess.Repostories.Interfaces.Blogs;
-using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
-using Atlet.DataAccess.Repostories.Interfaces.Moves;
+using Atlet.DataAccess.Interceptors;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,30 +18,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 //Repositories
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
-builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-builder.Services.AddScoped<IAromaRepository, AromaRepository>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-
-builder.Services.AddScoped<IImageRepository, ImageRepository>();
-
-builder.Services.AddScoped<IBlogRepository, BlogRepository>();
-builder.Services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
-
-builder.Services.AddScoped<IMoveRepository, MoveRepository>();
-builder.Services.AddScoped<IPartRepository, PartRepository>();
+builder.Services.AddRepositoriesService();
 
 //Services
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<IAromaService, AromaService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddServicesService();
 
-
-builder.Services.AddAutoMapper(typeof(ProductAutoMapper). Assembly);
-
+//Interceptor
+builder.Services.AddScoped<BaseAuditableInterceptor>();
 
 
 

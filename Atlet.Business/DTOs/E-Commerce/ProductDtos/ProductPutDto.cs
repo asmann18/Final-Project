@@ -13,10 +13,8 @@ public class ProductPutDto:IDto
     public int Count { get; init; }
     public int Discount { get; init; }
     public int ProductCategoryId { get; init; }
-    public ProductCategory? ProductCategory { get; init; }
     public int BrandId { get; init; }
-    public Brand? Brand { get; init; }
+
     public int AromaId { get; init; }
-    public Aroma? Aroma { get; init; }
-    public ProductImage? ProductImage { get; init; }
+
 }

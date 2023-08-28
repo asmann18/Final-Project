@@ -11,6 +11,5 @@ public class ProductCategoryAutoMapper:Profile
 		CreateMap<ProductCategory, ProductCategoryGetDto>().ReverseMap();
 		CreateMap<ProductCategory, ProductCategoryPostDto>().ReverseMap();
 		CreateMap<ProductCategory, ProductCategoryPutDto>().ReverseMap();
-		CreateMap<ProductCategory, ProductCategoryDeleteDto>().ReverseMap();
 	}
 }

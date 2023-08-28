@@ -8,9 +8,8 @@ public class ProductAutoMapper:Profile
 {
 	public ProductAutoMapper()
 	{
-		CreateMap<Product, ProductGetDto>().ReverseMap().ForMember(x=>x.ProductCategory, opts=> opts.Ignore());
+		CreateMap<Product, ProductGetDto>().ReverseMap();
 		CreateMap<Product, ProductPostDto>().ReverseMap();
 		CreateMap<Product, ProductPutDto>().ReverseMap();
-		CreateMap<Product, ProductDeleteDto>().ReverseMap();
 	}
 }

@@ -33,5 +33,10 @@ namespace Atlet.API.Controllers
         {
             return Ok(await _productService.CreateProductAsync(productPostDto));
         }
+        [HttpPut("")]
+        public async Task<IActionResult> PutProductById([FromBody]ProductPutDto productPutDto)
+        {
+            return Ok(await _productService.UpdateProductAsync(productPutDto));
+        }
     }
 }

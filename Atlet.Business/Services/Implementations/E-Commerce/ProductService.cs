@@ -24,7 +24,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
     {
-        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "ProductCategory","Brand","Aroma").ToListAsync();
+        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "Brand","Aroma").ToListAsync();
         var query=_mapper.Map<List<ProductGetDto>>(Products);
         if (query.Count == 0)
             throw new ProductNotFoundException();

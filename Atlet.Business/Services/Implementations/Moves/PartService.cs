@@ -2,7 +2,7 @@
 using Atlet.Business.DTOs.Moves.MoveDtos;
 using Atlet.Business.DTOs.Moves.PartDtos;
 using Atlet.Business.Exceptions.Moves.PartExceptions;
-using Atlet.Business.Services.Interfaces.E_Commerce;
+using Atlet.Business.Services.Interfaces.Moves;
 using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces.Moves;
 using AutoMapper;

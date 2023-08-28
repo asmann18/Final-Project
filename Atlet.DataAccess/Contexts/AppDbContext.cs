@@ -2,16 +2,32 @@
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
 using Atlet.Core.Entities.Moves.ManyToMany;
 using Atlet.DataAccess.Configurations;
+using Atlet.DataAccess.Interceptors;
+using System.Reflection;
 
 namespace Atlet.DataAccess.Contexts;
 
 public class AppDbContext:DbContext
 {
-	public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
-	{}
+	private readonly BaseAuditableInterceptor _interceptor;
+	public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor) : base(options)
+	{
+		_interceptor = interceptor;
+	}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+		optionsBuilder.AddInterceptors(_interceptor);    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+		
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+    }
 
 
-	public DbSet<Image> Images { get; set; } = null!;
+    public DbSet<Image> Images { get; set; } = null!;
 
 
 	public DbSet<Blog> Blogs { get; set; } = null!;
@@ -33,12 +49,6 @@ public class AppDbContext:DbContext
 	public DbSet<MoveImage> MoveImages { get; set; } = null!;
 
 
-
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
-	{
-		modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
-		base.OnModelCreating(modelBuilder);
-	}
 
 
 }
