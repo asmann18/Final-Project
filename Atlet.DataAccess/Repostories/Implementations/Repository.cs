@@ -84,6 +84,6 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
 
     public void Update(T entity)
     {
-        _context.Update(entity);
+        _context.Set<T>().Update(entity);
     }
 }

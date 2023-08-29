@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.AromaDtos;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.AromaExceptions;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
@@ -49,9 +50,16 @@ public class AromaService : IAromaService
         return new DataResultDto<List<AromaGetDto>>(aromaDtos);
     }
 
+    public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(int Id)
+    {
+        var aroma=await GetAromaByIdAsync(Id);
+        var products=_mapper.Map<List<ProductGetDto>>(aroma.data.Products);
+        return new DataResultDto<List<ProductGetDto>> (products);
+    }
+
     public async Task<DataResultDto<AromaGetDto>> GetAromaByIdAsync(int Id)
     {
-        var aroma = await _aromaRepository.GetByIdAsync(Id, "Product");
+        var aroma = await _aromaRepository.GetByIdAsync(Id, "Products");
         if (aroma is null)
             throw new AromaNotFoundException();
         var aromaDto = _mapper.Map<AromaGetDto>(aroma);

@@ -47,7 +47,7 @@ public class ProductCategoryService : IProductCategoryService
 
     public async Task<DataResultDto<List<ProductCategoryGetDto>>> GetAllCategoriesAsync(string? search)
     {
-        var productCategories=await _productCategoryRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToUpper().Contains(search.ToUpper()) : true,"Product").ToListAsync();
+        var productCategories=await _productCategoryRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToUpper().Contains(search.ToUpper()) : true).ToListAsync();
         if (productCategories.Count() is 0)
             throw new ProductCategoryNotFoundException();
 
@@ -57,7 +57,7 @@ public class ProductCategoryService : IProductCategoryService
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsInCategoryByIdAsync(int id)
     {
-        var productCategory=await _productCategoryRepository.GetByIdAsync(id);
+        var productCategory=await _productCategoryRepository.GetByIdAsync(id,"Products");
         if (productCategory is null)
             throw new ProductCategoryNotFoundException();
         var productGetDtos = _mapper.Map<List<ProductGetDto>>(productCategory.Products);

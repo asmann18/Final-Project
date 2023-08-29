@@ -24,6 +24,7 @@ public class AppDbContext:DbContext
 		
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
+		modelBuilder.Entity<Product>().HasQueryFilter(p => p.IsDeleted == false);
     }
 
 

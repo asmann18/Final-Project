@@ -54,11 +54,11 @@ public class ProductService : IProductService
         if (isExist is true)
             throw new ProductAlreadyExistException();
 
-        var uptadedProduct = _productRepository.GetSingleAsync(p => p.Id == productPutDto.Id);
+        var uptadedProduct = _productRepository.GetSingleAsync(p => p.Id == productPutDto.Id).Result;
         if (uptadedProduct is null)
             throw new ProductNotFoundException();
 
-        var product=_mapper.Map<Product>(productPutDto);
+        var product=_mapper.Map(productPutDto,uptadedProduct);
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product successfully uptated");

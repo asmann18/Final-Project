@@ -1,9 +1,9 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.BrandDtos;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.BrandExceptions;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
-using Atlet.DataAccess.Repostories.Implementations.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -42,16 +42,24 @@ public class BrandService : IBrandService
 
     public async Task<DataResultDto<List<BrandGetDto>>> GetAllBrandsAsync(string? search)
     {
-        var brands = await _brandRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true, "Product").ToListAsync();
+        var brands = await _brandRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true, "Products").ToListAsync();
         var brandsDto=_mapper.Map<List<BrandGetDto>>(brands);
         return new DataResultDto<List<BrandGetDto>>(brandsDto);
 
 
     }
 
+    public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsInBrandByBrandIdAsync(int Id)
+    {
+
+        var brand=await GetBrandByIdAsync(Id);
+        var products = _mapper.Map<List<ProductGetDto>>(brand.data.Products);
+        return new DataResultDto<List<ProductGetDto>>(products);
+    }
+
     public async Task<DataResultDto<BrandGetDto>> GetBrandByIdAsync(int Id)
     {
-        var brand = await _brandRepository.GetByIdAsync(Id, "Product");
+        Brand brand = await _brandRepository.GetByIdAsync(Id, "Products");
         if (brand is null)
             throw new BrandNotFoundException();
         var brandDto = _mapper.Map<BrandGetDto>(brand);

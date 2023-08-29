@@ -14,11 +14,6 @@ public class ProductGetDto:IDto
     public int SalesCount { get; set; }
     public double Rating { get; set; }
     public int ProductCategoryId { get; set; }
-    public ProductCategory ProductCategory { get; set; }
     public int BrandId { get; set; }
-    public Brand Brand { get; set; }
     public int AromaId { get; set; }
-    public Aroma Aroma { get; set; }
-    public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

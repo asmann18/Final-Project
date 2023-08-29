@@ -38,5 +38,11 @@ namespace Atlet.API.Controllers
         {
             return Ok(await _productService.UpdateProductAsync(productPutDto));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProductById([FromRoute]int id)
+        {
+            return Ok(await _productService.DeleteProductAsync(id));
+        }
     }
 }
