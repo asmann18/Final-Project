@@ -12,6 +12,7 @@ public class MoveAutoMapper:Profile
         CreateMap<Move, MoveGetDto>().ReverseMap();
         CreateMap<Move, MovePostDto>().ReverseMap();
         CreateMap<Move, MovePutDto>().ReverseMap();
+        CreateMap<Move, MoveRelationDto>().ReverseMap();
 
 
     }

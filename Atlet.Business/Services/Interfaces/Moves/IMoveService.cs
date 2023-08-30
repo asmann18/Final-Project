@@ -1,4 +1,5 @@
 ﻿using Atlet.Business.DTOs.Common;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.DTOs.Moves.MoveDtos;
 
 namespace Atlet.Business.Services.Interfaces.Moves;

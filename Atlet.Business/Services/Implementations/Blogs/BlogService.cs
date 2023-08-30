@@ -45,7 +45,7 @@ public class BlogService : IBlogService
 
     public async Task<DataResultDto<List<BlogGetDto>>> GetAllBlogsAsync(string? search)
     {
-        var blogs=await _blogRepository.GetFiltered(b=> !string.IsNullOrWhiteSpace(search) ? b.Name.ToLower().Contains(search.ToLower()) : true,"BlogCagetory" ).ToListAsync();
+        var blogs=await _blogRepository.GetFiltered(b=> !string.IsNullOrWhiteSpace(search) ? b.Name.ToLower().Contains(search.ToLower()) : true,"BlogCategory" ).ToListAsync();
         if(blogs.Count==0) throw new BlogNotFoundException();
         var blogDtos=_mapper.Map<List<BlogGetDto>>(blogs);
         return new DataResultDto<List<BlogGetDto>>(blogDtos);
@@ -65,11 +65,11 @@ public class BlogService : IBlogService
         var isExit=await _blogRepository.IsExistAsync(b=>b.Name==blogPutDto.Name && b.Id!=blogPutDto.Id);
         if(isExit)
             throw new BlogAlreadyExistException();
-        isExit = await _blogRepository.IsExistAsync(b => b.Id == blogPutDto.Id);
-        if (!isExit)
+        var uptadedBlog = await _blogRepository.GetByIdAsync(blogPutDto.Id);
+        if (uptadedBlog is null)
             throw new BlogNotFoundException();
 
-        var blog = _mapper.Map<Blog>(blogPutDto);
+        var blog = _mapper.Map(blogPutDto,uptadedBlog);
         _blogRepository.Update(blog);
         await _blogRepository.SaveAsync();
         return new ResultDto(true, "Blog is successfully uptaded");

@@ -12,5 +12,6 @@ public class BlogCategoryAutoMapper:Profile
         CreateMap<BlogCategory, BlogCategoryGetDto>().ReverseMap();
         CreateMap<BlogCategory, BlogCategoryPostDto>().ReverseMap();
         CreateMap<BlogCategory, BlogCategoryPutDto>().ReverseMap();
+        CreateMap<BlogCategory, BlogCategoryRelationDto>().ReverseMap();
     }
 }

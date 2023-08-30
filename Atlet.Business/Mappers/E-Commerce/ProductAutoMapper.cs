@@ -11,5 +11,6 @@ public class ProductAutoMapper:Profile
 		CreateMap<Product, ProductGetDto>().ReverseMap();
 		CreateMap<Product, ProductPostDto>().ReverseMap();
 		CreateMap<Product, ProductPutDto>().ReverseMap();
+		CreateMap<Product, ProductRelationDto>().ReverseMap();
 	}
 }

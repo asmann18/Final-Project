@@ -43,7 +43,7 @@ public class BlogCategoryService : IBlogCategoryService
 
     public async Task<DataResultDto<List<BlogCategoryGetDto>>> GetAllBlogCategorysAsync(string? search)
     {
-        var categories = await _blogCategoryRepository.GetFiltered(c => !string.IsNullOrWhiteSpace(search) ? c.Name.ToLower().Contains(search.ToLower()):true,"Blog" ).ToListAsync();
+        var categories = await _blogCategoryRepository.GetFiltered(c => !string.IsNullOrWhiteSpace(search) ? c.Name.ToLower().Contains(search.ToLower()):true,"Blogs" ).ToListAsync();
         if(categories.Count == 0)
             throw new BlogCategoryNotFoundException();
         var categoryDtos=_mapper.Map<List<BlogCategoryGetDto>>(categories);
@@ -52,7 +52,7 @@ public class BlogCategoryService : IBlogCategoryService
 
     public async Task<DataResultDto<List<BlogGetDto>>> GetAllBlogsByCategoryId(int id)
     {
-        var category = await _blogCategoryRepository.GetByIdAsync(id, "category");
+        var category = await _blogCategoryRepository.GetByIdAsync(id, "Blogs");
         if (category == null)
             throw new BlogCategoryNotFoundException();
         var blogsDtos=_mapper.Map<List<BlogGetDto>>(category.Blogs);
@@ -61,7 +61,7 @@ public class BlogCategoryService : IBlogCategoryService
 
     public async Task<DataResultDto<BlogCategoryGetDto>> GetBlogCategoryByIdAsync(int Id)
     {
-        var category=await _blogCategoryRepository.GetByIdAsync(Id,"category");
+        var category=await _blogCategoryRepository.GetByIdAsync(Id,"Blogs");
         if (category == null) throw new BlogCategoryNotFoundException();
         var categoryDto = _mapper.Map<BlogCategoryGetDto>(category);
         return new DataResultDto<BlogCategoryGetDto>(categoryDto);

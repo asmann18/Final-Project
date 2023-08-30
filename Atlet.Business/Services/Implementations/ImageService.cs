@@ -7,6 +7,7 @@ using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces;
 using Atlet.DataAccess.Repostories.Interfaces.ManyToMany;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Atlet.Business.Services.Implementations;
 
@@ -18,8 +19,9 @@ public class ImageService : IImageService
     private readonly IBlogImageRepository _blogImageRepository;
     private readonly IProductService _productService;
     private readonly IMapper _mapper;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ImageService(IImageRepository imageRepository, IProductService productService, IMapper mapper, IProductImageRepository productImageRepository, IMoveImageRepository moveImageRepository, IBlogImageRepository blogImageRepository)
+    public ImageService(IImageRepository imageRepository, IProductService productService, IMapper mapper, IProductImageRepository productImageRepository, IMoveImageRepository moveImageRepository, IBlogImageRepository blogImageRepository, IWebHostEnvironment webHostEnvironment)
     {
         _imageRepository = imageRepository;
         _productService = productService;
@@ -27,6 +29,7 @@ public class ImageService : IImageService
         _productImageRepository = productImageRepository;
         _moveImageRepository = moveImageRepository;
         _blogImageRepository = blogImageRepository;
+        _webHostEnvironment = webHostEnvironment;
     }
 
 

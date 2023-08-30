@@ -20,6 +20,19 @@ public class AromasController : ControllerBase
     {
         return Ok(await _aromaService.GetAllAromasAsync(search));
     }
+    [HttpGet("Products/{id}")]
+    public async Task<IActionResult> GetAllProductsByAromaId([FromRoute] int id)
+    {
+        return Ok(await _aromaService.GetAllProductsAsync(id));
+    }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+    {
+        return Ok(await _aromaService.GetAromaByIdAsync(id));
+    }
+
+
+
     [HttpPost("")]
     public async Task<IActionResult> CreateAroma([FromBody] AromaPostDto aromaPostDto)
     {
@@ -36,9 +49,5 @@ public class AromasController : ControllerBase
     {
         return Ok(await _aromaService.DeleteAromaAsync(id));
     }
-    [HttpGet("Products/{id}")]
-    public async Task<IActionResult> GetAllProductsByAromaId([FromRoute]int id)
-    {
-        return Ok(await _aromaService.GetAllProductsAsync(id));
-    }
+    
 }

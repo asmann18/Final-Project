@@ -43,7 +43,7 @@ public class PartService : IPartService
 
     public async Task<DataResultDto<List<MoveGetDto>>> GetAllMovesByPartId(int id)
     {
-        var part = await _partRepository.GetByIdAsync(id,"Move");
+        var part = await _partRepository.GetByIdAsync(id,"Moves");
         if (part is null)
             throw new PartNotFoundException();
         var moveDtos=_mapper.Map<List<MoveGetDto>>(part.Moves);
@@ -52,7 +52,7 @@ public class PartService : IPartService
 
     public async Task<DataResultDto<List<PartGetDto>>> GetAllPartsAsync(string? search)
     {
-        var parts =await _partRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true,"Move").ToListAsync();
+        var parts =await _partRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true,"Moves").ToListAsync();
         if(parts.Count == 0)
             throw new PartNotFoundException();
         var partDtos=_mapper.Map<List<PartGetDto>>(parts);
@@ -61,7 +61,7 @@ public class PartService : IPartService
 
     public async Task<DataResultDto<PartGetDto>> GetPartByIdAsync(int Id)
     {
-        var part = await _partRepository.GetByIdAsync(Id, "Move");
+        var part = await _partRepository.GetByIdAsync(Id, "Moves");
         if (part is null)
             throw new PartNotFoundException();
         var partDto=_mapper.Map<PartGetDto>(part);

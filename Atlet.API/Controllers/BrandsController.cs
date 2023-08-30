@@ -20,6 +20,19 @@ public class BrandsController : ControllerBase
     {
         return Ok(await _brandService.GetAllBrandsAsync(search));
     }
+
+    [HttpGet("Products/{id}")]
+    public async Task<IActionResult> GetAllProductsInBrandByBrandId([FromRoute] int id)
+    {
+        return Ok(await _brandService.GetAllProductsInBrandByBrandIdAsync(id));
+    }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+    {
+        return Ok(await _brandService.GetBrandByIdAsync(id));
+    }
+
+
     [HttpPost("")]
     public async Task<IActionResult> CreateBrand([FromBody]BrandPostDto brandPostDto)
     {
@@ -27,7 +40,7 @@ public class BrandsController : ControllerBase
     }
 
 
-    [HttpPut("{id}")]
+    [HttpPut("")]
     public async Task<IActionResult> UpdateBrand([FromBody]BrandPutDto brandPutDto)
     {
         return Ok(await _brandService.UpdateBrandAsync(brandPutDto));
@@ -39,9 +52,5 @@ public class BrandsController : ControllerBase
         return Ok(await _brandService.DeleteBrandAsync(id));
     }
 
-    [HttpGet("Products/{id}")]
-    public async Task<IActionResult> GetAllProductsInBrandByBrandId([FromRoute]int id)
-    {
-        return Ok(await _brandService.GetAllProductsInBrandByBrandIdAsync(id));
-    }
+    
 }

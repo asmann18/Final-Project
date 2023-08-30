@@ -12,5 +12,6 @@ public class PartAutoMapper:Profile
         CreateMap<Part, PartGetDto>().ReverseMap();
         CreateMap<Part, PartPostDto>().ReverseMap();
         CreateMap<Part, PartPutDto>().ReverseMap();
+        CreateMap<Part, PartRelationDto>().ReverseMap();
     }
 }

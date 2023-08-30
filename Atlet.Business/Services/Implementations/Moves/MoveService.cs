@@ -1,4 +1,5 @@
 ﻿using Atlet.Business.DTOs.Common;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.DTOs.Moves.MoveDtos;
 using Atlet.Business.Exceptions.Moves.MoveExceptions;
 using Atlet.Business.Services.Interfaces.Moves;
@@ -48,6 +49,8 @@ public class MoveService : IMoveService
         var moveDtos = _mapper.Map<List<MoveGetDto>>(moves);
         return new DataResultDto<List<MoveGetDto>>(moveDtos);
     }
+
+
 
     public async Task<DataResultDto<MoveGetDto>> GetMoveByIdAsync(int Id)
     {

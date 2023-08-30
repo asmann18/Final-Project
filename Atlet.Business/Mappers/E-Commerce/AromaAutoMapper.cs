@@ -11,5 +11,6 @@ public class AromaAutoMapper:Profile
         CreateMap<Aroma, AromaGetDto>().ReverseMap();
         CreateMap<Aroma, AromaPostDto>().ReverseMap();
         CreateMap<Aroma, AromaPutDto>().ReverseMap();
+        CreateMap<Aroma, AromaRelationDto>().ReverseMap();
     }
 }

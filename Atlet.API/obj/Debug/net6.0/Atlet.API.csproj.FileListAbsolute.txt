@@ -150,3 +150,4 @@ C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\New
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.dll
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Atlet.API.staticwebassets.runtime.json

@@ -12,6 +12,7 @@ public class BlogAutoMapper:Profile
     CreateMap<Blog, BlogGetDto>().ReverseMap();
     CreateMap<Blog, BlogPostDto>().ReverseMap();
     CreateMap<Blog, BlogPutDto>().ReverseMap();
+    CreateMap<Blog, BlogRelationDto>().ReverseMap();
 
     }
 }

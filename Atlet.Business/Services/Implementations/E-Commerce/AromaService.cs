@@ -43,7 +43,7 @@ public class AromaService : IAromaService
 
     public async Task<DataResultDto<List<AromaGetDto>>> GetAllAromasAsync(string? search)
     {
-        var aromas = await _aromaRepository.GetFiltered(a => !string.IsNullOrWhiteSpace(search) ? a.Name.ToLower().Contains(search.ToLower()) : true, "Product").ToListAsync();
+        var aromas = await _aromaRepository.GetFiltered(a => !string.IsNullOrWhiteSpace(search) ? a.Name.ToLower().Contains(search.ToLower()) : true, "Products").ToListAsync();
         if (aromas.Count == 0)
             throw new AromaNotFoundException();
         var aromaDtos = _mapper.Map<List<AromaGetDto>>(aromas);

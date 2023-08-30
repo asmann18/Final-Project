@@ -11,5 +11,6 @@ public class BrandAutoMapper:Profile
 		CreateMap<Brand,BrandGetDto>().ReverseMap();
 		CreateMap<Brand,BrandPostDto>().ReverseMap();
 		CreateMap<Brand,BrandPutDto>().ReverseMap();
+		CreateMap<Brand,BrandRelationDto>().ReverseMap();
 	}
 }

@@ -23,7 +23,6 @@ namespace Atlet.API.Controllers
 
         }
         [HttpGet("Products/{CategoryId}")]
-        [ActionName("GetAllProductsInCategory")]
         public async Task<IActionResult> GetAllProductsInCategoryById([FromRoute] int CategoryId)
         {
             return Ok(await _productCategoryService.GetAllProductsInCategoryByIdAsync(CategoryId));

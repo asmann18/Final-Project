@@ -1,14 +1,14 @@
 ﻿using Atlet.Business.DTOs.Abstract;
-using Atlet.Core.Entities.Moves;
-using Atlet.Core.Entities.Moves.ManyToMany;
+using Atlet.Business.DTOs.Moves.PartDtos;
 
 namespace Atlet.Business.DTOs.Moves.MoveDtos;
 
 public class MoveGetDto:IDto
 {
 
+    public int Id { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
-    public Part part { get; set; }
-    public ICollection<MoveImage> MoveImages { get; init; } = new List<MoveImage>();
+    public PartRelationDto Part { get; set; }
+    public ICollection<int> MoveImageIds { get; init; } = new List<int>();
 }

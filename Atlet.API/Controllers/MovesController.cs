@@ -20,6 +20,13 @@ namespace Atlet.API.Controllers
             return Ok(await _moveService.GetAllMovesAsync(search));
         
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+        {
+            return Ok(await _moveService.GetMoveByIdAsync(id));
+        }
+
         [HttpPost("")]
         public async Task<IActionResult> CreateMove([FromBody]MovePostDto movePostDto)
         {
@@ -31,6 +38,10 @@ namespace Atlet.API.Controllers
             return Ok(await _moveService.UpdateMoveAsync(movePutDto));
         }
         [HttpDelete("{id}")] 
-        public async Task<IActionResult> DeleteMove([FromRoute])
+        public async Task<IActionResult> DeleteMove([FromRoute]int id)
+        {
+            return Ok(await _moveService.DeleteMoveAsync(id));
+        }
+        
     }
 }

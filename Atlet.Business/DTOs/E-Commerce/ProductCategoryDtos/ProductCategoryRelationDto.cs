@@ -2,7 +2,7 @@
 
 namespace Atlet.Business.DTOs.E_Commerce.ProductCategoryDtos;
 
-public class ProductCategoryDeleteDto
+public class ProductCategoryRelationDto
 {
     public int Id { get; init; }
     public string Name { get; init; }

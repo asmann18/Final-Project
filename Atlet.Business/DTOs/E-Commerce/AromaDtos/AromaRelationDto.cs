@@ -3,10 +3,9 @@ using Atlet.Core.Entities.E_Commerce;
 
 namespace Atlet.Business.DTOs.E_Commerce.AromaDtos;
 
-public class AromaDeleteDto:IDto
+public class AromaRelationDto:IDto
 {
 
     public int Id { get; init; }
     public string Name { get; init; }
-    public ICollection<Product> Products { get; init; } = new List<Product>();
 }
