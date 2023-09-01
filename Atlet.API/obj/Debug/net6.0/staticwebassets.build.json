@@ -1,19 +1,11 @@
 {
   "Version": 1,
-  "Hash": "nyOaCFvCrKXbNvcP9E41i9HNhcU8ikrVFPimuBZw7vA=",
+  "Hash": "FNoGvzCLahC/hHiq1mP6RNoQEgDv0zK0ZMFwIwFAPZo=",
   "Source": "Atlet.API",
   "BasePath": "_content/Atlet.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "Atlet.API\\wwwroot",
-      "Source": "Atlet.API",
-      "ContentRoot": "C:\\Users\\DELL\\source\\repos\\Atlet.az-Final Project\\Atlet.API\\wwwroot\\",
-      "BasePath": "_content/Atlet.API",
-      "Pattern": "**"
-    }
-  ],
+  "DiscoveryPatterns": [],
   "Assets": []
 }

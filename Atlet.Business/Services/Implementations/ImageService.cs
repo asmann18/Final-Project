@@ -7,6 +7,8 @@ using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces;
 using Atlet.DataAccess.Repostories.Interfaces.ManyToMany;
 using AutoMapper;
+using FireSharp.Config;
+using FireSharp.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Atlet.Business.Services.Implementations;
@@ -31,7 +33,11 @@ public class ImageService : IImageService
         _blogImageRepository = blogImageRepository;
         _webHostEnvironment = webHostEnvironment;
     }
-
+    IFirebaseConfig config = new FirebaseConfig
+    {
+        AuthSecret= "9ifRStijpVHAk71oj3XCkhkl410Q0Frn3jyZJCDL",
+        BasePath= "https://atlet-az-finalproject-default-rtdb.firebaseio.com/"
+    };
 
     public async Task<List<string>> GetBlogImageUrlsByIdasync(int BlogId)
     {

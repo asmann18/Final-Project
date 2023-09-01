@@ -1,13 +1,14 @@
 ﻿using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
+using Atlet.Core.Entities.Identity;
 using Atlet.Core.Entities.Moves.ManyToMany;
-using Atlet.DataAccess.Configurations;
 using Atlet.DataAccess.Interceptors;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Atlet.DataAccess.Contexts;
 
-public class AppDbContext:DbContext
+public class AppDbContext:IdentityDbContext<AppUser>
 {
 	private readonly BaseAuditableInterceptor _interceptor;
 	public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor) : base(options)
@@ -42,12 +43,18 @@ public class AppDbContext:DbContext
 	public DbSet<Comment> Comments { get; set; } = null!;
 	public DbSet<ProductCategory> ProductCategories  { get; set; } = null!;
 	public DbSet<ProductImage> ProductImages { get; set; } = null!;
-
+	public DbSet<Basket> Baskets { get; set; }=null!;
+	public DbSet<BasketItem> BasketItems { get; set; } = null!;
+	public DbSet<Order> Orders { get; set; } = null!;
+	public DbSet<OrderItem> OrderItems { get; set; } = null!;
 
 
 	public DbSet<Move> Moves { get; set; } = null!;
 	public DbSet<Part> Parts { get; set; } = null!;
 	public DbSet<MoveImage> MoveImages { get; set; } = null!;
+
+
+	
 
 
 
