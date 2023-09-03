@@ -27,6 +27,7 @@ public static class AddServicesExtension
         services.AddScoped<IPartService, PartService>();
 
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
 
         services.AddAutoMapper(typeof(ProductAutoMapper).Assembly);
         return services;

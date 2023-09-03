@@ -1,9 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Atlet.DataAccess.Interceptors;
 
 public class BaseAuditableInterceptor:SaveChangesInterceptor
 {
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public BaseAuditableInterceptor(IHttpContextAccessor httpContextAccessor)
+    {
+        _httpContextAccessor = httpContextAccessor;
+    }
+
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
         UpdateEntity(eventData.Context);
@@ -24,12 +32,12 @@ public class BaseAuditableInterceptor:SaveChangesInterceptor
             {
                 entry.Entity.CreatedTime = DateTime.UtcNow;
                 entry.Entity.ModifiedTime = DateTime.UtcNow;
-                entry.Entity.CreatedBy = "Asiman(deyisilmelidi)";
-                entry.Entity.ModifiedBy = "Asiman(deyisilmelidi)";
+                entry.Entity.CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
+                entry.Entity.ModifiedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
             }
             if(entry.State is EntityState.Modified)
             {
-                entry.Entity.ModifiedBy = "Asiman";
+                entry.Entity.ModifiedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
                 entry.Entity.ModifiedTime= DateTime.UtcNow;
             }
         }

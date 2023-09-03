@@ -1,11 +1,11 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Atlet.Core.Entities.Identity;
 
 namespace Atlet.Business.Services.Interfaces.Identity;
 
 public interface IAuthService
 {
-    Task<IActionResult> Login(UserLoginDto userLoginDto);
-    //Task<DataResultDto<string>  >
+    Task<DataResultDto<TokenResponseDto>> Login(UserLoginDto userLoginDto);
+    Task<TokenResponseDto> CreateToken(AppUser user);
 }
