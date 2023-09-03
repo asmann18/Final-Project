@@ -1,9 +1,11 @@
 ﻿using Atlet.Business.Mappers.E_Commerce;
 using Atlet.Business.Services.Implementations.Blogs;
 using Atlet.Business.Services.Implementations.E_Commerce;
+using Atlet.Business.Services.Implementations.Identity;
 using Atlet.Business.Services.Implementations.Moves;
 using Atlet.Business.Services.Interfaces.Blogs;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Atlet.Business.Services.Interfaces.Identity;
 using Atlet.Business.Services.Interfaces.Moves;
 
 namespace Atlet.API.Extensions;
@@ -24,6 +26,7 @@ public static class AddServicesExtension
         services.AddScoped<IMoveService, MoveService>();
         services.AddScoped<IPartService, PartService>();
 
+        services.AddScoped<IUserService, UserService>();
 
         services.AddAutoMapper(typeof(ProductAutoMapper).Assembly);
         return services;

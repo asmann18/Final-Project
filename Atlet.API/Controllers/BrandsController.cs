@@ -15,38 +15,38 @@ public class BrandsController : ControllerBase
         _brandService = brandService;
     }
 
-    [HttpGet("")]
+    [HttpGet("[action]")]
     public async Task<IActionResult> GetAllProducts([FromQuery]string? search)
     {
         return Ok(await _brandService.GetAllBrandsAsync(search));
     }
 
-    [HttpGet("Products/{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetAllProductsInBrandByBrandId([FromRoute] int id)
     {
         return Ok(await _brandService.GetAllProductsInBrandByBrandIdAsync(id));
     }
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
     {
         return Ok(await _brandService.GetBrandByIdAsync(id));
     }
 
 
-    [HttpPost("")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> CreateBrand([FromBody]BrandPostDto brandPostDto)
     {
         return Ok(await _brandService.CreateBrandAsync(brandPostDto));
     }
 
 
-    [HttpPut("")]
+    [HttpPut("[action]")]
     public async Task<IActionResult> UpdateBrand([FromBody]BrandPutDto brandPutDto)
     {
         return Ok(await _brandService.UpdateBrandAsync(brandPutDto));
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteBrand([FromRoute]int id)
     {
         return Ok(await _brandService.DeleteBrandAsync(id));

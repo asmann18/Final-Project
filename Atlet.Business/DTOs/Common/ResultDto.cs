@@ -26,7 +26,7 @@ public class ResultDto : IDto
         this.message    =(string)message;
     }
 
-    public int? statusCode { get; init; }
+    public int? statusCode { get; init; } = 200;
     public bool success { get; init; } = true;
     public string message { get; init; } = "Successfully";
 

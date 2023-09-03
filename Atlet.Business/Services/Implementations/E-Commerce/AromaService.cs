@@ -50,11 +50,11 @@ public class AromaService : IAromaService
         return new DataResultDto<List<AromaGetDto>>(aromaDtos);
     }
 
-    public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(int Id)
+    public async Task<DataResultDto<List<ProductRelationDto>>> GetAllProductsAsync(int Id)
     {
         var aroma=await GetAromaByIdAsync(Id);
-        var products=_mapper.Map<List<ProductGetDto>>(aroma.data.Products);
-        return new DataResultDto<List<ProductGetDto>> (products);
+        var products=_mapper.Map<List<ProductRelationDto>>(aroma.data.Products);
+        return new DataResultDto<List<ProductRelationDto>> (products);
     }
 
     public async Task<DataResultDto<AromaGetDto>> GetAromaByIdAsync(int Id)

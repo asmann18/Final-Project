@@ -10,5 +10,4 @@ public class MovePostDto:IDto
     public string Description { get; init; }
     public int PartId { get; init; }
     public ICollection<int> MoveImageIds { get; init; } = new List<int>();
-    public IFormFile test { get; init; }
 }

@@ -15,30 +15,30 @@ public class BlogsController : ControllerBase
     {
         _blogService = blogService;
     }
-    [HttpGet("")]
+    [HttpGet("[action]")]
     public async Task<IActionResult> GetAllBlog([FromQuery]string? search)
     {
         return Ok(await _blogService.GetAllBlogsAsync(search));
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
     {
         return Ok(await _blogService.GetBlogByIdAsync(id));
     }
 
-    [HttpPost("")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> CreateBlog([FromBody]BlogPostDto blogPostDto)
     {
         return Ok(await _blogService.CreateBlogAsync(blogPostDto));
     }
 
-    [HttpPut("")]
+    [HttpPut("[action]")]
     public async Task<IActionResult> UpdateBlog([FromBody]BlogPutDto blogPutDto)
     {
         return Ok(await _blogService.UpdateBlogAsync(blogPutDto));
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteBlog([FromRoute]int id)
     {
         return Ok(await _blogService.DeleteBlogAsync(id));

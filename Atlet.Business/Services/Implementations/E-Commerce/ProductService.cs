@@ -6,6 +6,7 @@ using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Atlet.Business.Services.Implementations.E_Commerce;
 
@@ -15,11 +16,14 @@ public class ProductService : IProductService
     private readonly IMapper _mapper;
 
 
+
+
+
     public ProductService(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
-
+   
     }
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
@@ -75,4 +79,51 @@ public class ProductService : IProductService
 
     }
 
+    public async Task<DataResultDto<List<ProductGetDto>>> GetFilteredProducts(ProductFilteredDtos filter)
+    {
+
+
+        // var products = await _productRepository.GetFiltered(p => filter.categoryId == null! ? p.ProductCategoryId == filter.categoryId :true && filter.brandId == null! ?
+        // p.BrandId == filter.brandId :true && filter.aromaId == null! ? p.AromaId == filter.aromaId :true && filter.fromPrice == null! ? p.Price > filter.fromPrice :true && filter.toPrice == null! ?
+        // p.Price < filter.toPrice :true && filter.fromRating == null! ? p.Rating > filter.fromRating :true && filter.toRating == null! ? p.Rating < filter.toRating :true
+        //, "ProductCategory", "Aroma", "Brand").ToListAsync();
+
+        var products =_productRepository.GetAll("ProductCategory", "Brand", "Aroma");
+        if(filter.categoryId is not null)
+        {
+            products = products.Where(p=>p.ProductCategoryId == filter.categoryId);
+        }
+        if(filter.brandId is not null)
+        {
+            products = products.Where(p => p.BrandId == filter.brandId);
+        }
+        if(filter.aromaId is not null)
+        {
+            products=products.Where(p=>p.AromaId==filter.aromaId);
+        }
+        if(filter.fromPrice is not null)
+        {
+            products = products.Where(p => p.Price >= filter.fromPrice);
+        }
+        if(filter.toPrice is not null)
+        {
+            products=products.Where(p=>p.Price <= filter.toPrice);
+        }
+        if(filter.fromRating is not null)
+        {
+            products=products.Where(p=>p.Rating >= filter.fromRating);
+        }
+        if(filter.toRating is not null)
+        {
+            products = products.Where(p=>p.Rating <= filter.toRating);
+        }
+        //var products = await _productRepository.GetFiltered(p => p.ProductCategoryId == filter.categoryId && p.BrandId == filter.brandId && p.AromaId == filter.aromaId && p.Price >= filter.fromPrice &&
+        //p.Price <= filter.toPrice && p.Rating >= filter.fromRating && p.Rating <= filter.toRating, "productcategory", "aroma", "brand").ToListAsync();
+        if (products.ToList().Count is 0)
+        {
+            throw new ProductNotFoundException();
+        }
+        var productGetDtos=_mapper.Map<List<ProductGetDto>>(products);
+        return new DataResultDto<List<ProductGetDto>>(productGetDtos);
+    }
 }

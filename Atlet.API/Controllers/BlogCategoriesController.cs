@@ -14,18 +14,18 @@ public class BlogCategoriesController : ControllerBase
     {
         _blogCategoryService = blogCategoryService;
     }
-    [HttpGet("")]
+    [HttpGet("[action]")]
     public async Task<IActionResult> GetAllBlogCategories([FromQuery] string? search)
     {
          return Ok(await _blogCategoryService.GetAllBlogCategorysAsync(search));
     }
 
-    [HttpGet("Blogs/{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetAllBlogByCategoryId([FromRoute] int id)
     {
         return Ok(await _blogCategoryService.GetAllBlogsByCategoryId(id));
     }
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
     {
         return Ok(await _blogCategoryService.GetBlogCategoryByIdAsync(id));
@@ -33,17 +33,17 @@ public class BlogCategoriesController : ControllerBase
 
 
 
-    [HttpPost("")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> CreateBlogCategory([FromBody]BlogCategoryPostDto blogCategoryPostDto)
     {
         return Ok(await _blogCategoryService.CreateBlogCategoryAsync(blogCategoryPostDto));
     }
-    [HttpPut("")]
+    [HttpPut("[action]")]
     public async Task<IActionResult> UpdateBlogCategory([FromBody]BlogCategoryPutDto blogCategoryPutDto)
     {
         return Ok(await _blogCategoryService.UpdateBlogCategoryAsync(blogCategoryPutDto));
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteBlogCategory([FromRoute]int id)
     {
         return Ok(await _blogCategoryService.DeleteBlogCategoryAsync(id));

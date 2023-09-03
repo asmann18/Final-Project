@@ -11,6 +11,6 @@ public interface IBrandService
     Task<ResultDto> CreateBrandAsync(BrandPostDto brandPostDto);
     Task<ResultDto> UpdateBrandAsync(BrandPutDto brandPutDto);
     Task<ResultDto> DeleteBrandAsync(int Id);
-    Task<DataResultDto<List<ProductGetDto>>>
+    Task<DataResultDto<List<ProductRelationDto>>>
         GetAllProductsInBrandByBrandIdAsync(int Id);
 }

@@ -55,13 +55,13 @@ public class ProductCategoryService : IProductCategoryService
         return new DataResultDto<List<ProductCategoryGetDto>>(productCategoryGetDtos);
     }
 
-    public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsInCategoryByIdAsync(int id)
+    public async Task<DataResultDto<List<ProductRelationDto>>> GetAllProductsInCategoryByIdAsync(int id)
     {
         var productCategory=await _productCategoryRepository.GetByIdAsync(id,"Products");
         if (productCategory is null)
             throw new ProductCategoryNotFoundException();
-        var productGetDtos = _mapper.Map<List<ProductGetDto>>(productCategory.Products);
-        return new DataResultDto<List<ProductGetDto>>(productGetDtos);
+        var productDtos = _mapper.Map<List<ProductRelationDto>>(productCategory.Products);
+        return new DataResultDto<List<ProductRelationDto>>(productDtos);
 
     }
 

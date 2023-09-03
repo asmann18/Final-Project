@@ -15,17 +15,17 @@ public class AromasController : ControllerBase
         _aromaService = aromaService;
     }
 
-    [HttpGet("")]
-    public async Task<IActionResult> GetAllAroma([FromQuery] string? search)
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetAllAromas([FromQuery] string? search)
     {
         return Ok(await _aromaService.GetAllAromasAsync(search));
     }
-    [HttpGet("Products/{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetAllProductsByAromaId([FromRoute] int id)
     {
         return Ok(await _aromaService.GetAllProductsAsync(id));
     }
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
     {
         return Ok(await _aromaService.GetAromaByIdAsync(id));
@@ -33,18 +33,18 @@ public class AromasController : ControllerBase
 
 
 
-    [HttpPost("")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> CreateAroma([FromBody] AromaPostDto aromaPostDto)
     {
         return Ok(await _aromaService.CreateAromaAsync(aromaPostDto));
     }
 
-    [HttpPut("")]
+    [HttpPut("[action]")]
     public async Task<IActionResult> UpdateAroma([FromBody]AromaPutDto aromaPutDto)
     {
         return Ok(await _aromaService.UpdateAromaAsync(aromaPutDto));   
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteAroma([FromRoute]int id)
     {
         return Ok(await _aromaService.DeleteAromaAsync(id));

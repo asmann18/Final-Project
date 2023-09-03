@@ -15,34 +15,39 @@ namespace Atlet.API.Controllers
             _productService = productService;
         }
 
-        [HttpGet("")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search) { 
         
             return Ok(await _productService.GetAllProductsAsync(search)                );
         
         }
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute]int id) {
 
 
             return Ok(await _productService.GetProductByIdAsync(id));
         }
 
-        [HttpPost("")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> CreateProduct([FromBody]ProductPostDto productPostDto)
         {
             return Ok(await _productService.CreateProductAsync(productPostDto));
         }
-        [HttpPut("")]
+        [HttpPut("[action]")]
         public async Task<IActionResult> PutProductById([FromBody]ProductPutDto productPutDto)
         {
             return Ok(await _productService.UpdateProductAsync(productPutDto));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> DeleteProductById([FromRoute]int id)
         {
             return Ok(await _productService.DeleteProductAsync(id));
+        }
+        [HttpPost("[action]")]
+        public async Task<IActionResult> FilteredProducts([FromBody]ProductFilteredDtos productFilteredDtos)
+        {
+            return Ok(await _productService.GetFilteredProducts(productFilteredDtos));
         }
     }
 }

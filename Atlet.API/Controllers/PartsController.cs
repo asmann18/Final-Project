@@ -14,34 +14,34 @@ public class PartsController : ControllerBase
     {
         _partService = partService;
     }
-    [HttpGet("")]
+    [HttpGet("[action]")]
     public async Task<IActionResult> GetAllParts([FromQuery] string? search)
     {
         return Ok(await _partService.GetAllPartsAsync(search));
     }
 
-    [HttpGet("Moves/{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetAllMovesByPartId([FromRoute] int id)
     {
         return Ok(await _partService.GetAllMovesByPartId(id));
     }
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
     {
         return Ok(await _partService.GetPartByIdAsync(id));
     }
-    [HttpPost("")]
+    [HttpPost("[action]")]
     public async Task<IActionResult> CreatePart([FromBody]PartPostDto partPostDto)
     {
         return Ok(await _partService.CreatePartAsync(partPostDto));
     }
 
-    [HttpPut("")]
+    [HttpPut("[action]")]
     public async Task<IActionResult> UpdatePart([FromBody]PartPutDto partPutDto)
     {
         return Ok(await _partService.UpdatePartAsync(partPutDto));
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeletePart([FromRoute]int id)
     {
         return Ok(await _partService.DeletePartAsync(id));

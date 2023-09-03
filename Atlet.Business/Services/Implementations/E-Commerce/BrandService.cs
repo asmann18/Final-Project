@@ -26,6 +26,7 @@ public class BrandService : IBrandService
         if (isExist)
             throw new BrandAlreadyExistException();
         var brand = _mapper.Map<Brand>(brandPostDto);
+        await _brandRepository.CreateAsync(brand);
         return new ResultDto(true, "Brand is successfully created");
     }
 
@@ -49,12 +50,12 @@ public class BrandService : IBrandService
 
     }
 
-    public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsInBrandByBrandIdAsync(int Id)
+    public async Task<DataResultDto<List<ProductRelationDto>>> GetAllProductsInBrandByBrandIdAsync(int Id)
     {
 
         var brand=await GetBrandByIdAsync(Id);
-        var products = _mapper.Map<List<ProductGetDto>>(brand.data.Products);
-        return new DataResultDto<List<ProductGetDto>>(products);
+        var products = _mapper.Map<List<ProductRelationDto>>(brand.data.Products);
+        return new DataResultDto<List<ProductRelationDto>>(products);
     }
 
     public async Task<DataResultDto<BrandGetDto>> GetBrandByIdAsync(int Id)

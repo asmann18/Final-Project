@@ -12,5 +12,5 @@ public interface IAromaService
     Task<ResultDto> CreateAromaAsync(AromaPostDto AromaPostDto);
     Task<ResultDto> UpdateAromaAsync(AromaPutDto AromaPutDto);
     Task<ResultDto> DeleteAromaAsync(int Id);
-    Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(int Id);
+    Task<DataResultDto<List<ProductRelationDto>>> GetAllProductsAsync(int Id);
 }

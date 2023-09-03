@@ -15,20 +15,20 @@ namespace Atlet.API.Controllers
             _productCategoryService = productCategoryService;
         }
 
-        [HttpGet("")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
 
             return Ok(await _productCategoryService.GetAllCategoriesAsync(search));
 
         }
-        [HttpGet("Products/{CategoryId}")]
+        [HttpGet("[action]/{CategoryId}")]
         public async Task<IActionResult> GetAllProductsInCategoryById([FromRoute] int CategoryId)
         {
             return Ok(await _productCategoryService.GetAllProductsInCategoryByIdAsync(CategoryId));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute] int id)
         {
 
@@ -36,18 +36,18 @@ namespace Atlet.API.Controllers
             return Ok(await _productCategoryService.GetCategoryByIdAsync(id));
         }
 
-        [HttpPost("")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCategoryPostDto productCategoryPostDto)
         {
             return Ok(await _productCategoryService.CreateCategoryAsync(productCategoryPostDto));
         }
-        [HttpPut("")]
+        [HttpPut("[action]")]
         public async Task<IActionResult> PutProductById([FromBody] ProductCategoryPutDto productCategoryPutDto)
         {
             return Ok(await _productCategoryService.UpdateCategoryAsync(productCategoryPutDto));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> DeleteProductById([FromRoute] int id)
         {
             return Ok(await _productCategoryService.DeleteCategoryAsync(id));
