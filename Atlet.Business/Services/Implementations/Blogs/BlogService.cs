@@ -1,6 +1,7 @@
 ﻿using Atlet.Business.DTOs.Blogs.BlogDtos;
 using Atlet.Business.DTOs.Common;
 using Atlet.Business.Exceptions.Blogs.BlogExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.Blogs;
 using Atlet.Core.Entities.Blogs;
 using Atlet.DataAccess.Repostories.Interfaces.Blogs;
@@ -14,11 +15,13 @@ public class BlogService : IBlogService
 
     private readonly IBlogRepository _blogRepository;
     private readonly IMapper _mapper;
+    private readonly IImageService _imageService;
 
-    public BlogService(IBlogRepository blogRepository, IMapper mapper)
+    public BlogService(IBlogRepository blogRepository, IMapper mapper, IImageService imageService)
     {
         _blogRepository = blogRepository;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<ResultDto> CreateBlogAsync(BlogPostDto blogPostDto)
@@ -28,6 +31,7 @@ public class BlogService : IBlogService
             throw new BlogAlreadyExistException();
         var blog=_mapper.Map<Blog>(blogPostDto);
         await _blogRepository.CreateAsync(blog);
+        await _imageService.CreateBlogImages(blog.Id, blogPostDto.BlogImagePaths);
         return new ResultDto(true, "Blog successfully created");
     }
 
@@ -38,6 +42,7 @@ public class BlogService : IBlogService
              throw new BlogNotFoundException();
 
         _blogRepository.Delete(blog);
+        await _imageService.DeleteBlogImages(Id);
         await _blogRepository.SaveAsync();
         return new ResultDto(true, "Blog successfully deleted");
 
@@ -48,6 +53,10 @@ public class BlogService : IBlogService
         var blogs=await _blogRepository.GetFiltered(b=> !string.IsNullOrWhiteSpace(search) ? b.Name.ToLower().Contains(search.ToLower()) : true,"BlogCategory" ).ToListAsync();
         if(blogs.Count==0) throw new BlogNotFoundException();
         var blogDtos=_mapper.Map<List<BlogGetDto>>(blogs);
+        foreach (var item in blogDtos)
+        {
+            item.BlogImagePaths = await _imageService.GetBlogImageUrlsByIdasync(item.Id);
+        }
         return new DataResultDto<List<BlogGetDto>>(blogDtos);
     }
 
@@ -57,6 +66,8 @@ public class BlogService : IBlogService
         if (blog is null)
             throw new BlogNotFoundException();
         var blogDto=_mapper.Map<BlogGetDto>(blog);
+        blogDto.BlogImagePaths = await _imageService.GetBlogImageUrlsByIdasync(blogDto.Id);
+
         return new DataResultDto<BlogGetDto>(blogDto);
     }
 
@@ -71,6 +82,10 @@ public class BlogService : IBlogService
 
         var blog = _mapper.Map(blogPutDto,uptadedBlog);
         _blogRepository.Update(blog);
+        if(blogPutDto.BlogImagePaths.Length is not 0)
+        {
+            await _imageService.UpdateBlogImages(blogPutDto.Id,blogPutDto.BlogImagePaths);
+        }
         await _blogRepository.SaveAsync();
         return new ResultDto(true, "Blog is successfully uptaded");
     }

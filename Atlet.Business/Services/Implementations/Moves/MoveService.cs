@@ -1,9 +1,12 @@
-﻿using Atlet.Business.DTOs.Common;
+﻿using Atlet.Business.DTOs.Abstract;
+using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.DTOs.Moves.MoveDtos;
 using Atlet.Business.Exceptions.Moves.MoveExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.Moves;
 using Atlet.Core.Entities.Moves;
+using Atlet.DataAccess.Repostories.Interfaces;
 using Atlet.DataAccess.Repostories.Interfaces.Moves;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +17,12 @@ public class MoveService : IMoveService
 {
     private readonly IMoveRepository _moveRepository;
     private readonly IMapper _mapper;
-
-    public MoveService(IMapper mapper, IMoveRepository moveRepository)
+    private readonly IImageService _imageService;
+    public MoveService(IMapper mapper, IMoveRepository moveRepository, IImageService imageService)
     {
         _mapper = mapper;
         _moveRepository = moveRepository;
+        _imageService = imageService;
     }
 
     public async Task<ResultDto> CreateMoveAsync(MovePostDto movePostDto)
@@ -28,6 +32,7 @@ public class MoveService : IMoveService
             throw new MoveAlreadyExistException();
         var move = _mapper.Map<Move>(movePostDto);
         await _moveRepository.CreateAsync(move);
+        await _imageService.CreateMoveImages(move.Id, movePostDto.MoveImagePaths);
         return new ResultDto(true, "Move is successfully created");
     }
 
@@ -37,6 +42,7 @@ public class MoveService : IMoveService
         if (move is null)
             throw new MoveNotFoundExceptions();
         _moveRepository.Delete(move);
+        await _imageService.DeleteMoveImages(move.Id);
         await _moveRepository.SaveAsync();
         return new ResultDto(true, "Move is successfully deleted");
     }
@@ -47,6 +53,11 @@ public class MoveService : IMoveService
         if (moves.Count == 0)
             throw new MoveNotFoundExceptions();
         var moveDtos = _mapper.Map<List<MoveGetDto>>(moves);
+
+        foreach (var dto in moveDtos)
+        {
+            dto.MoveImagePaths = await _imageService.GetMoveImageUrlsByIdasync(dto.Id);
+        }
         return new DataResultDto<List<MoveGetDto>>(moveDtos);
     }
 
@@ -58,6 +69,7 @@ public class MoveService : IMoveService
         if (move is null)
             throw new MoveNotFoundExceptions();
         var moveDto = _mapper.Map<MoveGetDto>(move);
+        moveDto.MoveImagePaths = await _imageService.GetMoveImageUrlsByIdasync(moveDto.Id);
         return new DataResultDto<MoveGetDto>(moveDto);
     }
 
@@ -69,6 +81,10 @@ public class MoveService : IMoveService
         isExist = await _moveRepository.IsExistAsync(m => m.Id == movePutDto.Id);
         if (!isExist)
             throw new MoveNotFoundExceptions();
+        if(movePutDto.MoveImagePaths.Length is not 0)
+        {
+            await _imageService.UpdateProductImages(movePutDto.Id,movePutDto.MoveImagePaths);
+        }
         var move = _mapper.Map<Move>(movePutDto);
         _moveRepository.Update(move);
         await _moveRepository.SaveAsync();

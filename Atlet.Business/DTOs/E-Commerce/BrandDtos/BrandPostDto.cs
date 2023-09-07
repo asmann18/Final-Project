@@ -5,5 +5,5 @@ public class BrandPostDto:IDto
 {
     public string Name { get; init; }
     public string Description { get; init; }
-    public int ImageId { get; init; }
+    public string ImagePath { get; init; }
 }

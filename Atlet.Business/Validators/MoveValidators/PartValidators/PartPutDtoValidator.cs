@@ -7,7 +7,9 @@ public class PartPutDtoValidator:AbstractValidator<PartPutDto>
 {
     public PartPutDtoValidator()
     {
-        RuleFor(p=>p.Name).NotNull().NotEmpty().MaximumLength(64).MinimumLength(3);    
+        RuleFor(p=>p.Name).NotNull().NotEmpty().MaximumLength(64).MinimumLength(3);
+         
+
     }
 
 

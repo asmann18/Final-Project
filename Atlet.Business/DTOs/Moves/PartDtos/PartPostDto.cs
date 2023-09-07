@@ -6,5 +6,5 @@ public class PartPostDto:IDto
 {
 
     public string Name { get; init; }
-    public int ImageId { get; init; }
+    public string ImagePath { get; init; }
 }

@@ -9,6 +9,8 @@ public class MovePostDtoValidator:AbstractValidator<MovePostDto>
     {
         RuleFor(m=>m.Name).NotEmpty().NotNull().MaximumLength(64).MinimumLength(3);
         RuleFor(m=>m.Description).NotEmpty().NotNull().MaximumLength(300).MinimumLength(3);
-        
+        RuleFor(p => p.MoveImagePaths).NotNull().NotEmpty();
+
+
     }
 }

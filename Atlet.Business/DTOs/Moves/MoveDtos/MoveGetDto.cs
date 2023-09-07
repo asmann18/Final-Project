@@ -10,5 +10,5 @@ public class MoveGetDto:IDto
     public string Name { get; init; }
     public string Description { get; init; }
     public PartRelationDto Part { get; set; }
-    public ICollection<int> MoveImageIds { get; init; } = new List<int>();
+    public List<string> MoveImagePaths { get; set; } = new List<string>();
 }

@@ -29,6 +29,7 @@ public class BlogImageService : IBlogImageService
             _blogImageRepository.Delete(image);
 
         }
+        await _blogImageRepository.SaveAsync();
     }
 
     public async Task<List<BlogImage>> GetBlogImageUrlsByIdAsync(int BlogId)

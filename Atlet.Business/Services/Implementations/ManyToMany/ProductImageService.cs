@@ -28,6 +28,7 @@ namespace Atlet.Business.Services.Implementations.ManyToMany
                 _productImageRepository.Delete(image);
 
             }
+            await _productImageRepository.SaveAsync();
         }
         public async Task<List<ProductImage>> GetProductImageUrlsByIdAsync(int ProductID)
         {

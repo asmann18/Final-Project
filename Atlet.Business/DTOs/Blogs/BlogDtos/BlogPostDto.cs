@@ -7,5 +7,5 @@ public class BlogPostDto:IDto
     public string Name { get; init; }
     public string Description { get; init; }
     public int BlogCategoryId { get; init; }
-    public ICollection<int> BlogImageIds { get; init; } = new List<int>();
+ public string[] BlogImagePaths { get; init; }
 }

@@ -2,6 +2,7 @@
 using Atlet.Business.DTOs.Moves.MoveDtos;
 using Atlet.Business.DTOs.Moves.PartDtos;
 using Atlet.Business.Exceptions.Moves.PartExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.Moves;
 using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces.Moves;
@@ -14,11 +15,12 @@ public class PartService : IPartService
 {
     private readonly IPartRepository _partRepository;
     private readonly IMapper _mapper;
-
-    public PartService(IMapper mapper, IPartRepository partRepository)
+    private readonly IImageService _imageService;
+    public PartService(IMapper mapper, IPartRepository partRepository, IImageService imageService)
     {
         _mapper = mapper;
         _partRepository = partRepository;
+        _imageService = imageService;
     }
 
     public async Task<ResultDto> CreatePartAsync(PartPostDto partPostDto)
@@ -27,6 +29,7 @@ public class PartService : IPartService
         if (isExist)
             throw new PartAlreadyExistException();
         var part = _mapper.Map<Part>(partPostDto);
+        part.ImageId=await _imageService.CreateImage(partPostDto.ImagePath);
         await _partRepository.CreateAsync(part);
         return new ResultDto(true, "Part is successfully created");
     }
@@ -37,6 +40,7 @@ public class PartService : IPartService
         if (part is null)
             throw new PartNotFoundException();
         _partRepository.Delete(part);
+        await _imageService.DeleteImage(part.ImageId);
         await _partRepository.SaveAsync();
         return new ResultDto(true, "Part is successfully deleted");
     }
@@ -52,7 +56,7 @@ public class PartService : IPartService
 
     public async Task<DataResultDto<List<PartGetDto>>> GetAllPartsAsync(string? search)
     {
-        var parts =await _partRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true,"Moves").ToListAsync();
+        var parts =await _partRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true,"Moves","Image").ToListAsync();
         if(parts.Count == 0)
             throw new PartNotFoundException();
         var partDtos=_mapper.Map<List<PartGetDto>>(parts);
@@ -61,7 +65,7 @@ public class PartService : IPartService
 
     public async Task<DataResultDto<PartGetDto>> GetPartByIdAsync(int Id)
     {
-        var part = await _partRepository.GetByIdAsync(Id, "Moves");
+        var part = await _partRepository.GetByIdAsync(Id, "Moves","Image");
         if (part is null)
             throw new PartNotFoundException();
         var partDto=_mapper.Map<PartGetDto>(part);
@@ -77,6 +81,7 @@ public class PartService : IPartService
         if (!isExist)
             throw new PartNotFoundException();
         var part=_mapper.Map<Part>(partPutDto);
+        part.ImageId = await _imageService.UpdateImage(part.ImageId, partPutDto.ImagePath);
         _partRepository.Update(part);
         await _partRepository.SaveAsync();
         return new ResultDto(true,"Part is successfully uptaded");

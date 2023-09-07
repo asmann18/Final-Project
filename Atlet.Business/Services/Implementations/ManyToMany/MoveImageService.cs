@@ -27,8 +27,9 @@ public class MoveImageService : IMoveImageService
         foreach (var image in images)
         {
             _moveImageRepository.Delete(image);
-
         }
+
+       await _moveImageRepository.SaveAsync();
     }
     public async Task<List<MoveImage>> GetMoveImageUrlsByIdAsync(int MoveId)
     {

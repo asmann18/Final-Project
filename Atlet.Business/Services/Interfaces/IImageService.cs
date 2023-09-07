@@ -29,7 +29,7 @@ public interface IImageService
     Task UpdateMoveImages(int moveId, string[] paths);
     Task<int> CreateImage(string path);
     Task<ResultDto> DeleteImage(int imageId);
-    Task<ResultDto> UpdateImage(int imageId, string path);
+    Task<int> UpdateImage(int imageId, string path);
 
 
     

@@ -184,14 +184,16 @@ public class ImageService : IImageService
         if(image is not null)
         {
             _imageRepository.Delete(image);
+            await _imageRepository.SaveAsync();
             return new ResultDto("Image is successfully deleted");
         }
         return new(false,"Image not found");
     }
 
-    public async Task<ResultDto> UpdateImage(int imageId, string path)
+    public async Task<int> UpdateImage(int imageId, string path)
     {
-        await DeleteImage(imageId); await CreateImage(path);
-        return new("image successfully updated");
+        await DeleteImage(imageId); 
+        var id=await CreateImage(path); 
+        return id;
     }
 }

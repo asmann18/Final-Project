@@ -2,6 +2,7 @@
 using Atlet.Business.DTOs.E_Commerce.BrandDtos;
 using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.BrandExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
@@ -14,10 +15,12 @@ public class BrandService : IBrandService
 {
     private readonly IBrandRepository _brandRepository;
     private readonly IMapper _mapper;
-    public BrandService(IBrandRepository brandRepository,IMapper mapper)
+    private readonly IImageService _imageService;
+    public BrandService(IBrandRepository brandRepository, IMapper mapper, IImageService imageService)
     {
         _brandRepository = brandRepository;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<ResultDto> CreateBrandAsync(BrandPostDto brandPostDto)
@@ -26,6 +29,7 @@ public class BrandService : IBrandService
         if (isExist)
             throw new BrandAlreadyExistException();
         var brand = _mapper.Map<Brand>(brandPostDto);
+        brand.ImageId=await _imageService.CreateImage(brandPostDto.ImagePath);
         await _brandRepository.CreateAsync(brand);
         return new ResultDto(true, "Brand is successfully created");
     }
@@ -37,14 +41,16 @@ public class BrandService : IBrandService
             throw new BrandNotFoundException();
 
         _brandRepository.Delete(brand);
+        await _imageService.DeleteImage(brand.ImageId);
         await _brandRepository.SaveAsync();
         return new ResultDto(true, "Brand is successfully deleted");
     }
 
     public async Task<DataResultDto<List<BrandGetDto>>> GetAllBrandsAsync(string? search)
     {
-        var brands = await _brandRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true, "Products").ToListAsync();
+        var brands = await _brandRepository.GetFiltered(p => !string.IsNullOrWhiteSpace(search) ? p.Name.ToLower().Contains(search.ToLower()) : true, "Products","Image").ToListAsync();
         var brandsDto=_mapper.Map<List<BrandGetDto>>(brands);
+     
         return new DataResultDto<List<BrandGetDto>>(brandsDto);
 
 
@@ -60,7 +66,7 @@ public class BrandService : IBrandService
 
     public async Task<DataResultDto<BrandGetDto>> GetBrandByIdAsync(int Id)
     {
-        Brand brand = await _brandRepository.GetByIdAsync(Id, "Products");
+        Brand brand = await _brandRepository.GetByIdAsync(Id, "Products","Image");
         if (brand is null)
             throw new BrandNotFoundException();
         var brandDto = _mapper.Map<BrandGetDto>(brand);
@@ -78,6 +84,7 @@ public class BrandService : IBrandService
             throw new BrandNotFoundException();
 
         var brand = _mapper.Map<Brand>(brandPutDto);
+        brand.ImageId=await _imageService.UpdateImage(brandPutDto.Id, brandPutDto.ImagePath);
         _brandRepository.Update(brand);
         await _brandRepository.SaveAsync();
             return new ResultDto(true,"Product successfully uptaded");

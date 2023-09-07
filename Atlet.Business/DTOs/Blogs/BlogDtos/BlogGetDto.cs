@@ -10,5 +10,6 @@ public class BlogGetDto:IDto
     public string Description { get; init; }
     public int BlogCategoryId { get; init; }
     public BlogCategoryRelationDto? BlogCategory { get; init; }
-    public ICollection<int> BlogImages { get; init; } = new List<int>();
+    public List<string> BlogImagePaths { get; set; } = new List<string>();
+
 }

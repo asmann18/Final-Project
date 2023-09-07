@@ -8,6 +8,7 @@ using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Atlet.Business.Services.Implementations.E_Commerce;
 
@@ -33,6 +34,10 @@ public class ProductService : IProductService
         var query=_mapper.Map<List<ProductGetDto>>(Products);
         if (query.Count == 0)
             throw new ProductNotFoundException();
+        foreach (var item in query)
+        {
+            item.ProductImagePaths =await _imageService.GetProductImageUrlsByIdAsync(item.Id);
+        }
         return new DataResultDto<List<ProductGetDto>>(query);
     }
 
@@ -41,8 +46,8 @@ public class ProductService : IProductService
         var product=await _productRepository.GetByIdAsync(Id);
         if (product is null)
             throw new ProductNotFoundException();
-
         var productDto = _mapper.Map<ProductGetDto>(product);
+        productDto.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(productDto.Id);
         return new DataResultDto<ProductGetDto>(productDto);
     }
 
@@ -65,6 +70,10 @@ public class ProductService : IProductService
             throw new ProductNotFoundException();
 
         var product=_mapper.Map(productPutDto,uptadedProduct);
+        if(productPutDto.ProductImagePaths.Length is not 0)
+        {
+            await _imageService.UpdateProductImages(productPutDto.Id, productPutDto.ProductImagePaths);
+        }
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product successfully uptated");
@@ -76,6 +85,7 @@ public class ProductService : IProductService
         if (product is null)
             throw new ProductNotFoundException();
         _productRepository.Delete(product);
+        await _imageService.DeleteProductImages(product.Id);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product is successfully deleted");
 
@@ -126,6 +136,10 @@ public class ProductService : IProductService
             throw new ProductNotFoundException();
         }
         var productGetDtos=_mapper.Map<List<ProductGetDto>>(products);
+        foreach (var item in productGetDtos)
+        {
+            item.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(item.Id);
+        }
         return new DataResultDto<List<ProductGetDto>>(productGetDtos);
     }
 
