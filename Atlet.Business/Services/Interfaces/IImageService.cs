@@ -1,4 +1,4 @@
-﻿using Atlet.Business.DTOs.ImageDtos;
+﻿using Atlet.Business.DTOs.Common;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.Moves;
 
@@ -13,6 +13,23 @@ public interface IImageService
 
     Task<List<string>> GetMoveImageUrlsByIdasync(int MoveId);
     Task<string> GetPartImageUrlByIdasync(Part part);
+
+    Task CreateProductImages(int productId,string[] paths);
+    Task DeleteProductImages(int productId);
+    Task UpdateProductImages(int productId, string[] paths);
+
+
+
+
+    Task CreateBlogImages(int blogId,string[] paths);
+    Task DeleteBlogImages(int blogId);
+    Task UpdateBlogImages(int blogId, string[] paths);
+    Task CreateMoveImages(int moveId,string[] paths);
+    Task DeleteMoveImages(int moveId);
+    Task UpdateMoveImages(int moveId, string[] paths);
+    Task<int> CreateImage(string path);
+    Task<ResultDto> DeleteImage(int imageId);
+    Task<ResultDto> UpdateImage(int imageId, string path);
 
 
     

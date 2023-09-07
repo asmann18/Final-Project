@@ -24,4 +24,5 @@ public class ProductGetDto:IDto
 
     public int AromaId { get; init; }
     public AromaRelationDto? Aroma { get; init; }
+    
 }

@@ -15,13 +15,11 @@ public class ProductCategoryService : IProductCategoryService
 {
     private readonly IProductCategoryRepository _productCategoryRepository;
     private readonly IMapper _mapper;
-    private readonly IProductService _productService;
 
-    public ProductCategoryService(IProductCategoryRepository productCategoryRepository,IMapper mapper,IProductService productService)
+    public ProductCategoryService(IProductCategoryRepository productCategoryRepository,IMapper mapper)
     {
         _productCategoryRepository = productCategoryRepository;
         _mapper = mapper;
-        _productService = productService;
     }
 
     public async Task<ResultDto> CreateCategoryAsync(ProductCategoryPostDto productCategoryPostDto)

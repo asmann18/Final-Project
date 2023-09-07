@@ -1,8 +1,14 @@
 using Atlet.API.Extensions;
+using Atlet.Business.Services.Implementations.ManyToMany;
+using Atlet.Business.Services.Implementations;
+using Atlet.Business.Services.Interfaces.ManyToMany;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Validators.E_CommerceValidators;
 using Atlet.Core.Entities.Identity;
 using Atlet.DataAccess.Contexts;
 using Atlet.DataAccess.Interceptors;
+using Atlet.DataAccess.Repostories.Implementations.ManyToMany;
+using Atlet.DataAccess.Repostories.Interfaces.ManyToMany;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +22,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")); 
 });
-
-
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
@@ -33,18 +37,17 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-
-
 //Repositories
+//builder.Services.AddScoped<IProductImageService, ProductImageService>();
+//builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+
+builder.Services.AddServicesService();
 builder.Services.AddRepositoriesService();
 
 //Services
-builder.Services.AddServicesService();
 
 //Interceptor
 builder.Services.AddScoped<BaseAuditableInterceptor>();
-
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -57,7 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.AddExceptionHandlerService();
+//app.AddExceptionHandlerService();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

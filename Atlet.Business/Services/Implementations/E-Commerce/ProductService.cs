@@ -1,6 +1,7 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.ProductExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
@@ -14,16 +15,16 @@ public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly IImageService _imageService;
 
 
 
 
-
-    public ProductService(IProductRepository productRepository, IMapper mapper)
+    public ProductService(IProductRepository productRepository, IMapper mapper, IImageService imageService)
     {
         _productRepository = productRepository;
         _mapper = mapper;
-   
+        _imageService = imageService;
     }
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
@@ -49,6 +50,7 @@ public class ProductService : IProductService
     {
         var product=_mapper.Map<Product>(productPostDto);
         await _productRepository.CreateAsync(product);
+        await _imageService.CreateProductImages(product.Id, productPostDto.ProductImagePaths);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product successfully created");
     }
@@ -125,5 +127,10 @@ public class ProductService : IProductService
         }
         var productGetDtos=_mapper.Map<List<ProductGetDto>>(products);
         return new DataResultDto<List<ProductGetDto>>(productGetDtos);
+    }
+
+    private void createImages(string[] paths,Product product)
+    {
+
     }
 }

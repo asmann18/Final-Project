@@ -1,6 +1,8 @@
-﻿using Atlet.Business.Services.Interfaces;
+﻿using Atlet.Business.DTOs.Common;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.E_Commerce;
-using Atlet.Business.Services.Interfaces.E_Commerce.ManyToMany;
+using Atlet.Business.Services.Interfaces.ManyToMany;
+using Atlet.Core.Entities;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces;
@@ -8,6 +10,7 @@ using AutoMapper;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.Business.Services.Implementations;
 
@@ -17,19 +20,14 @@ public class ImageService : IImageService
     private readonly IProductImageService _productImageService;
     private readonly IMoveImageService _moveImageService;
     private readonly IBlogImageService _blogImageService;
-    private readonly IProductService _productService;
-    private readonly IMapper _mapper;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ImageService(IImageRepository imageRepository, IProductService productService, IMapper mapper, IProductImageService productImageService, IMoveImageService moveImageService, IBlogImageService blogImageService, IWebHostEnvironment webHostEnvironment)
+
+    public ImageService(IImageRepository imageRepository, IProductImageService productImageService, IMoveImageService moveImageService, IBlogImageService blogImageService)
     {
         _imageRepository = imageRepository;
-        _productService = productService;
-        _mapper = mapper;
         _productImageService = productImageService;
         _moveImageService = moveImageService;
         _blogImageService = blogImageService;
-        _webHostEnvironment = webHostEnvironment;
     }
     IFirebaseConfig config = new FirebaseConfig
     {
@@ -82,5 +80,118 @@ public class ImageService : IImageService
 
         return urls;
         ;
+    }
+
+    public async Task CreateProductImages(int productId,string[] paths)
+    {
+        foreach (string path in paths)
+        {
+            Image image = new Image(path);
+            await _imageRepository.CreateAsync(image);
+           await _productImageService.CreateProductImage(productId,image.Id);
+        }
+        return;
+        
+    }
+
+
+    public async Task DeleteProductImages(int productId)
+    {
+        await _productImageService.DeleteProductImages(productId);
+    }
+    public async Task UpdateProductImages(int productId,string[] paths)
+    {
+        await DeleteProductImages(productId);
+        await CreateProductImages(productId,paths);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public async Task CreateBlogImages(int blogId, string[] paths)
+    {
+        foreach (var path in paths)
+        {
+            Image image = new Image(path);
+            await _imageRepository.CreateAsync(image);
+            await _blogImageService.CreateBlogImage(blogId, image.Id);
+        }
+        return;
+    }
+
+    public async Task DeleteBlogImages(int blogId)
+    {
+        await _blogImageService.DeleteBlogImages(blogId);
+    }
+    public async Task UpdateBlogImages(int blogId, string[] paths)
+    {
+        await DeleteBlogImages(blogId);
+        await CreateBlogImages(blogId, paths);
+    }
+
+
+
+
+
+
+
+
+    public async Task CreateMoveImages(int moveId, string[] paths)
+    {
+        foreach (var path in paths)
+        {
+            Image image = new Image(path);
+            await _imageRepository.CreateAsync(image);
+            await _moveImageService.CreateMoveImage(moveId, image.Id);
+        }
+        return;
+    }
+    public async Task DeleteMoveImages(int moveId)
+    {
+        await _moveImageService.DeleteMoveImages(moveId);
+    }
+    public async Task UpdateMoveImages(int moveId, string[] paths)
+    {
+        await DeleteMoveImages(moveId);
+        await CreateMoveImages(moveId, paths);
+    }
+
+
+
+
+
+
+
+    public async Task<int> CreateImage(string path)
+    {
+        Image image=new Image(path);
+        await _imageRepository.CreateAsync(image);
+        return image.Id;
+    }
+
+    public async Task<ResultDto> DeleteImage(int imageID)
+    {
+        var image=await _imageRepository.GetByIdAsync(imageID);
+        if(image is not null)
+        {
+            _imageRepository.Delete(image);
+            return new ResultDto("Image is successfully deleted");
+        }
+        return new(false,"Image not found");
+    }
+
+    public async Task<ResultDto> UpdateImage(int imageId, string path)
+    {
+        await DeleteImage(imageId); await CreateImage(path);
+        return new("image successfully updated");
     }
 }

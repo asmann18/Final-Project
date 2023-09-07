@@ -12,5 +12,5 @@ public class ProductPostDto
     public int ProductCategoryId { get; set; }
     public int BrandId { get; set; }
     public int AromaId { get; set; }
-    public ICollection<int> ProductImageIds { get; set; } = new List<int>();
+    public string[] ProductImagePaths { get; set; }
 }

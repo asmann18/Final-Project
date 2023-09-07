@@ -2,6 +2,6 @@
 
 namespace Atlet.DataAccess.Repostories.Interfaces.ManyToMany;
 
-public interface IProductImageRepository:IRepository<ProductImage>
+public interface IProductImageRepository : IRepository<ProductImage>
 {
 }

@@ -13,7 +13,7 @@
   <ItemGroup>
     <Folder Include="Exceptions\Common\" />
     <Folder Include="Mappers\Common\" />
-    <Folder Include="Services\Implementations\E-Commerce\ManyToMany\" />
+    <Folder Include="Services\Implementations\ManyToMany\" />
   </ItemGroup>
 
   <ItemGroup>
