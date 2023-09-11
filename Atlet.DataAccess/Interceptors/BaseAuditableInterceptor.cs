@@ -32,12 +32,12 @@ public class BaseAuditableInterceptor:SaveChangesInterceptor
             {
                 entry.Entity.CreatedTime = DateTime.UtcNow;
                 entry.Entity.ModifiedTime = DateTime.UtcNow;
-                entry.Entity.CreatedBy = "_httpContextAccessor.HttpContext.User.Identity.Name";
-                entry.Entity.ModifiedBy = "_httpContextAccessor.HttpContext.User.Identity.Name";
+                entry.Entity.CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
+                entry.Entity.ModifiedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
             }
             if(entry.State is EntityState.Modified)
             {
-                entry.Entity.ModifiedBy = "_httpContextAccessor.HttpContext.User.Identity.Name";
+                entry.Entity.ModifiedBy = _httpContextAccessor.HttpContext.User.Identity.Name;
                 entry.Entity.ModifiedTime= DateTime.UtcNow;
             }
         } 

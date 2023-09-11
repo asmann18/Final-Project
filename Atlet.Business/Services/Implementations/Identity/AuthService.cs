@@ -16,22 +16,28 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IConfiguration _configuration;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AuthService(UserManager<AppUser> userManager, IConfiguration configuration)
+
+
+    public AuthService(UserManager<AppUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _roleManager = roleManager;
     }
 
 
     public async Task<TokenResponseDto> CreateToken(AppUser user)
     {
 
+        var roles = await _userManager.GetRolesAsync(user);
         List<Claim> claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id)
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            //new Claim(ClaimTypes.Role,roles[0])
         };
 
         SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecurityKey"]));

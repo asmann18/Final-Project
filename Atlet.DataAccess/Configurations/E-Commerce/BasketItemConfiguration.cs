@@ -6,6 +6,7 @@ public class BasketItemConfiguration : IEntityTypeConfiguration<BasketItem>
     {
         builder.Property(b=>b.IsDeleted).HasDefaultValue(false);
         builder.Property(b=>b.Count).IsRequired();
+        builder.Property(b=>b.AppUserId).IsRequired();
     }
 
 

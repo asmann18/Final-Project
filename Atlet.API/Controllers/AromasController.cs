@@ -1,11 +1,13 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.AromaDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class AromasController : ControllerBase
 {
     private readonly IAromaService _aromaService;

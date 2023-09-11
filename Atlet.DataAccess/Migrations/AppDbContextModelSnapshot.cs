@@ -137,7 +137,7 @@ namespace Atlet.DataAccess.Migrations
                     b.ToTable("Aromas");
                 });
 
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Basket", b =>
+            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.BasketItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,51 +149,6 @@ namespace Atlet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("IsSold")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalCount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Baskets");
-                });
-
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.BasketItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BasketId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -202,12 +157,15 @@ namespace Atlet.DataAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BasketId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ProductId");
 
@@ -329,46 +287,6 @@ namespace Atlet.DataAccess.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BasketId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalCount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BasketId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.OrderItem", b =>
                 {
                     b.Property<int>("Id")
@@ -376,6 +294,10 @@ namespace Atlet.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
@@ -399,9 +321,6 @@ namespace Atlet.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -410,7 +329,7 @@ namespace Atlet.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ProductId");
 
@@ -901,22 +820,11 @@ namespace Atlet.DataAccess.Migrations
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Basket", b =>
+            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.BasketItem", b =>
                 {
                     b.HasOne("Atlet.Core.Entities.Identity.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.BasketItem", b =>
-                {
-                    b.HasOne("Atlet.Core.Entities.E_Commerce.Basket", "Basket")
-                        .WithMany("BasketItems")
-                        .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -926,7 +834,7 @@ namespace Atlet.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Basket");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
                 });
@@ -986,22 +894,11 @@ namespace Atlet.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Order", b =>
-                {
-                    b.HasOne("Atlet.Core.Entities.E_Commerce.Basket", "Basket")
-                        .WithMany()
-                        .HasForeignKey("BasketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Basket");
-                });
-
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.OrderItem", b =>
                 {
-                    b.HasOne("Atlet.Core.Entities.E_Commerce.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
+                    b.HasOne("Atlet.Core.Entities.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1011,7 +908,7 @@ namespace Atlet.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
                 });
@@ -1150,19 +1047,9 @@ namespace Atlet.DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Basket", b =>
-                {
-                    b.Navigation("BasketItems");
-                });
-
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Brand", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Product", b =>

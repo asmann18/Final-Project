@@ -4,6 +4,7 @@ using Atlet.Business.Exceptions.Identity;
 using Atlet.Business.Services.Interfaces.Identity;
 using Atlet.Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Atlet.Business.Services.Implementations.Identity;
 
@@ -32,6 +33,7 @@ public class UserService : IUserService
             throw new UserCreateFailedException(string.Join(" ", identityResult.Errors.Select(e => e.Description)));
 
         }
+        //await AddUserClaimAsync(user);
         await _userManager.AddToRoleAsync(user, "Member");
         return new ResultDto("User successfully created");
     }
@@ -42,4 +44,16 @@ public class UserService : IUserService
         await _roleManager.CreateAsync(new IdentityRole("Admin"));
         return new ResultDto("Roles successfully created");
     }
+ //   private async Task AddUserClaimAsync(AppUser newUser)
+ //   {
+ //       List<Claim> userClaims = new List<Claim>
+ //       {
+ //           new Claim(ClaimTypes.NameIdentifier,newUser.Id),
+ //           new Claim(ClaimTypes.Name,newUser.UserName),
+ //           new Claim(ClaimTypes.Email,newUser.Email),
+
+
+ //};
+ //       await _userManager.AddClaimsAsync(newUser, userClaims);
+ //   }
 }

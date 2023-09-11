@@ -1,11 +1,15 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -19,8 +23,8 @@ namespace Atlet.API.Controllers
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search) { 
         
             return Ok(await _productService.GetAllProductsAsync(search)                );
-        
         }
+
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute]int id) {
 

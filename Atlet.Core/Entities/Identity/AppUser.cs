@@ -6,7 +6,8 @@ namespace Atlet.Core.Entities.Identity
     public class AppUser:IdentityUser
     {
         public string? Fullname { get; set; }
-        ICollection<Basket> Baskets { get; set; }=new List<Basket>();
+        ICollection<BasketItem> BasketItems { get; set; }=new List<BasketItem>();
+        ICollection<OrderItem> OrderItems { get; set; }=new List<OrderItem>();
         ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }

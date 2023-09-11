@@ -11,15 +11,18 @@ namespace Atlet.DataAccess.Contexts;
 public class AppDbContext:IdentityDbContext<AppUser>
 {
 	private readonly BaseAuditableInterceptor _interceptor;
-	public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor) : base(options)
-	{
-		_interceptor = interceptor;
-	}
+	private readonly BasketItemInterceptor _basketItemInterceptor;
+    public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor, BasketItemInterceptor basketItemInterceptor) : base(options)
+    {
+        _interceptor = interceptor;
+        _basketItemInterceptor = basketItemInterceptor;
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-		optionsBuilder.AddInterceptors(_interceptor);    }
+		optionsBuilder.AddInterceptors(_interceptor,_basketItemInterceptor);    
+	}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 		
@@ -43,9 +46,7 @@ public class AppDbContext:IdentityDbContext<AppUser>
 	public DbSet<Comment> Comments { get; set; } = null!;
 	public DbSet<ProductCategory> ProductCategories  { get; set; } = null!;
 	public DbSet<ProductImage> ProductImages { get; set; } = null!;
-	public DbSet<Basket> Baskets { get; set; }=null!;
 	public DbSet<BasketItem> BasketItems { get; set; } = null!;
-	public DbSet<Order> Orders { get; set; } = null!;
 	public DbSet<OrderItem> OrderItems { get; set; } = null!;
 
 

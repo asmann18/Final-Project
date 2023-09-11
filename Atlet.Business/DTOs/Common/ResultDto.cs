@@ -1,8 +1,9 @@
 ﻿using Atlet.Business.DTOs.Abstract;
+using Microsoft.AspNetCore.Http;
 
 namespace Atlet.Business.DTOs.Common;
 
-public class ResultDto : IDto
+public class ResultDto : IDto,IResult
 {
     public ResultDto(string message)
     {
@@ -30,9 +31,9 @@ public class ResultDto : IDto
     public bool success { get; init; } = true;
     public string message { get; init; } = "Successfully";
 
-
-        
-        
-        
+    public Task ExecuteAsync(HttpContext httpContext)
+    {
+        throw new NotImplementedException();
+    }
 }
 
