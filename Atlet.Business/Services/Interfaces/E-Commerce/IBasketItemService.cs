@@ -7,8 +7,8 @@ namespace Atlet.Business.Services.Interfaces.E_Commerce;
 public interface IBasketItemService
 {
     Task<DataResultDto<List<BasketItemGetDto>>> GetAllAsync();
-    Task<DataResultDto<BasketItemGetDto>> GetByIdAsync(int id);
     Task<IResult> AddAsync(BasketItemPostDto dto);
-    Task<IResult> UpdateAsync(BasketItemPutDto dto);
     Task<IResult> DeleteByIdAsync(int id);
+    Task<IResult> Increase(int productId,int? count=1);
+    Task<IResult> Decrease(int productId,int? count=1);
 }

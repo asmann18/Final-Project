@@ -25,6 +25,7 @@ public class ProductGetDto:IDto
     public int AromaId { get; init; }
     public AromaRelationDto? Aroma { get; init; }
     public List<string> ProductImagePaths { get; set; } = new List<string>();
+    public List<Comment> Comments { get; set; } = new List<Comment>();
 
 
 }

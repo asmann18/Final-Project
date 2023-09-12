@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.ProductCategoryDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers
@@ -16,6 +17,7 @@ namespace Atlet.API.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search)
         {
 

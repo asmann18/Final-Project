@@ -6,7 +6,9 @@ using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Atlet.Business.Services.Implementations.E_Commerce;
 
@@ -31,7 +33,17 @@ public class BasketItemService : IBasketItemService
     {
         var basketItem = _mapper.Map<BasketItem>(dto);
         if (_isAuthenticated)
-            await _basketItemRepository.CreateAsync(basketItem);
+        {
+            var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var ExistBasketItem=_basketItemRepository.GetFiltered(i=>i.ProductId == dto.ProductId && i.AppUserId==id).FirstOrDefault() ;
+            if(ExistBasketItem is null)
+                await _basketItemRepository.CreateAsync(basketItem);
+
+            ExistBasketItem.Count += dto.Count;
+            _basketItemRepository.Update(ExistBasketItem);
+            await _basketItemRepository.SaveAsync();      
+        
+        }
         else
             await AddBasketItemToCookieAsync(basketItem);
 
@@ -41,12 +53,13 @@ public class BasketItemService : IBasketItemService
 
     public async Task<IResult> DeleteByIdAsync(int id)
     {
-        var basketItem=await _basketItemRepository.GetByIdAsync(id,"Product");
+        var basketItem=await _basketItemRepository.GetFiltered(i=>i.ProductId==id,"Product").FirstOrDefaultAsync();
         if (basketItem is null)
             throw new BasketItemNotFoundException();
         if (_isAuthenticated)
         {
-
+            var UserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                basketItem=await _basketItemRepository.GetFiltered(i=>i.ProductId==id && i.AppUserId==UserId,"Product").FirstOrDefaultAsync();
             _basketItemRepository.Delete(basketItem);
             await _basketItemRepository.SaveAsync();
         }
@@ -72,20 +85,23 @@ public class BasketItemService : IBasketItemService
         return new ResultDto("Product is removed");
     }
 
-    public Task<DataResultDto<List<BasketItemGetDto>>> GetAllAsync()
+    public async Task<DataResultDto<List<BasketItemGetDto>>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        if (_isAuthenticated)
+        {
+            var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var basketItems = await _basketItemRepository.GetFiltered(i => i.AppUserId == id).ToListAsync();
+            var itemDtos=_mapper.Map<List<BasketItemGetDto>>(basketItems);
+            return new DataResultDto<List<BasketItemGetDto>>(itemDtos);
+        }
+        var CookieBasketItems= GetBasketItemsFromCookie();
+        var cookieDtos = _mapper.Map<List<BasketItemGetDto>>(CookieBasketItems);
+        return new DataResultDto<List<BasketItemGetDto>> ( cookieDtos );
     }
 
-    public Task<DataResultDto<BasketItemGetDto>> GetByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<IResult> UpdateAsync(BasketItemPutDto dto)
-    {
-        throw new NotImplementedException();
-    }
+
+    
     private async Task AddBasketItemToCookieAsync(BasketItem item)
     {
         List<BasketItem> cartItems = GetBasketItemsFromCookie();
@@ -105,5 +121,16 @@ public class BasketItemService : IBasketItemService
         if (_contextAccessor.HttpContext.Request.Cookies[COOKIE_BASKET_ITEM_KEY] != null)
             cartItems = JsonConvert.DeserializeObject<List<BasketItem>>(_contextAccessor.HttpContext.Request.Cookies[COOKIE_BASKET_ITEM_KEY]);
         return cartItems;
+    }
+
+    public Task<IResult> Increase(int productId, int? count = 1)
+    {
+
+        throw new NotImplementedException();
+    }
+
+    public Task<IResult> Decrease(int productId, int? count = 1)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -28,6 +28,7 @@ public static class AddServicesExtension
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IAromaService, AromaService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IBasketItemService, BasketItemService>();
 
         services.AddScoped<IBlogService, BlogService>();
         services.AddScoped<IBlogCategoryService, BlogCategoryService>();

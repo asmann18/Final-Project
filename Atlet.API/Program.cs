@@ -13,13 +13,48 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining(typeof(ProductPostDtoValidators)));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")); 
 });
+
+
+
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        ValidAudience = builder.Configuration["Jwt:Audience"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecurityKey"]))
+//    };
+//});
+
+
 
 
 builder.Services.AddAuthentication(options =>
@@ -43,22 +78,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
-
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+builder.Services.AddAuthorization(options =>
 {
-    options.User.RequireUniqueEmail = true;
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin","Member","Moderator"));
+    options.AddPolicy("Moderator", policy => policy.RequireRole("Moderator","Member"));
+    options.AddPolicy("Member", policy => policy.RequireRole("Member"));
+});
 
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
 
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
-}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 //Repositories
 //builder.Services.AddScoped<IProductImageService, ProductImageService>();

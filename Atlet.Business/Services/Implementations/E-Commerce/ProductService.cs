@@ -30,7 +30,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
     {
-        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true,"ProductCategory", "Brand","Aroma").ToListAsync();
+        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true,"ProductCategory", "Brand","Aroma","Comments").ToListAsync();
         var query=_mapper.Map<List<ProductGetDto>>(Products);
         if (query.Count == 0)
             throw new ProductNotFoundException();
@@ -43,7 +43,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<ProductGetDto>> GetProductByIdAsync(int Id)
     {
-        var product=await _productRepository.GetByIdAsync(Id);
+        var product=await _productRepository.GetByIdAsync(Id, "ProductCategory", "Brand", "Aroma","Comments");
         if (product is null)
             throw new ProductNotFoundException();
         var productDto = _mapper.Map<ProductGetDto>(product);

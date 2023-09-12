@@ -8,5 +8,4 @@ public class CommentPostDto:IDto
     public int Rating { get; init; }
     public int ProductId { get; init; }
     public int? ParentId { get; init; }
-    public int UserId { get; set; }
 }

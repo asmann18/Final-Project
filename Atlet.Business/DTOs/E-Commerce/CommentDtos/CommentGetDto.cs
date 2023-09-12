@@ -5,10 +5,10 @@ namespace Atlet.Business.DTOs.E_Commerce.CommentDtos;
 
 public class CommentGetDto:IDto
 {
+    public int Id { get; set; }
     public string Text { get; init; }
     public int Rating { get; init; }
+    public string AppUserID { get; init; }
     public int ProductId { get; init; }
-    public Product Product { get; init; }
     public int? ParentId { get; init; }
-    public Comment? Parent { get; init; }
 }

@@ -8,7 +8,7 @@ namespace Atlet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "Admin")]
 
     public class ProductsController : ControllerBase
     {
@@ -20,6 +20,7 @@ namespace Atlet.API.Controllers
         }
 
         [HttpGet("[action]")]
+
         public async Task<IActionResult> GetAllProducts([FromQuery] string? search) { 
         
             return Ok(await _productService.GetAllProductsAsync(search)                );

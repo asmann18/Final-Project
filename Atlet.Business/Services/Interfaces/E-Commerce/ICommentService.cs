@@ -6,8 +6,8 @@ namespace Atlet.Business.Services.Interfaces.E_Commerce;
 public interface ICommentService
 {
 
-    Task<DataResultDto<List<CommentGetDto>>> GetAllCommentsAsync(string? search);
-    Task<DataResultDto<CommentGetDto>> GetCommentByIdAsync(int Id);
+    Task<DataResultDto<List<CommentGetDto>>> GetAllCommentsByProductIdAsync(int productId);
+    
     Task<ResultDto> CreateCommentAsync(CommentPostDto CommentPostDto);
     Task<ResultDto> DeleteCommentAsync(int Id);
 }

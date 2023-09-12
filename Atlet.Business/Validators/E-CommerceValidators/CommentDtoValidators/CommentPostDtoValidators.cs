@@ -10,7 +10,6 @@ public class CommentPostDtoValidators:AbstractValidator<CommentPostDto>
         RuleFor(c=>c.Text).NotNull().NotEmpty().MinimumLength(1).MaximumLength(300);
         RuleFor(c=>c.ProductId).NotNull().GreaterThanOrEqualTo(0);
         RuleFor(c=>c.ParentId).GreaterThanOrEqualTo(0);
-        RuleFor(c=>c.UserId).NotNull().GreaterThanOrEqualTo(0);
 
     }
 }

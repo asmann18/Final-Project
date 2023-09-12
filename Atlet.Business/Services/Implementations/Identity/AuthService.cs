@@ -36,9 +36,14 @@ public class AuthService : IAuthService
         {
             new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            //new Claim(ClaimTypes.Role,roles[0])
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
         };
+
+        foreach (var role in roles)
+        {
+            Claim claim = new Claim(ClaimTypes.Role, roles.FirstOrDefault());
+            claims.Add(claim);
+        }
 
         SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecurityKey"]));
 
