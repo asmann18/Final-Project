@@ -20,16 +20,16 @@ public class CommentsController : ControllerBase
     [HttpPost("[action]")]
     public async Task<IActionResult> AddComment([FromBody]CommentPostDto comment)
     {
-        return Ok(_commentService.CreateCommentAsync(comment));
+        return Ok(await _commentService.CreateCommentAsync(comment));
     }
-    [HttpDelete("[action]")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteComment([FromRoute] int id)
     {
-        return  Ok(_commentService.DeleteCommentAsync(id));
+        return  Ok(await _commentService.DeleteCommentAsync(id));
     }
-    [HttpGet("[action]")]
+    [HttpGet("[action]/{ProductId}")]
     public async Task<IActionResult> GetComments([FromRoute]int ProductId)
     {
-        return Ok(_commentService.GetAllCommentsByProductIdAsync(ProductId));
+        return Ok(await _commentService.GetAllCommentsByProductIdAsync(ProductId));
     }
 }

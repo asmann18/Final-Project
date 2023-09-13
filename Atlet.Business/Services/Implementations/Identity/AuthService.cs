@@ -31,7 +31,6 @@ public class AuthService : IAuthService
     public async Task<TokenResponseDto> CreateToken(AppUser user)
     {
 
-        var roles = await _userManager.GetRolesAsync(user);
         List<Claim> claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Name, user.UserName),
@@ -39,9 +38,10 @@ public class AuthService : IAuthService
             new Claim(ClaimTypes.NameIdentifier, user.Id)
         };
 
+        var roles = await _userManager.GetRolesAsync(user);
         foreach (var role in roles)
         {
-            Claim claim = new Claim(ClaimTypes.Role, roles.FirstOrDefault());
+            Claim claim = new Claim(ClaimTypes.Role, role);
             claims.Add(claim);
         }
 

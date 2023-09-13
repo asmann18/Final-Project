@@ -12,23 +12,28 @@ public class AppDbContext:IdentityDbContext<AppUser>
 {
 	private readonly BaseAuditableInterceptor _interceptor;
 	private readonly BasketItemInterceptor _basketItemInterceptor;
-    public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor, BasketItemInterceptor basketItemInterceptor) : base(options)
+	private readonly CommentInterceptor _commentInterceptor;
+    public AppDbContext(DbContextOptions<AppDbContext> options, BaseAuditableInterceptor interceptor, BasketItemInterceptor basketItemInterceptor, CommentInterceptor commentInterceptor) : base(options)
     {
         _interceptor = interceptor;
         _basketItemInterceptor = basketItemInterceptor;
+        _commentInterceptor = commentInterceptor;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-		optionsBuilder.AddInterceptors(_interceptor,_basketItemInterceptor);    
+		optionsBuilder.AddInterceptors(_interceptor,_basketItemInterceptor,_commentInterceptor);    
 	}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-		
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
 		modelBuilder.Entity<Product>().HasQueryFilter(p => p.IsDeleted == false);
+		modelBuilder.Entity<Comment>().HasQueryFilter(p => p.IsDeleted == false);
+		modelBuilder.Entity<Blog>().HasQueryFilter(p => p.IsDeleted == false);
+		modelBuilder.Entity<Move>().HasQueryFilter(p => p.IsDeleted == false);
+		modelBuilder.Entity<Image>().HasQueryFilter(p => p.IsDeleted == false);
     }
 
 
@@ -47,7 +52,6 @@ public class AppDbContext:IdentityDbContext<AppUser>
 	public DbSet<ProductCategory> ProductCategories  { get; set; } = null!;
 	public DbSet<ProductImage> ProductImages { get; set; } = null!;
 	public DbSet<BasketItem> BasketItems { get; set; } = null!;
-	public DbSet<OrderItem> OrderItems { get; set; } = null!;
 
 
 	public DbSet<Move> Moves { get; set; } = null!;

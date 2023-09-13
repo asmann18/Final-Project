@@ -9,6 +9,7 @@ public interface IBasketItemService
     Task<DataResultDto<List<BasketItemGetDto>>> GetAllAsync();
     Task<IResult> AddAsync(BasketItemPostDto dto);
     Task<IResult> DeleteByIdAsync(int id);
-    Task<IResult> Increase(int productId,int? count=1);
-    Task<IResult> Decrease(int productId,int? count=1);
+    Task<ResultDto> Increase(BasketItemPostDto basketItemPostDto);
+    Task<ResultDto> Decrease(BasketItemPostDto basketItemPostDto);
+    Task<ResultDto> BuyTheBasket();
 }

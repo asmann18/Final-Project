@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.CommentDtos;
+using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.Comment;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
@@ -35,7 +36,7 @@ public class CommentService : ICommentService
     {
         var user =await _userManager.FindByIdAsync(_userID);
         var roles=await _userManager.GetRolesAsync(user);
-        var isExist=user.OrderItems.Any(o=>o.ProductId==CommentPostDto.ProductId && o.AppUserId==_userID);
+        var isExist=user.BasketItems.Any(o=>o.ProductId==CommentPostDto.ProductId && o.AppUserId==_userID && o.IsSold==true);
         if (!isExist)
         {
             if (roles.FirstOrDefault() != "Admin" && roles.FirstOrDefault() != "Moderator")
@@ -48,8 +49,9 @@ public class CommentService : ICommentService
         }
 
         var comment = _mapper.Map<Comment>(CommentPostDto);
-        _commentRepository.CreateAsync(comment);
-        return new("Comment is successfully added");
+        await _commentRepository.CreateAsync(comment);
+        await ProductRatingUptaded(comment.ProductId);
+        return new ResultDto("Comment is successfully added");
     }
 
     public async Task<ResultDto> DeleteCommentAsync(int Id)
@@ -65,6 +67,7 @@ public class CommentService : ICommentService
         {
             _commentRepository.Delete(comment);
             await _commentRepository.SaveAsync();
+            await ProductRatingUptaded(comment.ProductId);
             return new("Comment is successfully deleted");
         }
         throw new RestrictedActionException("You are not allowed to delete other users' comment!");
@@ -75,5 +78,21 @@ public class CommentService : ICommentService
         var product=await _productService.GetProductByIdAsync(productId);
         var CommentDtos = _mapper.Map<List<CommentGetDto>>(product.data.Comments);
         return new(CommentDtos);
+    }
+
+    public async Task ProductRatingUptaded(int ProductId)
+    {
+        var comments = _commentRepository.GetFiltered(x => x.ProductId == ProductId && x.ParentId == null);
+        var Ratings = new List<int>();
+        foreach (var comment in comments)
+        {
+            Ratings.Add(comment.Rating);
+        }
+         var productGetDto=(await _productService.GetProductByIdAsync(ProductId)).data;
+        var product=_mapper.Map<Product>(productGetDto);
+        var avrg = Queryable.Average(Ratings.AsQueryable());
+        product.Rating = avrg;
+        var uptadedProduct=_mapper.Map<ProductRatingPutDto>(product);
+        await _productService.UpdateProductRatingAsync(uptadedProduct);
     }
 }

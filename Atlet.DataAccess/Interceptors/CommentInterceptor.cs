@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Atlet.DataAccess.Interceptors;
 
-internal class CommentInterceptor : SaveChangesInterceptor
+public class CommentInterceptor : SaveChangesInterceptor
 {
     private readonly IHttpContextAccessor _contextAccessor;
 

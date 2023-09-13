@@ -13,4 +13,5 @@ public class BasketItem:BaseEntity,IEntity
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
     public bool IsSold { get; set; } = false;
+    public double? StaticPrice { get; set; }=0;
 }

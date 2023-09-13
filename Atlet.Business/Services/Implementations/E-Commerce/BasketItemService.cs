@@ -1,6 +1,6 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.BasketItemDtos;
-using Atlet.Business.Exceptions.E_Commerce;
+using Atlet.Business.Exceptions.E_Commerce.BasketItemExceptions;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
@@ -35,9 +35,13 @@ public class BasketItemService : IBasketItemService
         if (_isAuthenticated)
         {
             var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var ExistBasketItem=_basketItemRepository.GetFiltered(i=>i.ProductId == dto.ProductId && i.AppUserId==id).FirstOrDefault() ;
-            if(ExistBasketItem is null)
+            var ExistBasketItem=_basketItemRepository.GetFiltered(i=>i.ProductId == dto.ProductId && i.AppUserId==id).ToList().FirstOrDefault();
+            if (ExistBasketItem is null)
+            {
                 await _basketItemRepository.CreateAsync(basketItem);
+                return new ResultDto("product successfully added");
+            }
+
 
             ExistBasketItem.Count += dto.Count;
             _basketItemRepository.Update(ExistBasketItem);
@@ -53,35 +57,26 @@ public class BasketItemService : IBasketItemService
 
     public async Task<IResult> DeleteByIdAsync(int id)
     {
-        var basketItem=await _basketItemRepository.GetFiltered(i=>i.ProductId==id,"Product").FirstOrDefaultAsync();
-        if (basketItem is null)
-            throw new BasketItemNotFoundException();
+
         if (_isAuthenticated)
         {
-            var UserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                basketItem=await _basketItemRepository.GetFiltered(i=>i.ProductId==id && i.AppUserId==UserId,"Product").FirstOrDefaultAsync();
-            _basketItemRepository.Delete(basketItem);
-            await _basketItemRepository.SaveAsync();
-        }
-        else
-        {
-
-            var basketItems=GetBasketItemsFromCookie();
-            try
-            {
-
-            basketItems.Remove(basketItem);
-            }
-            catch (Exception)
-            {
-
+            var BasketItem = await _basketItemRepository.GetByIdAsync(id, "Products");
+            if (BasketItem is null)
                 throw new BasketItemNotFoundException();
+            if (BasketItem.AppUserId == _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            {
+                if (BasketItem.IsSold is true)
+                    throw new BasketItemCannotBeDeletedException();
+
+                _basketItemRepository.Delete(BasketItem);
+                await _basketItemRepository.SaveAsync();
+                return new ResultDto("BasketItem is successfully deleted");
             }
-            _contextAccessor.HttpContext.Response.Cookies.Append(COOKIE_BASKET_ITEM_KEY, JsonConvert.SerializeObject(basketItems));
-
-
+            else
+                throw new BasketItemCannotBeDeletedException("You cannot delete other users' products");
         }
 
+        await RemoveBasketItemToCookieAsync(id);
         return new ResultDto("Product is removed");
     }
 
@@ -90,7 +85,7 @@ public class BasketItemService : IBasketItemService
         if (_isAuthenticated)
         {
             var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var basketItems = await _basketItemRepository.GetFiltered(i => i.AppUserId == id).ToListAsync();
+            var basketItems = await _basketItemRepository.GetFiltered(i => i.AppUserId == id && i.IsSold==false).ToListAsync();
             var itemDtos=_mapper.Map<List<BasketItemGetDto>>(basketItems);
             return new DataResultDto<List<BasketItemGetDto>>(itemDtos);
         }
@@ -115,6 +110,22 @@ public class BasketItemService : IBasketItemService
 
         _contextAccessor.HttpContext.Response.Cookies.Append(COOKIE_BASKET_ITEM_KEY, JsonConvert.SerializeObject(cartItems));
     }
+    private async Task RemoveBasketItemToCookieAsync(int id)
+    {
+        List<BasketItem> cartItems = GetBasketItemsFromCookie();
+        if (cartItems is not null)
+        {
+            var deletedItem = cartItems.Where(i => i.Id == id).FirstOrDefault();
+            if (deletedItem is null)
+                throw new BasketItemNotFoundException();
+            cartItems.Remove(deletedItem);
+            _contextAccessor.HttpContext.Response.Cookies.Delete(COOKIE_BASKET_ITEM_KEY);
+            _contextAccessor.HttpContext.Response.Cookies.Append(COOKIE_BASKET_ITEM_KEY, JsonConvert.SerializeObject(cartItems));
+            return;
+        }
+        else 
+            throw new BasketIsEmptyException();
+    }
     private List<BasketItem> GetBasketItemsFromCookie()
     {
         List<BasketItem> cartItems = null;
@@ -123,14 +134,58 @@ public class BasketItemService : IBasketItemService
         return cartItems;
     }
 
-    public Task<IResult> Increase(int productId, int? count = 1)
+    public async Task<ResultDto> Increase(BasketItemPostDto basketItemPostDto)
     {
 
-        throw new NotImplementedException();
+        var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var BasketItem = _basketItemRepository.GetFiltered(i => i.ProductId == basketItemPostDto.ProductId && i.AppUserId == id).ToList().FirstOrDefault();
+        if (BasketItem == null)
+            throw new BasketItemNotFoundException();
+        BasketItem.Count += basketItemPostDto.Count;
+        _basketItemRepository.Update(BasketItem);
+        await _basketItemRepository.SaveAsync();
+
+        return new ResultDto("added");
     }
 
-    public Task<IResult> Decrease(int productId, int? count = 1)
+    public async Task<ResultDto> Decrease(BasketItemPostDto basketItemPostDto)
     {
-        throw new NotImplementedException();
+
+        var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var BasketItem = _basketItemRepository.GetFiltered(i => i.ProductId == basketItemPostDto.ProductId && i.AppUserId == id).ToList().FirstOrDefault();
+        if (BasketItem == null)
+            throw new BasketItemNotFoundException();
+        if(BasketItem.Count > 0)
+        {
+            BasketItem.Count-= basketItemPostDto.Count;
+            _basketItemRepository.Update(BasketItem);
+            await _basketItemRepository.SaveAsync();
+        }
+        if(BasketItem.Count <= 0)
+        {
+            _basketItemRepository.Delete(BasketItem);
+            await _basketItemRepository.SaveAsync();
+        }
+            
+
+        return new ResultDto("exported");
+    }
+
+    public async Task<ResultDto> BuyTheBasket()
+    {
+        if(!_isAuthenticated)
+            throw new CannotBuyException();
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var basketItems = _basketItemRepository.GetFiltered(i => i.AppUserId == userId && i.IsSold == false,"Product");
+        if (basketItems.Count() is 0)
+            throw new BasketIsEmptyException();
+        foreach (var item in basketItems)
+        {
+            item.IsSold = true;
+            item.StaticPrice = item.Product.Price;
+            _basketItemRepository.Update(item);
+        }
+        await _basketItemRepository.SaveAsync();
+        return new("Successfully");
     }
 }

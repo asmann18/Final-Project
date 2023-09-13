@@ -23,8 +23,6 @@ public class Repository<T> : IRepository<T> where T : BaseEntity, IEntity, new()
             return;
         }
         _context.Set<T>().Remove(entity);
-
-
     }
 
     public IQueryable<T> GetAll(params string[] includes)

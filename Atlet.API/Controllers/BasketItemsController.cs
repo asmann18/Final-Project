@@ -38,4 +38,12 @@ public class BasketItemsController : ControllerBase
     {
         return Ok(await _basketItemService.GetAllAsync());
     }
+
+    [HttpGet("[action]")]
+    [Authorize]
+    public async Task<IActionResult> BuyTheBasket()
+    {
+        return Ok(await _basketItemService.BuyTheBasket());
+    }
+    
 }

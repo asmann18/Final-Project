@@ -10,4 +10,6 @@ public interface ICommentService
     
     Task<ResultDto> CreateCommentAsync(CommentPostDto CommentPostDto);
     Task<ResultDto> DeleteCommentAsync(int Id);
+    Task ProductRatingUptaded(int ProductId);
+
 }

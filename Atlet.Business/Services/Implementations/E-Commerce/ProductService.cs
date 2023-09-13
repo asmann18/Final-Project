@@ -7,8 +7,6 @@ using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Atlet.Business.Services.Implementations.E_Commerce;
 
@@ -143,8 +141,16 @@ public class ProductService : IProductService
         return new DataResultDto<List<ProductGetDto>>(productGetDtos);
     }
 
-    private void createImages(string[] paths,Product product)
+    public async Task<ResultDto> UpdateProductRatingAsync(ProductRatingPutDto productRatingPutDto)
     {
 
+        var uptadedProduct = _productRepository.GetSingleAsync(p => p.Id == productRatingPutDto.Id).Result;
+        if (uptadedProduct is null)
+            throw new ProductNotFoundException();
+
+        var product = _mapper.Map(productRatingPutDto, uptadedProduct);
+        _productRepository.Update(product);
+        await _productRepository.SaveAsync();
+        return new("Product rating successfully uptaded");
     }
 }

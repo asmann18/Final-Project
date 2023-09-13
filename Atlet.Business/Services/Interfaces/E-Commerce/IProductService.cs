@@ -9,6 +9,7 @@ namespace Atlet.Business.Services.Interfaces.E_Commerce
         Task<DataResultDto<ProductGetDto>> GetProductByIdAsync(int Id);
         Task<ResultDto> CreateProductAsync(ProductPostDto productPostDto);
         Task<ResultDto> UpdateProductAsync(ProductPutDto productPutDto);
+        Task<ResultDto> UpdateProductRatingAsync(ProductRatingPutDto productRatingPutDto);
         Task<ResultDto> DeleteProductAsync(int Id);
         Task<DataResultDto<List<ProductGetDto>>> GetFilteredProducts(ProductFilteredDtos filter);
     }

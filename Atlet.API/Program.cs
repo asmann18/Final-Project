@@ -99,6 +99,7 @@ builder.Services.AddRepositoriesService();
 //Interceptor
 builder.Services.AddScoped<BaseAuditableInterceptor>();
 builder.Services.AddScoped<BasketItemInterceptor>();
+builder.Services.AddScoped<CommentInterceptor>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
