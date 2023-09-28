@@ -1,9 +1,11 @@
 import React from 'react'
+import SiteHeaderMobileNavbar from '../../../components/site/Header/SiteHeaderMobileNavbar'
 
 const Home = () => {
   return (
-    <div className='text-3xl border-collapse font-bold underline'>Home</div>
-    
+    <>
+    <div className='text-center'>Home</div>
+    </>
   )
 }
 

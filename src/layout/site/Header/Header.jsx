@@ -3,21 +3,22 @@ import SiteHeaderNavbar from '../../../components/site/Header/SiteHeaderNavbar'
 import SiteHeaderInfo from '../../../components/site/Header/SiteHeaderInfoIcons'
 import SiteHeaderLogo from '../../../components/site/Header/SiteHeaderLogo'
 import SiteHeaderBasketAndLogin from '../../../components/site/Header/SiteHeaderBasketAndLogin'
-
+import  '../../../assets/styles/site/layout/Header.scss'
 const Header = () => {
   return (
-    <header className='font-sans bg-black max-h-90 flex justify-center gap-5 '>
-      <div className="header--left">
-        <SiteHeaderLogo />
+    <header className='header headerLeft container'>
+      <div className=" ">
+        <SiteHeaderLogo  className='siteHeaderLogo'/>
       </div>
-      <div className="header--medium gap-10">
+   
+
+      <div className="headerCenter">
         <SiteHeaderInfo />
-        <SiteHeaderNavbar />
+        <SiteHeaderNavbar  />
       </div>
-      <div className="header--right">
+      <div className="headerRight">
         <SiteHeaderBasketAndLogin/>
       </div>
-
     </header>
   )
 }

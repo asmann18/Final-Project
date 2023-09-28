@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 
+import MenuIcon from '@mui/icons-material/Menu';
+import  '../../../assets/styles/site/layout/Header.scss'
+import  '../../../assets/styles/site/layout/Header.scss'
+import CloseIcon from '@mui/icons-material/Close';
+
 const SiteHeaderBasketAndLogin = () => {
+  const[toggleMenu,setToggleMenu]=useState(false);
+  function menuToggle(){
+    setToggleMenu(!toggleMenu)
+  }
   return (
-    <div className='flex '>
-    <div className="basket text-white flex justify-center items-center w-20 h-20 bg-red-600 p-5">
+    <div className='siteHeaderBasketAndLogin'>
+    <div className="basket">
         <ShoppingCartIcon  />
     </div>
-    <div className="login text-white flex justify-center items-center w-20 h-20 p-5">
+    <div className="login ">
        <PersonIcon />
     </div>
-    
+    <div onClick={menuToggle} className="navbar">
+     {toggleMenu? <MenuIcon/> : <CloseIcon/>}
+    </div>
+
     </div>
   )
 }

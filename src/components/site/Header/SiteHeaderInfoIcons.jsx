@@ -6,36 +6,43 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Input } from 'antd';
 import { Link } from 'react-router-dom'
+import  '../../../assets/styles/site/layout/Header.scss'
+
 const SiteHeaderInfoIcons = () => {
     return (
-        <section className='flex gap-20 mr-5 ml-5 p-5 text-white pt-1 border-b border-gray-50 pb-1 items-center'>
-            <ul className="icons flex opacity-80">
+        <section className='siteHeaderInfoIcons'>
+            <ul className="icons">
 
-                <li className='p-1'>
+                <li className=''>
                     <Link>
                         <FacebookIcon />
                     </Link>
                 </li>
-                <li className='p-1'>
+                <li className=''>
                     <Link>
                         <InstagramIcon />
                     </Link>
                 </li>
-                <li className='p-1'>
+                <li className=''>
                     <Link>
                         <YouTubeIcon />
                     </Link>
                 </li>
             </ul>
 
-            <div className="contact flex">
-                <PhoneEnabledIcon />
-                <p className='mr-5'>+994 51 434 15 23</p>
+            <div className="contact">
+                <div className="phoneIcon">
+
+                <PhoneEnabledIcon  />
+                </div>
+                <p className=''>+994 51 434 15 23</p>
+                <div className="locations ">
                 <LocationOnIcon />
                 <p>Ünvanlarımız</p>
+                </div>
             </div>
-            <div className="searchInput">
-                <Input className='bg-gray-300' placeholder="Məhsul axtarın" />
+            <div className="searchInput ">
+                <Input className='input' placeholder="Məhsul axtarın" />
             </div>
         </section>
     )
