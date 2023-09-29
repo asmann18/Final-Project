@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-.container {
+.containerCss {
     margin: 0 auto;
-    padding: 0 20px;
+    // padding: 0 20px;
 }
 
 .header {
+    padding: 0 15px;
     font-weight: bold;
     font-size: 14px;
     display: flex;
@@ -13,7 +14,7 @@
     position: relative;
     justify-content: space-evenly;
     gap: 10px;
-    background-color: #010101;
+    background-color: black;
     color: white;
     font-family: 'Roboto', sans-serif;
 
@@ -176,15 +177,24 @@
 
 //mobile
 @media (min-width: 100px) and (max-width: 768px) {
+    .containerCss{
+        padding: 0px 10px;
+        margin: 0;
+    }
     .header {
         width: 100%;
+        padding: 0 10px;
         align-items: center;
         padding: 0px;
-        justify-content: space-around;
+        justify-content: center;
+        gap:1px;
 
         .headerCenter {
-            padding: 2px;
+            padding: 1px;
         }
+        // .headerLeft{
+        //     padding: 0;
+        // }
 
         .siteHeaderLogo {
             position: static;
@@ -207,7 +217,7 @@
 
         .siteHeaderInfoIcons {
             flex-direction: column;
-            min-width: 200px;
+            min-width: 180px;
             justify-content: center;
             align-items: center;
             text-align: center;

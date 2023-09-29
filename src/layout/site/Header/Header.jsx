@@ -6,8 +6,8 @@ import SiteHeaderBasketAndLogin from '../../../components/site/Header/SiteHeader
 import  '../../../assets/styles/site/layout/Header.scss'
 const Header = () => {
   return (
-    <header className='header headerLeft container'>
-      <div className=" ">
+    <header className='header'>
+      <div className="headerLeft">
         <SiteHeaderLogo  className='siteHeaderLogo'/>
       </div>
    
