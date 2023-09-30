@@ -6,7 +6,7 @@
 }
 
 .header {
-    padding: 0 15px;
+    padding: 0 10px;
     font-weight: bold;
     font-size: 14px;
     display: flex;
@@ -121,7 +121,7 @@
 .siteHeaderLogo {
     position: absolute;
     top: 0;
-    left: 5px;
+    left: 20px;
     margin-right: 5px;
 }
 
@@ -145,11 +145,12 @@
 
 
 //tablet
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 780px) and (max-width: 1200px) {
     .header {
         gap: 4px;
         font-size: 9px;
         justify-content: space-between;
+        padding: 0 10px;
 
         .siteHeaderInfoIcons {
             gap: 12px;
@@ -161,8 +162,8 @@
         }
 
         .siteHeaderLogo {
-            position: fixed;
-            left: 0;
+            position: static;
+            left: 5px;
         }
 
         .siteHeaderInfoIcons {
@@ -176,7 +177,7 @@
 
 
 //mobile
-@media (min-width: 100px) and (max-width: 768px) {
+@media (min-width: 100px) and (max-width: 779px) {
     .containerCss{
         padding: 0px 10px;
         margin: 0;
