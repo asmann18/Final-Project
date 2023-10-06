@@ -34,14 +34,14 @@ public class BrandsController : ControllerBase
 
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateBrand([FromBody]BrandPostDto brandPostDto)
+    public async Task<IActionResult> CreateBrand([FromForm]BrandPostDto brandPostDto)
     {
         return Ok(await _brandService.CreateBrandAsync(brandPostDto));
     }
 
 
     [HttpPut("[action]")]
-    public async Task<IActionResult> UpdateBrand([FromBody]BrandPutDto brandPutDto)
+    public async Task<IActionResult> UpdateBrand([FromForm]BrandPutDto brandPutDto)
     {
         return Ok(await _brandService.UpdateBrandAsync(brandPutDto));
     }

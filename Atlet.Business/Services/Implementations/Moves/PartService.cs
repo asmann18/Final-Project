@@ -29,7 +29,7 @@ public class PartService : IPartService
         if (isExist)
             throw new PartAlreadyExistException();
         var part = _mapper.Map<Part>(partPostDto);
-        part.ImageId=await _imageService.CreateImage(partPostDto.ImagePath);
+        part.ImageId=await _imageService.CreateImage(partPostDto.ImageF);
         await _partRepository.CreateAsync(part);
         return new ResultDto(true, "Part is successfully created");
     }
@@ -81,7 +81,7 @@ public class PartService : IPartService
         if (!isExist)
             throw new PartNotFoundException();
         var part=_mapper.Map<Part>(partPutDto);
-        part.ImageId = await _imageService.UpdateImage(part.ImageId, partPutDto.ImagePath);
+        part.ImageId = await _imageService.UpdateImage(part.ImageId, partPutDto.ImageF);
         _partRepository.Update(part);
         await _partRepository.SaveAsync();
         return new ResultDto(true,"Part is successfully uptaded");

@@ -8,7 +8,7 @@ public class PartPostDtoValidator:AbstractValidator<PartPostDto>
     public PartPostDtoValidator()
     {
         RuleFor(p=>p.Name).NotEmpty().NotNull().MaximumLength(64).MinimumLength(2);
-        RuleFor(b => b.ImagePath).NotNull().NotEmpty();
+        RuleFor(b => b.ImageF).NotNull().NotEmpty();
 
     }
 }

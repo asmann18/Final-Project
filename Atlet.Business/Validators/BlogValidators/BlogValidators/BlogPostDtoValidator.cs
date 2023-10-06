@@ -9,7 +9,7 @@ public class BlogPostDtoValidator:AbstractValidator<BlogPostDto>
     {
         RuleFor(b=>b.Name).NotEmpty().NotNull().MaximumLength(64).MinimumLength(2);
         RuleFor(b => b.Description).NotEmpty().NotNull().MaximumLength(256).MinimumLength(3);
-        RuleFor(p => p.BlogImagePaths).NotNull().NotEmpty();
+        RuleFor(p => p.BlogImagesF).NotNull().NotEmpty();
 
     }
 }

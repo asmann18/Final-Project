@@ -32,7 +32,7 @@ public class MoveService : IMoveService
             throw new MoveAlreadyExistException();
         var move = _mapper.Map<Move>(movePostDto);
         await _moveRepository.CreateAsync(move);
-        await _imageService.CreateMoveImages(move.Id, movePostDto.MoveImagePaths);
+        await _imageService.CreateMoveImages(move.Id, movePostDto.MoveImagesF);
         return new ResultDto(true, "Move is successfully created");
     }
 
@@ -81,9 +81,9 @@ public class MoveService : IMoveService
         isExist = await _moveRepository.IsExistAsync(m => m.Id == movePutDto.Id);
         if (!isExist)
             throw new MoveNotFoundExceptions();
-        if(movePutDto.MoveImagePaths.Length is not 0)
+        if(movePutDto.MoveImagesF.Length is not 0)
         {
-            await _imageService.UpdateProductImages(movePutDto.Id,movePutDto.MoveImagePaths);
+            await _imageService.UpdateMoveImages(movePutDto.Id,movePutDto.MoveImagesF);
         }
         var move = _mapper.Map<Move>(movePutDto);
         _moveRepository.Update(move);

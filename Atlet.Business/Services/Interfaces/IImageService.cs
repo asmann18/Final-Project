@@ -1,6 +1,7 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.Moves;
+using Microsoft.AspNetCore.Http;
 
 namespace Atlet.Business.Services.Interfaces;
 
@@ -14,22 +15,22 @@ public interface IImageService
     Task<List<string>> GetMoveImageUrlsByIdasync(int MoveId);
     Task<string> GetPartImageUrlByIdasync(Part part);
 
-    Task CreateProductImages(int productId,string[] paths);
+    Task CreateProductImages(int productId,IFormFile[] images);
     Task DeleteProductImages(int productId);
-    Task UpdateProductImages(int productId, string[] paths);
+    Task UpdateProductImages(int productId, IFormFile[] images);
 
 
 
 
-    Task CreateBlogImages(int blogId,string[] paths);
+    Task CreateBlogImages(int blogId,IFormFile[] images);
     Task DeleteBlogImages(int blogId);
-    Task UpdateBlogImages(int blogId, string[] paths);
-    Task CreateMoveImages(int moveId,string[] paths);
+    Task UpdateBlogImages(int blogId, IFormFile[] images);
+    Task CreateMoveImages(int moveId,IFormFile[] images);
     Task DeleteMoveImages(int moveId);
-    Task UpdateMoveImages(int moveId, string[] paths);
-    Task<int> CreateImage(string path);
+    Task UpdateMoveImages(int moveId, IFormFile[] images);
+    Task<int> CreateImage(IFormFile img);
     Task<ResultDto> DeleteImage(int imageId);
-    Task<int> UpdateImage(int imageId, string path);
+    Task<int> UpdateImage(int imageId, IFormFile img);
 
 
     

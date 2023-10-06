@@ -1,6 +1,7 @@
 ﻿using Atlet.Business.DTOs.Abstract;
 using Atlet.Business.DTOs.E_Commerce.AromaDtos;
 using Atlet.Business.DTOs.E_Commerce.BrandDtos;
+using Atlet.Business.DTOs.E_Commerce.CommentDtos;
 using Atlet.Business.DTOs.E_Commerce.ProductCategoryDtos;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
@@ -25,7 +26,7 @@ public class ProductGetDto:IDto
     public int AromaId { get; init; }
     public AromaRelationDto? Aroma { get; init; }
     public List<string> ProductImagePaths { get; set; } = new List<string>();
-    public List<Comment> Comments { get; set; } = new List<Comment>();
+    public List<CommentRelationDto> Comments { get; set; } = new List<CommentRelationDto>();
 
 
 

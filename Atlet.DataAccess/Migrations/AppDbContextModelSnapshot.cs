@@ -160,6 +160,9 @@ namespace Atlet.DataAccess.Migrations
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -169,6 +172,8 @@ namespace Atlet.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -262,6 +267,39 @@ namespace Atlet.DataAccess.Migrations
                     b.ToTable("Comments");
 
                     b.HasCheckConstraint("Rating", "Rating BETWEEN 0 AND 5");
+                });
+
+            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.ManyToMany.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("isStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.ManyToMany.ProductImage", b =>
@@ -782,6 +820,10 @@ namespace Atlet.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Atlet.Core.Entities.E_Commerce.ManyToMany.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
                     b.HasOne("Atlet.Core.Entities.E_Commerce.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -789,6 +831,8 @@ namespace Atlet.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });

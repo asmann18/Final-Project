@@ -12,6 +12,6 @@ public class ProductPostDtoValidators:AbstractValidator<ProductPostDto>
         RuleFor(p => p.Price).NotNull().GreaterThan(0);
         RuleFor(p => p.Count).NotNull().GreaterThanOrEqualTo(0);
         RuleFor(p => p.Discount).NotNull().GreaterThanOrEqualTo(0);
-        RuleFor(p => p.ProductImagePaths).NotNull().NotEmpty();
+        RuleFor(p => p.ProductImagesF).NotNull().NotEmpty();
     }
 }

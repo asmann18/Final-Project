@@ -29,6 +29,7 @@ public static class AddServicesExtension
         services.AddScoped<IAromaService, AromaService>();
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IBasketItemService, BasketItemService>();
+        services.AddScoped<IOrderService,OrderService>();
 
         services.AddScoped<IBlogService, BlogService>();
         services.AddScoped<IBlogCategoryService, BlogCategoryService>();
@@ -40,7 +41,7 @@ public static class AddServicesExtension
         services.AddScoped<IAuthService, AuthService>();
 
         services.AddAutoMapper(typeof(ProductAutoMapper).Assembly);
-
+        services.AddScoped<ICloudinaryService,CloudinaryService>();
         return services;
     }
 }

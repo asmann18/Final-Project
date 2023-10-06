@@ -28,13 +28,13 @@ public class BlogsController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateBlog([FromBody]BlogPostDto blogPostDto)
+    public async Task<IActionResult> CreateBlog([FromForm]BlogPostDto blogPostDto)
     {
         return Ok(await _blogService.CreateBlogAsync(blogPostDto));
     }
 
     [HttpPut("[action]")]
-    public async Task<IActionResult> UpdateBlog([FromBody]BlogPutDto blogPutDto)
+    public async Task<IActionResult> UpdateBlog([FromForm]BlogPutDto blogPutDto)
     {
         return Ok(await _blogService.UpdateBlogAsync(blogPutDto));
     }

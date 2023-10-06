@@ -28,12 +28,12 @@ namespace Atlet.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateMove([FromBody]MovePostDto movePostDto)
+        public async Task<IActionResult> CreateMove([FromForm]MovePostDto movePostDto)
         {
             return Ok(await _moveService.CreateMoveAsync(movePostDto));
         }
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateMove([FromBody]MovePutDto movePutDto)
+        public async Task<IActionResult> UpdateMove([FromForm]MovePutDto movePutDto)
         {
             return Ok(await _moveService.UpdateMoveAsync(movePutDto));
         }

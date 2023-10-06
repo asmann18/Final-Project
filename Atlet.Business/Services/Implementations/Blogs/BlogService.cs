@@ -31,7 +31,7 @@ public class BlogService : IBlogService
             throw new BlogAlreadyExistException();
         var blog=_mapper.Map<Blog>(blogPostDto);
         await _blogRepository.CreateAsync(blog);
-        await _imageService.CreateBlogImages(blog.Id, blogPostDto.BlogImagePaths);
+        await _imageService.CreateBlogImages(blog.Id, blogPostDto.BlogImagesF);
         return new ResultDto(true, "Blog successfully created");
     }
 
@@ -82,9 +82,9 @@ public class BlogService : IBlogService
 
         var blog = _mapper.Map(blogPutDto,uptadedBlog);
         _blogRepository.Update(blog);
-        if(blogPutDto.BlogImagePaths.Length is not 0)
+        if(blogPutDto.BlogImagesF.Length is not 0)
         {
-            await _imageService.UpdateBlogImages(blogPutDto.Id,blogPutDto.BlogImagePaths);
+            await _imageService.UpdateBlogImages(blogPutDto.Id,blogPutDto.BlogImagesF);
         }
         await _blogRepository.SaveAsync();
         return new ResultDto(true, "Blog is successfully uptaded");

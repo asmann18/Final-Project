@@ -9,7 +9,7 @@ public class BrandPostDtoValidator:AbstractValidator<BrandPostDto>
     {
        RuleFor(b=>b.Name).NotEmpty().NotNull().MinimumLength(3).MaximumLength(100);
        RuleFor(b=>b.Description).NotEmpty().NotNull().MinimumLength(3).MaximumLength(256);
-        RuleFor(b => b.ImagePath).NotNull().NotEmpty();
+        RuleFor(b => b.ImageF).NotNull().NotEmpty();
 
     }
 }

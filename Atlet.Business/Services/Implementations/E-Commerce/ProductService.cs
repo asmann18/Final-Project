@@ -7,6 +7,7 @@ using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Atlet.Business.Services.Implementations.E_Commerce;
 
@@ -28,7 +29,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
     {
-        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true,"ProductCategory", "Brand","Aroma","Comments").ToListAsync();
+        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").ToListAsync();
         var query=_mapper.Map<List<ProductGetDto>>(Products);
         if (query.Count == 0)
             throw new ProductNotFoundException();
@@ -41,7 +42,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<ProductGetDto>> GetProductByIdAsync(int Id)
     {
-        var product=await _productRepository.GetByIdAsync(Id, "ProductCategory", "Brand", "Aroma","Comments");
+        var product=await _productRepository.GetByIdAsync(Id, "ProductCategory", "Brand", "Aroma","Comments", "ProductImages");
         if (product is null)
             throw new ProductNotFoundException();
         var productDto = _mapper.Map<ProductGetDto>(product);
@@ -53,7 +54,7 @@ public class ProductService : IProductService
     {
         var product=_mapper.Map<Product>(productPostDto);
         await _productRepository.CreateAsync(product);
-        await _imageService.CreateProductImages(product.Id, productPostDto.ProductImagePaths);
+        await _imageService.CreateProductImages(product.Id, productPostDto.ProductImagesF);
         await _productRepository.SaveAsync();
         return new ResultDto(true, "Product successfully created");
     }
@@ -68,9 +69,9 @@ public class ProductService : IProductService
             throw new ProductNotFoundException();
 
         var product=_mapper.Map(productPutDto,uptadedProduct);
-        if(productPutDto.ProductImagePaths.Length is not 0)
+        if(productPutDto.ProductImages.Length is not 0)
         {
-            await _imageService.UpdateProductImages(productPutDto.Id, productPutDto.ProductImagePaths);
+            await _imageService.UpdateProductImages(productPutDto.Id, productPutDto.ProductImages);
         }
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
@@ -98,7 +99,7 @@ public class ProductService : IProductService
         // p.Price < filter.toPrice :true && filter.fromRating == null! ? p.Rating > filter.fromRating :true && filter.toRating == null! ? p.Rating < filter.toRating :true
         //, "ProductCategory", "Aroma", "Brand").ToListAsync();
 
-        var products =_productRepository.GetAll("ProductCategory", "Brand", "Aroma");
+        var products =_productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages");
         if(filter.categoryId is not null)
         {
             products = products.Where(p=>p.ProductCategoryId == filter.categoryId);
@@ -152,5 +153,46 @@ public class ProductService : IProductService
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
         return new("Product rating successfully uptaded");
+    }
+
+    public async Task<DataResultDto<List<ProductGetDto>>> GetDiscountProducts()
+    {
+        var products = _productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(p => p.Discount);
+        List<ProductGetDto> productDtos=new List<ProductGetDto>();
+        if (products.Count() > 8)
+        {
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.Take(8).ToListAsync());
+        }
+        else
+        {
+
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.ToListAsync());
+        }
+        foreach (var item in productDtos)
+        {
+            item.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(item.Id);
+        }
+        return new DataResultDto<List<ProductGetDto>>(productDtos, true);
+    }
+
+    public async Task<DataResultDto<List<ProductGetDto>>> GetPopularProducts()
+    {
+        var products = _productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(p => p.SalesCount);
+        List<ProductGetDto> productDtos = new List<ProductGetDto>();
+        if (products.Count() > 8)
+        {
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.Take(8).ToListAsync());
+        }
+        else
+        {
+
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.ToListAsync());
+        }
+        foreach (var item in productDtos)
+        {
+            item.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(item.Id);
+        }
+        return new DataResultDto<List<ProductGetDto>>(productDtos, true);
+
     }
 }

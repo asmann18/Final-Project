@@ -10,6 +10,7 @@ namespace Atlet.Business.Mappers.E_Commerce
         {
             CreateMap<Comment, CommentGetDto>().ReverseMap();
             CreateMap<Comment, CommentPostDto>().ReverseMap();
+            CreateMap<Comment, CommentRelationDto>().ReverseMap();
         }
     }
 }

@@ -29,7 +29,7 @@ public class BrandService : IBrandService
         if (isExist)
             throw new BrandAlreadyExistException();
         var brand = _mapper.Map<Brand>(brandPostDto);
-        brand.ImageId=await _imageService.CreateImage(brandPostDto.ImagePath);
+        brand.ImageId=await _imageService.CreateImage(brandPostDto.ImageF);
         await _brandRepository.CreateAsync(brand);
         return new ResultDto(true, "Brand is successfully created");
     }
@@ -84,7 +84,7 @@ public class BrandService : IBrandService
             throw new BrandNotFoundException();
 
         var brand = _mapper.Map<Brand>(brandPutDto);
-        brand.ImageId=await _imageService.UpdateImage(brandPutDto.Id, brandPutDto.ImagePath);
+        brand.ImageId=await _imageService.UpdateImage(brandPutDto.Id, brandPutDto.ImageF);
         _brandRepository.Update(brand);
         await _brandRepository.SaveAsync();
             return new ResultDto(true,"Product successfully uptaded");

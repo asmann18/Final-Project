@@ -162,3 +162,4 @@ C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Mic
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\obj\Debug\net6.0\Atlet.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\DELL\source\repos\Atlet.az-Final Project\Atlet.API\bin\Debug\net6.0\CloudinaryDotNet.dll

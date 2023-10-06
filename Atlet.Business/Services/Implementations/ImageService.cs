@@ -10,6 +10,7 @@ using AutoMapper;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.Business.Services.Implementations;
@@ -20,14 +21,16 @@ public class ImageService : IImageService
     private readonly IProductImageService _productImageService;
     private readonly IMoveImageService _moveImageService;
     private readonly IBlogImageService _blogImageService;
+    private readonly ICloudinaryService _cloudinaryService;
 
 
-    public ImageService(IImageRepository imageRepository, IProductImageService productImageService, IMoveImageService moveImageService, IBlogImageService blogImageService)
+    public ImageService(IImageRepository imageRepository, IProductImageService productImageService, IMoveImageService moveImageService, IBlogImageService blogImageService, ICloudinaryService cloudinaryService)
     {
         _imageRepository = imageRepository;
         _productImageService = productImageService;
         _moveImageService = moveImageService;
         _blogImageService = blogImageService;
+        _cloudinaryService = cloudinaryService;
     }
     IFirebaseConfig config = new FirebaseConfig
     {
@@ -82,27 +85,39 @@ public class ImageService : IImageService
         ;
     }
 
-    public async Task CreateProductImages(int productId,string[] paths)
+    //public async Task CreateProductImages(int productId, IFormFile[] images);
+    //{
+    //string[] hi={"Ads"};
+    //    foreach (string path in hi)
+    //    {
+    //        Image image = new Image(path);
+    //        await _imageRepository.CreateAsync(image);
+    //       await _productImageService.CreateProductImage(productId,image.Id);
+    //    }
+    //    return;
+
+    //}
+
+    public async Task CreateProductImages(int productId, IFormFile[] images)
     {
-        foreach (string path in paths)
+        foreach (IFormFile img in images)
         {
-            Image image = new Image(path);
+           
+            Image image = new Image(await _cloudinaryService.FileCreateAsync(img));
             await _imageRepository.CreateAsync(image);
-           await _productImageService.CreateProductImage(productId,image.Id);
+            await _productImageService.CreateProductImage(productId, image.Id);
         }
         return;
-        
     }
-
 
     public async Task DeleteProductImages(int productId)
     {
         await _productImageService.DeleteProductImages(productId);
     }
-    public async Task UpdateProductImages(int productId,string[] paths)
+    public async Task UpdateProductImages(int productId, IFormFile[] images)
     {
         await DeleteProductImages(productId);
-        await CreateProductImages(productId,paths);
+        await CreateProductImages(productId,images);
     }
 
 
@@ -117,11 +132,11 @@ public class ImageService : IImageService
 
 
 
-    public async Task CreateBlogImages(int blogId, string[] paths)
+    public async Task CreateBlogImages(int blogId, IFormFile[] images)
     {
-        foreach (var path in paths)
+        foreach (var img in images)
         {
-            Image image = new Image(path);
+            Image image = new Image(await _cloudinaryService.FileCreateAsync(img));
             await _imageRepository.CreateAsync(image);
             await _blogImageService.CreateBlogImage(blogId, image.Id);
         }
@@ -132,10 +147,10 @@ public class ImageService : IImageService
     {
         await _blogImageService.DeleteBlogImages(blogId);
     }
-    public async Task UpdateBlogImages(int blogId, string[] paths)
+    public async Task UpdateBlogImages(int blogId, IFormFile[] images)
     {
         await DeleteBlogImages(blogId);
-        await CreateBlogImages(blogId, paths);
+        await CreateBlogImages(blogId, images);
     }
 
 
@@ -145,11 +160,11 @@ public class ImageService : IImageService
 
 
 
-    public async Task CreateMoveImages(int moveId, string[] paths)
+    public async Task CreateMoveImages(int moveId, IFormFile[] images)
     {
-        foreach (var path in paths)
+        foreach (var img in images)
         {
-            Image image = new Image(path);
+            Image image = new Image(await _cloudinaryService.FileCreateAsync(img));
             await _imageRepository.CreateAsync(image);
             await _moveImageService.CreateMoveImage(moveId, image.Id);
         }
@@ -159,10 +174,10 @@ public class ImageService : IImageService
     {
         await _moveImageService.DeleteMoveImages(moveId);
     }
-    public async Task UpdateMoveImages(int moveId, string[] paths)
+    public async Task UpdateMoveImages(int moveId, IFormFile[] images)
     {
         await DeleteMoveImages(moveId);
-        await CreateMoveImages(moveId, paths);
+        await CreateMoveImages(moveId, images);
     }
 
 
@@ -171,9 +186,9 @@ public class ImageService : IImageService
 
 
 
-    public async Task<int> CreateImage(string path)
+    public async Task<int> CreateImage(IFormFile img)
     {
-        Image image=new Image(path);
+        Image image=new Image(await _cloudinaryService.FileCreateAsync(img));
         await _imageRepository.CreateAsync(image);
         return image.Id;
     }
@@ -190,10 +205,10 @@ public class ImageService : IImageService
         return new(false,"Image not found");
     }
 
-    public async Task<int> UpdateImage(int imageId, string path)
+    public async Task<int> UpdateImage(int imageId, IFormFile img)
     {
         await DeleteImage(imageId); 
-        var id=await CreateImage(path); 
+        var id=await CreateImage(img); 
         return id;
     }
 }

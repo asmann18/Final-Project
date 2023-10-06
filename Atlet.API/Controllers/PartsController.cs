@@ -31,13 +31,13 @@ public class PartsController : ControllerBase
         return Ok(await _partService.GetPartByIdAsync(id));
     }
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreatePart([FromBody]PartPostDto partPostDto)
+    public async Task<IActionResult> CreatePart([FromForm]PartPostDto partPostDto)
     {
         return Ok(await _partService.CreatePartAsync(partPostDto));
     }
 
     [HttpPut("[action]")]
-    public async Task<IActionResult> UpdatePart([FromBody]PartPutDto partPutDto)
+    public async Task<IActionResult> UpdatePart([FromForm]PartPutDto partPutDto)
     {
         return Ok(await _partService.UpdatePartAsync(partPutDto));
     }

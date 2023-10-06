@@ -9,5 +9,5 @@ public class MovePostDto:IDto
     public string Name { get; init; }
     public string Description { get; init; }
     public int PartId { get; init; }
-    public string[] MoveImagePaths { get; init; }
+    public IFormFile[] MoveImagesF { get; init; }
 }

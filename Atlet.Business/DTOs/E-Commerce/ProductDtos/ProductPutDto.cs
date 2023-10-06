@@ -1,6 +1,7 @@
 ﻿ using Atlet.Business.DTOs.Abstract;
 using Atlet.Core.Entities.E_Commerce.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
+using Microsoft.AspNetCore.Http;
 
 namespace Atlet.Business.DTOs.E_Commerce.ProductDtos;
 
@@ -16,6 +17,6 @@ public class ProductPutDto:IDto
     public int BrandId { get; init; }
 
     public int AromaId { get; init; }
-    public string[] ProductImagePaths { get; init; }
+    public IFormFile[] ProductImages { get; init; }
 
 }

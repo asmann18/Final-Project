@@ -25,6 +25,7 @@ public static class AddRepositoriesExtension
         services.AddScoped<IAromaRepository, AromaRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IBasketItemRepository, BasketItemRepository>();
+        services.AddScoped<IOrderRepository,OrderRepository>();
 
 
         services.AddScoped<IBlogRepository, BlogRepository>();

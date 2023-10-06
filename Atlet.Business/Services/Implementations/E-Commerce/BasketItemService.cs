@@ -19,16 +19,18 @@ public class BasketItemService : IBasketItemService
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly bool _isAuthenticated;
     private const string COOKIE_BASKET_ITEM_KEY = "mybasketitemkey";
+    private readonly IOrderService _orderService;
 
-    public BasketItemService(IHttpContextAccessor contextAccessor, IMapper mapper, IBasketItemRepository basketItemRepository)
+    public BasketItemService(IHttpContextAccessor contextAccessor, IMapper mapper, IBasketItemRepository basketItemRepository, IOrderService orderService)
     {
         _contextAccessor = contextAccessor;
         _mapper = mapper;
         _basketItemRepository = basketItemRepository;
         _isAuthenticated = _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        _orderService = orderService;
     }
 
-    
+
     public async Task<IResult> AddAsync(BasketItemPostDto dto)
     {
         var basketItem = _mapper.Map<BasketItem>(dto);
@@ -176,9 +178,10 @@ public class BasketItemService : IBasketItemService
         if(!_isAuthenticated)
             throw new CannotBuyException();
         var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        var basketItems = _basketItemRepository.GetFiltered(i => i.AppUserId == userId && i.IsSold == false,"Product");
-        if (basketItems.Count() is 0)
-            throw new BasketIsEmptyException();
+        var basketItems =await _basketItemRepository.GetFiltered(i => i.AppUserId == userId && i.IsSold == false,"Product").ToListAsync();
+        if (basketItems.Count is 0)
+                throw new BasketIsEmptyException();
+        await _orderService.CreateOrderAsync(basketItems);
         foreach (var item in basketItems)
         {
             item.IsSold = true;

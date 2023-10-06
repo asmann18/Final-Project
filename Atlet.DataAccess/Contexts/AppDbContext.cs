@@ -52,6 +52,7 @@ public class AppDbContext:IdentityDbContext<AppUser>
 	public DbSet<ProductCategory> ProductCategories  { get; set; } = null!;
 	public DbSet<ProductImage> ProductImages { get; set; } = null!;
 	public DbSet<BasketItem> BasketItems { get; set; } = null!;
+	public DbSet<Order> Orders { get; set; }=null!;
 
 
 	public DbSet<Move> Moves { get; set; } = null!;

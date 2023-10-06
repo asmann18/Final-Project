@@ -1,6 +1,5 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,7 @@ namespace Atlet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Member")]
 
     public class ProductsController : ControllerBase
     {
@@ -25,6 +24,16 @@ namespace Atlet.API.Controllers
         
             return Ok(await _productService.GetAllProductsAsync(search)                );
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetDiscountProducts()
+        {
+            return Ok(await _productService.GetDiscountProducts());
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetPopularProducts()
+        {
+            return Ok(await _productService.GetPopularProducts());
+        }
 
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute]int id) {
@@ -33,8 +42,8 @@ namespace Atlet.API.Controllers
             return Ok(await _productService.GetProductByIdAsync(id));
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> CreateProduct([FromBody]ProductPostDto productPostDto)
+        [HttpPost("[action]"), DisableRequestSizeLimit]
+        public async Task<IActionResult> CreateProduct([FromForm] ProductPostDto productPostDto)
         {
             return Ok(await _productService.CreateProductAsync(productPostDto));
         }
