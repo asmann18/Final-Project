@@ -13,7 +13,6 @@ const Footer = () => {
       <div className="top">
         <SiteFooterAbout/>
         <div className="shortcuts">
-
         <SiteFooterCategories className="categories"/>
         <SiteFooterMenu className="menux"/>
         </div>
