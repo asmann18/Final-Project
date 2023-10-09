@@ -24,16 +24,24 @@ namespace Atlet.API.Controllers
         
             return Ok(await _productService.GetAllProductsAsync(search)                );
         }
+
+
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetDiscountProducts()
         {
             return Ok(await _productService.GetDiscountProducts());
         }
+
+
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetPopularProducts()
         {
             return Ok(await _productService.GetPopularProducts());
         }
+
+
 
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductByIdAsync([FromRoute]int id) {
@@ -42,18 +50,21 @@ namespace Atlet.API.Controllers
             return Ok(await _productService.GetProductByIdAsync(id));
         }
 
-        [HttpPost("[action]"), DisableRequestSizeLimit]
+        [HttpPost("[action]")]
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> CreateProduct([FromForm] ProductPostDto productPostDto)
         {
             return Ok(await _productService.CreateProductAsync(productPostDto));
         }
         [HttpPut("[action]")]
-        public async Task<IActionResult> PutProductById([FromBody]ProductPutDto productPutDto)
+        [Authorize(Roles = "Admin,Moderator")]
+        public async Task<IActionResult> PutProductById([FromForm]ProductPutDto productPutDto)
         {
             return Ok(await _productService.UpdateProductAsync(productPutDto));
         }
 
         [HttpDelete("[action]/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProductById([FromRoute]int id)
         {
             return Ok(await _productService.DeleteProductAsync(id));

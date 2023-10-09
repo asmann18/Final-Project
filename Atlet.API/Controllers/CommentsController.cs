@@ -7,7 +7,7 @@ namespace Atlet.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+
 public class CommentsController : ControllerBase
 {
     private readonly ICommentService _commentService;
@@ -18,11 +18,13 @@ public class CommentsController : ControllerBase
     }
 
     [HttpPost("[action]")]
+    [Authorize(Roles = "Admin,Moderator,Member")]
     public async Task<IActionResult> AddComment([FromBody]CommentPostDto comment)
     {
         return Ok(await _commentService.CreateCommentAsync(comment));
     }
     [HttpDelete("[action]/{id}")]
+    [Authorize(Roles = "Admin,Moderator,Member")]
     public async Task<IActionResult> DeleteComment([FromRoute] int id)
     {
         return  Ok(await _commentService.DeleteCommentAsync(id));

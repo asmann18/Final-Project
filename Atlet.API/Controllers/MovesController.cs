@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Moves.MoveDtos;
 using Atlet.Business.Services.Interfaces.Moves;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers
@@ -28,16 +29,19 @@ namespace Atlet.API.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> CreateMove([FromForm]MovePostDto movePostDto)
         {
             return Ok(await _moveService.CreateMoveAsync(movePostDto));
         }
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> UpdateMove([FromForm]MovePutDto movePutDto)
         {
             return Ok(await _moveService.UpdateMoveAsync(movePutDto));
         }
-        [HttpDelete("[action]/{id}")] 
+        [HttpDelete("[action]/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMove([FromRoute]int id)
         {
             return Ok(await _moveService.DeleteMoveAsync(id));

@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.OrderDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers
@@ -22,6 +23,7 @@ namespace Atlet.API.Controllers
         }
 
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> ChangeOrderStatus([FromBody]OrderPutDto orderPutDto)
         {
             return Ok(await _orderService.UpdateOrderAsync(orderPutDto));

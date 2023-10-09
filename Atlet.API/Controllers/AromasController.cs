@@ -7,7 +7,6 @@ namespace Atlet.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class AromasController : ControllerBase
 {
     private readonly IAromaService _aromaService;
@@ -36,17 +35,20 @@ public class AromasController : ControllerBase
 
 
     [HttpPost("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> CreateAroma([FromBody] AromaPostDto aromaPostDto)
     {
         return Ok(await _aromaService.CreateAromaAsync(aromaPostDto));
     }
 
     [HttpPut("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> UpdateAroma([FromBody]AromaPutDto aromaPutDto)
     {
         return Ok(await _aromaService.UpdateAromaAsync(aromaPutDto));   
     }
     [HttpDelete("[action]/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteAroma([FromRoute]int id)
     {
         return Ok(await _aromaService.DeleteAromaAsync(id));

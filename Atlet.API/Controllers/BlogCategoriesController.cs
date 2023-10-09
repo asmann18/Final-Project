@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Blogs.BlogCategoryDtos;
 using Atlet.Business.Services.Interfaces.Blogs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers;
@@ -34,16 +35,19 @@ public class BlogCategoriesController : ControllerBase
 
 
     [HttpPost("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> CreateBlogCategory([FromBody]BlogCategoryPostDto blogCategoryPostDto)
     {
         return Ok(await _blogCategoryService.CreateBlogCategoryAsync(blogCategoryPostDto));
     }
     [HttpPut("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> UpdateBlogCategory([FromBody]BlogCategoryPutDto blogCategoryPutDto)
     {
         return Ok(await _blogCategoryService.UpdateBlogCategoryAsync(blogCategoryPutDto));
     }
     [HttpDelete("[action]/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteBlogCategory([FromRoute]int id)
     {
         return Ok(await _blogCategoryService.DeleteBlogCategoryAsync(id));

@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Moves.PartDtos;
 using Atlet.Business.Services.Interfaces.Moves;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers;
@@ -31,17 +32,20 @@ public class PartsController : ControllerBase
         return Ok(await _partService.GetPartByIdAsync(id));
     }
     [HttpPost("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> CreatePart([FromForm]PartPostDto partPostDto)
     {
         return Ok(await _partService.CreatePartAsync(partPostDto));
     }
 
     [HttpPut("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> UpdatePart([FromForm]PartPutDto partPutDto)
     {
         return Ok(await _partService.UpdatePartAsync(partPutDto));
     }
     [HttpDelete("[action]/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeletePart([FromRoute]int id)
     {
         return Ok(await _partService.DeletePartAsync(id));

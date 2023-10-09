@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.BrandDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers;
@@ -34,6 +35,7 @@ public class BrandsController : ControllerBase
 
 
     [HttpPost("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> CreateBrand([FromForm]BrandPostDto brandPostDto)
     {
         return Ok(await _brandService.CreateBrandAsync(brandPostDto));
@@ -41,12 +43,14 @@ public class BrandsController : ControllerBase
 
 
     [HttpPut("[action]")]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> UpdateBrand([FromForm]BrandPutDto brandPutDto)
     {
         return Ok(await _brandService.UpdateBrandAsync(brandPutDto));
     }
 
     [HttpDelete("[action]/{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteBrand([FromRoute]int id)
     {
         return Ok(await _brandService.DeleteBrandAsync(id));
