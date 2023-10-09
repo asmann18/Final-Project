@@ -1,40 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
 import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from 'axios';
 
-// function SampleArrow(props) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: "block", background: "red" }}
-//       onClick={onClick}
-//     />
-//   );
-// }
+function SampleArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", border:"none",padding:"1px 5px 1px 1px",borderRadius:"100%",background:"crimson" }}
+      onClick={onClick}
+    />
+  );
+}
 
 
 
 const Swipper = () => {
+
+  const[moves,setMoves]=useState([])
+useEffect(()=>{
+  axios.get("https://localhost:7066/api/Moves/GetAllMoves").then(res=>{
+    setMoves(res.data.data)
+  })
+},[])
+
   var settings = {
     dots: true,
     infinite: true,
-    // className: "center",
-    // centerMode: true,
-    // centerPadding: "60px",
-
-    
     slidesToShow: 2,
     slidesToScroll: 2,
     autoScroll: true,
     scrollSpeed: 2000,
     speed:2000,
-    // lazyLoad: true,
-    // nextArrow: <icon />,
-    // prevArrow: <SampleArrow />,
+    prevArrow: <SampleArrow />,
+    nextArrow: <SampleArrow />,
     
     variableWidth:true,
     adaptiveHeight: true,
@@ -46,14 +49,18 @@ const Swipper = () => {
           slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
-          dots: true
+          dots: true,
+          slidesToScroll: 2,
+    autoScroll: true,
+    scrollSpeed: 2000,
+    speed:2000,
         }
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           initialSlide: 2
         }
       },
@@ -66,47 +73,35 @@ const Swipper = () => {
       }
     ]
   };
+  var settings2={
+    dots: true,
+    infinite: true,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    autoplay: true, 
+    autoplaySpeed: 5000, 
+    speed: 2000,
+    prevArrow: <SampleArrow />,
+    nextArrow: <SampleArrow />,
+    variableWidth: true,
+    adaptiveHeight: true,
+  }
   return (
     <div className="moves">
 
-      <Slider className="slider" {...settings}>
-
-        <div className="sliderItem">
-          <div className="img">
-            <img src="https://res.cloudinary.com/dlilcwizx/image/upload/v1696484542/ddahv5gw9z7rn1h6hgpa.jpg" alt="" />
-          </div>
-          <div className="info">
-            <p>Shoulder Press</p>
-            <span>11.02.2022</span>
-          </div>
-        </div>
-        <div className="sliderItem">
-          <div className="img">
-            <img src="https://res.cloudinary.com/dlilcwizx/image/upload/v1696569430/ddahv5gw9z7rn1h6hgpa.jpg" alt="" />
-          </div>
-          <div className="info">
-            <p>Shoulder Press</p>
-            <span>11.02.2022</span>
-          </div>
-        </div>
-        <div className="sliderItem">
-          <div className="img">
-            <img src="https://res.cloudinary.com/dlilcwizx/image/upload/v1696569430/ddahv5gw9z7rn1h6hgpa.jpg" alt="" />
-          </div>
-          <div className="info">
-            <p>Shoulder Press</p>
-            <span>11.02.2022</span>
-          </div>
-        </div>
-        <div className="sliderItem">
-          <div className="img">
-            <img src="https://res.cloudinary.com/dlilcwizx/image/upload/v1696569430/ddahv5gw9z7rn1h6hgpa.jpg" alt="" />
-          </div>
-          <div className="info">
-            <p>Shoulder Press</p>
-            <span>11.02.2022</span>
-          </div>
-        </div>
+      <Slider className="slider" {...settings2}>
+{moves.map((move,i)=>{
+  return(   <div key={i} className="sliderItem">
+  <div className="img">
+    <img src={move.moveImagePaths[0]} alt="move" />
+  </div>
+  <div className="info">
+    <p>{move.name}</p>
+    <span>{move.description}</span>
+  </div>
+</div>)
+})}
+     
 
       </Slider>
     </div>

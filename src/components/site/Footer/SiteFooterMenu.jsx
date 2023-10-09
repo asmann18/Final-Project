@@ -4,10 +4,11 @@ const SiteFooterMenu = () => {
     <div>
     <h3>Menu</h3>
     <ul>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
+        <li>Əsas Səhifə</li>
+        <li>Mağaza</li>
+        <li>Blog</li>
+        <li>Məşq Hərəkətləri</li>
+        <li>Əlaqə</li>
     </ul>
     </div>
   )

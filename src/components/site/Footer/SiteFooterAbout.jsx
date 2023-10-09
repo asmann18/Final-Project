@@ -4,7 +4,7 @@ const SiteFooterAbout = () => {
     return (
         <div className='about'>
             <h3>HAQQIMIZDA</h3>
-            <p>Lorem ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, mollitia ipsam? Porro, optio commodi praesentium in nemo dignissimos ea cumque?amet consectetur adipisicing elit. Ea incidunt accusamus nam eos itaque sit omnis deserunt in praesentium laudantium accusantium dolore molestias fugit odit suscipit quisquam, distinctio dolorum ducimus.</p>
+            <p>ATLET.AZ — idman qidalarının satışı üzrə, Azərbaycanda ən böyük mağazalar şəbəkəsidir. ATLET.AZ  - Amerika və Avropanın tanınmış brendləri - Optimum Nutrition, BSN, Nutrex Research, Muscletech, Vplab, Real Pharm Nutrition və Activlab-ın Azərbaycanda rəsmi ditributorudu. Elə bu səbəbdən, biz bütün məhsulların orijinallığına 100 % zəmanət veririk. Bizim qiymətlərimiz çox münasibdir : bəzi hallarda idman qidalarının qiyməti, bazar qiymətindən 20-30% aşağı olur. Elə bu səbəbdən də, siz istənilən vaxt sizi maraqlandıran idman qidalarını ən sərfəli qiymətlər ilə əldə edə bilərsiniz.</p>
         </div>
     )
 }

@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductImage from '../../../assets/images/1061961.jpg'
+import axios from 'axios'
 
 const HomeSection5 = () => {
+    const[popProducts,setPopProducts]=useState([])
+    useEffect(()=>{
+        axios.get("https://localhost:7066/api/Products/GetPopularProducts").then(res=>{
+            setPopProducts(res.data.data)
+        })
+    },[])
     return (
         <div className='newProducts'>
             <div className="txt">
@@ -9,70 +16,17 @@ const HomeSection5 = () => {
                 <p>Alıcılarımız tərəfindən ən çox alınan məhsullar</p>
             </div>
             <div className="products">
-                <div className="product">
-                    <img src={ProductImage} alt="" />
+                {popProducts.map((product,i)=>{
+                    return ( <div key={i} className="product">
+                    <img src={product.productImagePaths[0]} alt="" />
                     <div className="productInfo">
 
-                        <p>Product name</p>
-                        <span>100$</span>
+                        <p>{product.name}</p>
+                        <span>{product.price}$</span>
                     </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
-                <div className="product">
-                    <img src={ProductImage} alt="" />
-                    <div className="productInfo">
-
-                        <p>Product name</p>
-                        <span>100$</span>
-                    </div>
-                </div>
+                </div>)
+                })}
+               
             </div>
 
         </div>

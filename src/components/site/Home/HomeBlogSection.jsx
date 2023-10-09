@@ -1,39 +1,30 @@
-import React from 'react'
-import BlogImages from '../../../assets/images/berpa.jpg'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const HomeBlogSection = () => {
+    const[blogs,SetBlogs]=useState([])
+    useEffect(()=>{
+        axios.get("https://localhost:7066/api/Blogs/GetAllBlog").then(res=>{
+            SetBlogs(res.data.data)
+        })
+    },[])
     return (
         <div className='blogSection bgRed'>
             <div className="txt"><h2>Bloqlar</h2></div>
-            <div className="blogs">
-                <div className="blog">
+            <div className="blogs">{
+                blogs.map((blog,index)=>{
+                    return (<div key={index} className="blog">
                     <div className="image">
-                        <img src={BlogImages} alt="" />
+                        <img src={blog.blogImagePaths[0]} alt="" />
                     </div>
                     <div className="info">
-                        <p className='blogName'>Blog</p>
-                        <span className='blogDescription'>hi this is blog</span>
+                        <p className='blogName'>{blog.name}</p>
+                        <span className='blogDescription'>{blog.description}</span>
                     </div>
-                </div>
-                <div className="blog">
-                    <div className="image">
-                        <img src={BlogImages} alt="" />
-                    </div>
-                    <div className="info">
-                        <p className='blogName'>Blog</p>
-                        <span className='blogDescription'>hi this is blog</span>
-                    </div>
-                </div>
-                <div className="blog">
-                    <div className="image">
-                        <img src={BlogImages} alt="" />
-                    </div>
-                    <div className="info">
-                        <p className='blogName'>Blog</p>
-                        <span className='blogDescription'>hi this is blog</span>
-                    </div>
-                </div>
+                </div>)                })
+            }
+                
             </div>
             <div className="button">
                 <button><Link to={"/blog"}>Read More</Link></button>

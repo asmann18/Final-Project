@@ -1,14 +1,25 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const SiteFooterCategories = () => {
+  const [categories,setCategories]=useState([])
+
+  useEffect(() => {  
+axios.get("https://localhost:7066/api/ProductCategories/GetAllProductCategories").then(res=>{
+      setCategories(res.data.data);
+  })},[])
   return (
-    <div>
-    <h3>Mehsullar</h3>
+    <div className='' >
+    <h3>Məhsullar</h3>
     <ul>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
+      {
+        categories.map((category,index)=>{
+          return <li key={index}>
+            {category.name}
+          </li>
+        })
+      }
+   
     </ul>
     </div>
   )

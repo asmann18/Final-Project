@@ -9,6 +9,7 @@ import HomeSection5 from '../../../components/site/Home/HomeSection5'
 import HomeBlogSection from '../../../components/site/Home/HomeBlogSection'
 import Swipper from '../../../components/site/Home/Swipper'
 import Advertising from '../../../components/Common/Advertising'
+import HomeBrandsSection from '../../../components/site/Home/HomeBrandsSection'
 const Home = () => {
   return (
     <>
@@ -22,6 +23,7 @@ const Home = () => {
     <Advertising/>
     <HomeBlogSection/>
     <Swipper/>
+    <HomeBrandsSection/>
     </div>
     </>
   )
