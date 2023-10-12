@@ -38,6 +38,8 @@ const HomeBrandsSection = () => {
     })
   },[])
   return (
+    <div className="HomeBrandsSection">
+      <h2>Əməkdaş Şirkətlər</h2>
     <div className='brandsSlider'>
       <Slider {...settings}>
         {brands.map((brand,index)=>{
@@ -48,6 +50,7 @@ const HomeBrandsSection = () => {
       
       </Slider>
     </div>
+        </div>
   );
 };
 

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Roboto:wght@300&display=swap');
 .containerCss {
     margin: 0 auto;
     // padding: 0 20px;
@@ -16,7 +16,9 @@
     gap: 10px;
     background-color: black;
     color: white;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+  
+    // font-family: 'Roboto', sans-serif;
 
     li {
         text-decoration: none;

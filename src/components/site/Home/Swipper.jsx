@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react'
-
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -22,6 +22,7 @@ function SampleArrow(props) {
 const Swipper = () => {
 
   const[moves,setMoves]=useState([])
+
 useEffect(()=>{
   axios.get("https://localhost:7066/api/Moves/GetAllMoves").then(res=>{
     setMoves(res.data.data)
@@ -87,8 +88,11 @@ useEffect(()=>{
     adaptiveHeight: true,
   }
   return (
+    <div className='HomeMovesSection'>
+    <h2>
+      Məşq Hərəkətləri
+    </h2>
     <div className="moves">
-
       <Slider className="slider" {...settings2}>
 {moves.map((move,i)=>{
   return(   <div key={i} className="sliderItem">
@@ -96,14 +100,16 @@ useEffect(()=>{
     <img src={move.moveImagePaths[0]} alt="move" />
   </div>
   <div className="info">
+
     <p>{move.name}</p>
-    <span>{move.description}</span>
+    <span><CalendarTodayIcon/> {move.modifiedTime.substring(0,10)}</span>
   </div>
 </div>)
 })}
      
 
       </Slider>
+    </div>
     </div>
 
   )

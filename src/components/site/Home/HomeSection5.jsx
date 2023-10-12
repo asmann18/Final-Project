@@ -3,12 +3,12 @@ import ProductImage from '../../../assets/images/1061961.jpg'
 import axios from 'axios'
 
 const HomeSection5 = () => {
-    const[popProducts,setPopProducts]=useState([])
-    useEffect(()=>{
-        axios.get("https://localhost:7066/api/Products/GetPopularProducts").then(res=>{
+    const [popProducts, setPopProducts] = useState([])
+    useEffect(() => {
+        axios.get("https://localhost:7066/api/Products/GetPopularProducts").then(res => {
             setPopProducts(res.data.data)
         })
-    },[])
+    }, [])
     return (
         <div className='newProducts'>
             <div className="txt">
@@ -16,17 +16,20 @@ const HomeSection5 = () => {
                 <p>Alıcılarımız tərəfindən ən çox alınan məhsullar</p>
             </div>
             <div className="products">
-                {popProducts.map((product,i)=>{
-                    return ( <div key={i} className="product">
-                    <img src={product.productImagePaths[0]} alt="" />
-                    <div className="productInfo">
+                {popProducts.map((product, i) => {
+                    return (<div key={i} className="product">
+                        <div className="image">
 
-                        <p>{product.name}</p>
-                        <span>{product.price}$</span>
-                    </div>
-                </div>)
+                            <img src={product.productImagePaths[0]} alt="" />
+                        </div>
+                        <div className="productInfo">
+
+                            <p>{product.name}</p>
+                            <span>{product.price}$</span>
+                        </div>
+                    </div>)
                 })}
-               
+
             </div>
 
         </div>

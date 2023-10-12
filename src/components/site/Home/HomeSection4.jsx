@@ -19,7 +19,9 @@ const HomeSection4 = () => {
             <div className="products">
                 {products.map((product,i)=>{
                     return( <div key={i} className="product">
+                    <div className="image">
                     <img  src={product.productImagePaths[0]} alt="" />
+                    </div>
                     <div className="productInfo">
 
                         <p>{product.name}</p>
