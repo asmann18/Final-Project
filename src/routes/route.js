@@ -7,6 +7,7 @@ import AdminRoot from "../pages/admin/adminRoute/AdminRoot";
 import Dashboard from "../pages/admin/dashboard/Dashboard";
 import SiteRoot from "../pages/site/siteRoute/SiteRoot"
 import Error from "../pages/error/Error"
+import ProductDetail from "../pages/site/Moves/ProductDetail"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -30,6 +31,11 @@ export const ROUTES = [{
         {
             path: "moves",
             element: <Moves />
+        },
+        {
+            path:"productDetail/:id",
+            element:<ProductDetail/>
+
         },
         {
             path: "*",

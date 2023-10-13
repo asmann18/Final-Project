@@ -88,9 +88,30 @@
     align-items: center;
 
     li{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .siteHeaderNavbarInfo{
             display: none;
             position: fixed;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-transform: none;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 23px;
+            font-size: 12px;
+            li{
+                cursor: pointer;
+
+            }
+            li:hover{
+                color: #D50000;
+                transition: 0.4s;
+            }
+            
 
         }
         a{
@@ -99,14 +120,16 @@
             align-items: center;
         }
     }
-    .hi:hover .siteHeaderNavbarInfo{
+    li:hover .siteHeaderNavbarInfo{
         
-            display: block;
+            display: flex;
         
     }
 
 }
-
+.headerBottomHamburgerMenu{
+    display: none;
+}
 .siteHeaderBasketAndLogin {
     display: flex;
 
@@ -153,7 +176,9 @@
         font-size: 9px;
         justify-content: space-between;
         padding: 0 10px;
-
+        .headerBottomHamburgerMenu{
+            display: block;
+        }
         .siteHeaderInfoIcons {
             gap: 12px;
 

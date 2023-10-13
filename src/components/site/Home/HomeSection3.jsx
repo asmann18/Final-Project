@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductImage from '../../../assets/images/1061961.jpg'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 const HomeSection3 = () => {
     const [newProducts, setNewProducts] = useState([])
     useEffect(() => {
@@ -17,17 +17,16 @@ const HomeSection3 = () => {
             </div>
             <div className="products">
                 {newProducts.map((product, i) => {
-                    return (<div key={i} className="product">
+                    return (<Link to={"productDetail/"+(product.id)} key={i} className="product">
                         <div className="image">
 
                             <img src={product.productImagePaths[0]} alt="product" />
                         </div>
                         <div className="productInfo">
-
                             <p>{product.name}</p>
                             <span>{product.price}$</span>
                         </div>
-                    </div>)
+                    </Link>)
                 })}
 
             </div>

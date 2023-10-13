@@ -1,0 +1,24 @@
+body{
+    background-color: whitesmoke;
+}
+.productDetail{
+    width: 70%;
+    padding: 20px 0;
+    margin: 0 auto;
+    background: white;
+    display: flex;
+    flex-direction:  column;
+    // align-items: center;
+    .detailBody{
+        border: 1px solid black;
+        display:  flex;
+        justify-content: space-between;
+        .detailInfo{
+            .detailInfoTop{
+                display: flex;
+                justify-content: space-between;
+                gap: 40px;
+            }
+        }
+    }
+}

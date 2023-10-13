@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductImage from '../../../assets/images/1973238.jpg'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 
 const HomeSection4 = () => {
     const [products,setProducts]=useState([])
@@ -9,6 +9,7 @@ const HomeSection4 = () => {
     useEffect(() => {  
     axios.get("https://localhost:7066/api/Products/GetDiscountProducts").then(res=>{
         setProducts(res.data.data);
+        console.log(res.data)
     })},[])
   return (
     <div className='newProducts bgRed'>
@@ -18,7 +19,7 @@ const HomeSection4 = () => {
             </div>
             <div className="products">
                 {products.map((product,i)=>{
-                    return( <div key={i} className="product">
+                    return( <Link to={"productDetail/"+(product.id)} key={i} className="product">
                     <div className="image">
                     <img  src={product.productImagePaths[0]} alt="" />
                     </div>
@@ -27,7 +28,7 @@ const HomeSection4 = () => {
                         <p>{product.name}</p>
                         <span>{product.price}$</span>
                     </div>
-                </div>)
+                </Link>)
                 })}
                
           </div>
