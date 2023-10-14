@@ -7,7 +7,7 @@ import AdminRoot from "../pages/admin/adminRoute/AdminRoot";
 import Dashboard from "../pages/admin/dashboard/Dashboard";
 import SiteRoot from "../pages/site/siteRoute/SiteRoot"
 import Error from "../pages/error/Error"
-import ProductDetail from "../pages/site/Moves/ProductDetail"
+import ProductDetail from "../pages/site/Shop/ProductDetail"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,

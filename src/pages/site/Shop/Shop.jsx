@@ -1,8 +1,11 @@
 import React from 'react'
+import Login from '../../../components/site/Home/Login'
 
 const Shop = () => {
   return (
-    <div>Shop</div>
+    <div>
+      shop
+    </div>
   )
 }
 

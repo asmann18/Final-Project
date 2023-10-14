@@ -31,7 +31,7 @@ function SiteHeaderNavbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">Hamburger Menu</Typography>
+          {/* <Typography variant="h6">Hamburger Menu</Typography> */}
         </Toolbar>
       </AppBar>
 

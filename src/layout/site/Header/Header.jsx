@@ -5,6 +5,7 @@ import SiteHeaderLogo from '../../../components/site/Header/SiteHeaderLogo'
 import SiteHeaderBasketAndLogin from '../../../components/site/Header/SiteHeaderBasketAndLogin'
 import  '../../../assets/styles/site/layout/Header.scss'
 import SiteHeaderMobileNavbar from '../../../components/site/Header/SiteHeaderMobileNavbar'
+import Login from '../../../components/site/Home/Login'
 const Header = () => {
   return (
     <header className='header'>
@@ -20,8 +21,8 @@ const Header = () => {
       <div className="headerRight">
         <SiteHeaderBasketAndLogin/>
       </div>
-      <div className="headerBottomHamburgerMenu">
-        <SiteHeaderMobileNavbar/>
+      <div className="login">
+        <Login/>
       </div>
     </header>
   )
