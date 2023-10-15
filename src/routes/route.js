@@ -7,6 +7,7 @@ import AdminRoot from "../pages/admin/adminRoute/AdminRoot";
 import Dashboard from "../pages/admin/dashboard/Dashboard";
 import SiteRoot from "../pages/site/siteRoute/SiteRoot"
 import Error from "../pages/error/Error"
+import Register from "../pages/site/Account/Register"
 import ProductDetail from "../pages/site/Shop/ProductDetail"
 export const ROUTES = [{
     path: "/",
@@ -36,6 +37,10 @@ export const ROUTES = [{
             path:"productDetail/:id",
             element:<ProductDetail/>
 
+        },
+        {
+            path:"register",
+            element:<Register/>
         },
         {
             path: "*",
