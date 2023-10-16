@@ -1,0 +1,68 @@
+.adminHeader {
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+
+    .adminHeaderTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        // height: 150px;
+        .logo {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            gap: 10px;
+            width: 300px;
+            color: #CC0000;
+
+            .img {
+
+                // width: 60%;
+                img {
+
+                    width: 100%;
+                    max-width: 60px;
+                    max-height: 60px;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        input {
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+        }
+
+        .userInfo {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            font-weight: 500;
+            color: #CC0000;
+            cursor: pointer;
+        }
+    }
+
+
+    .adminHeaderBottom {
+        display: flex;
+        justify-content: space-evenly;
+
+        a {
+            font-weight: 500;
+            
+            // color: #CC0000;
+          
+        }
+        a.active{
+            color: #CC0000;
+            font-weight: 600;
+            font-size: 17px;
+        }
+        
+    }
+}

@@ -7,7 +7,6 @@ const AdminRoot = () => {
         <>
             <Header />
             <Outlet />
-            <Footer />
 
         </>
     )

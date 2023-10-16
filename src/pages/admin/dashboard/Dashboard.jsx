@@ -11,7 +11,7 @@ console.log(tokenData)
 },[])
 
   return (
-    <div>hi</div>
+    <div>Dashboard</div>
   )
 }
 

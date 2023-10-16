@@ -1,8 +1,14 @@
 import React from 'react'
+import '../../../assets/styles/admin/layout/Header.scss'
+import AdminHeaderTop from '../../../components/admin/Header/AdminHeaderTop'
+import AdminHeaderBottom from '../../../components/admin/Header/AdminHeaderBottom'
 
 const Header = () => {
   return (
-    <div>Admin Header</div>
+    <header className='adminHeader'>
+    <AdminHeaderTop/>
+    <AdminHeaderBottom/>
+    </header>
   )
 }
 

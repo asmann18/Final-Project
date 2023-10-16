@@ -9,6 +9,13 @@ import SiteRoot from "../pages/site/siteRoute/SiteRoot"
 import Error from "../pages/error/Error"
 import Register from "../pages/site/Account/Register"
 import ProductDetail from "../pages/site/Shop/ProductDetail"
+import Products from "../pages/admin/product/Products"
+import ProductCategories from "../pages/admin/productCategory/ProductCategories"
+import Brands from "../pages/admin/brand/Brands"
+import Aromas from "../pages/admin/aroma/Aromas"
+import Blogs from "../pages/admin/blog/Blogs"
+import BlogCategories from "../pages/admin/blogCategory/BlogCategories"
+import Parts from "../pages/admin/part/Parts"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -56,6 +63,40 @@ export const ROUTES = [{
             {
                 path: "",
                 element: <Dashboard />
+            },
+            {
+                path:"products",
+                element:<Products/>
+            },
+            {
+                path:"productCategories",
+                element:<ProductCategories/>
+            },
+            {
+                path:"brands",
+                element:<Brands/>
+            },
+            {
+                path:"aromas",
+                element: <Aromas/>
+            },
+
+            {
+                path:"blogs",
+                element:<Blogs/>
+            },
+            {
+                path:"blogCategories",
+                element:<BlogCategories/>
+            },
+
+            {
+                path:"parts",
+                element:<Parts/>
+            },
+            {
+                path:"moves",
+                element:<Moves/>
             }
 
         ]
