@@ -12,6 +12,9 @@ const Login = () => {
     const history = useNavigate();
     const url = "https://localhost:7066/api/Auth/Login";
     const data=useContext(MainContext)
+    const closeForm=()=>{
+        data.setToggleLogin(!data.toggleLogin)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,14 +27,11 @@ const Login = () => {
             if (res.data.data.role == "Admin" || res.data.data.role == "Moderator") {
                 history("/admin")
             } else {
-                history("/")
+                closeForm();
             }
         } catch (error) {
             console.log(error.response)
         }
-    }
-    const closeForm=()=>{
-        data.setToggleLogin(!data.toggleLogin)
     }
 
 
