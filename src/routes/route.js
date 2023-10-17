@@ -16,6 +16,10 @@ import Aromas from "../pages/admin/aroma/Aromas"
 import Blogs from "../pages/admin/blog/Blogs"
 import BlogCategories from "../pages/admin/blogCategory/BlogCategories"
 import Parts from "../pages/admin/part/Parts"
+import ProductsDetail from "../pages/admin/product/ProductsDetail"
+import ProductsUpdate from "../pages/admin/product/ProductsUpdate"
+import ProductDelete from "../pages/admin/product/ProductDelete"
+import ProductsCreate from "../pages/admin/product/ProductsCreate"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -67,7 +71,28 @@ export const ROUTES = [{
             {
                 path:"products",
                 element:<Products/>
+               
             },
+    
+            {
+                path:"products/:id",
+                element:<ProductsDetail/>
+            },
+            {
+                path:"products/update/:id",
+                element:<ProductsUpdate/>
+            },
+            {
+                path:"products/delete/:id",
+                element:<ProductDelete/>
+            },
+            {
+                path:"products/create",
+                element:<ProductsCreate/>
+            },
+
+
+
             {
                 path:"productCategories",
                 element:<ProductCategories/>

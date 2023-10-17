@@ -5,11 +5,11 @@ import App from './App';
 import axios from 'axios';
 import { json } from 'react-router-dom';
 
-var token=localStorage.getItem("tokenData")
-if(token=!undefined){
-console.log(token)
-    axios.defaults.headers.common['Authorization']="Bearer "+JSON.parse(localStorage.getItem("tokenData")).token
+let token = localStorage.getItem("tokenData");
+if (token !== null) {
+    axios.defaults.headers.common['Authorization'] = "Bearer " + JSON.parse(token).token;
 }
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

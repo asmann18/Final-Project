@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-const AdminHeaderBottom = () => {
-  const [selectClass,setSelecClass]=useState('dashboard')
+import { Link, useNavigate, useParams } from 'react-router-dom'
+const AdminHeaderBottom = (root) => {
+  
+  const [selectClass,setSelecClass]=useState(root ? root : 'dashboard')
   const navigate = useNavigate();
-
   const changeColor=(className)=>{
     setSelecClass(className);
   }

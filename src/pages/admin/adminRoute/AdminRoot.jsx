@@ -1,11 +1,12 @@
 import React from 'react'
 import Header from '../../../layout/admin/Header/Header'
 import Footer from '../../../layout/admin/Footer/Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 const AdminRoot = () => {
+  const {root}=useParams();
     return (
         <>
-            <Header />
+            <Header root={root} />
             <Outlet />
 
         </>

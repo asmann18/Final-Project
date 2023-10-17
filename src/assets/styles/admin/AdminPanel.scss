@@ -1,0 +1,136 @@
+.adminList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    .listInfo {
+        display: flex;
+        gap: 30px;
+        justify-content: space-around;
+    }
+
+}
+
+.btn {
+    border: 1px solid whitesmoke;
+    // border-radius: 10px;
+    color: white;
+
+    padding: 10px 15px;
+    min-width: 70px;
+    min-height: 40px;
+
+}
+
+.btn-success {
+    background: #24973E;
+}
+
+.btn-success:hover {
+    background: white;
+    color: #24973E;
+    border-color: #24973E;
+}
+
+.buttons {
+    display: flex;
+
+    // gap: 1px;
+    a {
+        font-weight: bold
+    }
+
+    .btn-primary {
+        background: blue;
+    }
+
+    .btn-warning {
+        background: #FFC107;
+        color: black;
+    }
+
+    .btn-danger {
+        background: #DC3545;
+    }
+
+    .btn-primary:hover {
+        background: white;
+        color: blue;
+        border-color: blue;
+    }
+
+    .btn-warning:hover {
+        background: white;
+        color: #FFC107;
+        border-color: #FFC107;
+    }
+
+    .btn-danger:hover {
+        background: white;
+        color: #DC3545;
+        border-color: #DC3545;
+    }
+}
+
+.AdminPanelForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    gap: 10px;
+    h2{
+        color: #DC3545;
+    }
+    .adminCreate {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        padding: 30px;
+        gap: 10px;
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input {
+
+            border: none;
+            outline: none;
+            padding: 10px 15px;
+            text-align: center;
+            width: 60%;
+            background: whitesmoke;
+            color: #DC3545;
+
+            :-ms-input-placeholder {
+                color: #DC3545;
+            }
+        }
+
+        select {
+            width: 60%;
+            outline: none;
+            padding: 10px 15px;
+            color: #DC3545;
+            option{
+                color: #DC3545;
+            }
+        }
+        button{
+            padding: 10px 15px;
+            width: 60%;
+            border: none;
+            outline: none;
+            background: #DC3545;
+            color: white;
+            cursor: pointer;
+        }
+    }
+}
