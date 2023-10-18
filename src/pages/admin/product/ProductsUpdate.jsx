@@ -1,26 +1,55 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 const ProductsUpdate = () => {
-const {id}=useParams();
-const [product,setProduct]=useState({})
-useEffect(()=>{
-axios.get(`https://localhost:7066/api/Products/GetProductById/${id}`).then(res=>{
-setProduct(res.data.data)
-}).catch(err=>{
-  console.log(err)
-})
-},[])
-
-  const [name, setName] = useState(product.name)
-  const [description, setDescription] = useState(product.description)
-  const [price, setPrice] = useState(product.price)
-  const [count, setCount] = useState(product.count)
-  const [discount, setDiscount] = useState(product.discount)
-  const [productCategoryId, setProductCategoryId] = useState(product.productcategoryid)
-  const [brandId, setBrandId] = useState(product.brandid)
-  const [aromaId, setAromaId] = useState(product.aromaid)
-  const [productImagesF, setProductImagesF] = useState([])
+  
+    const { id } = useParams();
+    const [product, setProduct] = useState({
+      name: "",
+      description: "",
+      price: 0,
+      count: 0,
+      discount: 0,
+      productcategoryid: "",
+      brandid: "",
+      aromaid: "",
+    });
+  
+    const history = useNavigate();
+    const [tokenData, setTokenData] = useState([]);
+  
+    useEffect(() => {
+      setTokenData(JSON.parse(localStorage.getItem("tokenData")));
+    }, []);
+  
+    const [name, setName] = useState(""); 
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(0);
+    const [count, setCount] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const [productCategoryId, setProductCategoryId] = useState("");
+    const [brandId, setBrandId] = useState("");
+    const [aromaId, setAromaId] = useState("");
+    const [productImagesF, setProductImagesF] = useState([]);
+  
+    useEffect(() => {
+      axios
+        .get(`https://localhost:7066/api/Products/GetProductById/${id}`)
+        .then((res) => {
+          setProduct(res.data.data);
+          setName(res.data.data.name);
+          setDescription(res.data.data.description);
+          setPrice(res.data.data.price);
+          setCount(res.data.data.count);
+          setDiscount(res.data.data.discount);
+          setProductCategoryId(res.data.data.productcategoryid);
+          setBrandId(res.data.data.brandid);
+          setAromaId(res.data.data.aromaid);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [id]);
 
 
   const [categories, setCategories] = useState([])
@@ -37,7 +66,7 @@ setProduct(res.data.data)
       setAromas(res.data.data)
     })
   }, [])
-  const url = 'https://localhost:7066/api/Products/CreateProduct'
+  const url = 'https://localhost:7066/api/Products/UpdateProduct'
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
@@ -45,6 +74,9 @@ setProduct(res.data.data)
       console.log('hi')
       
       const formData = new FormData();
+
+      formData.append("id", id);
+     
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", price);
@@ -53,32 +85,20 @@ setProduct(res.data.data)
       formData.append("productcategoryid", productCategoryId);
       formData.append("brandid", brandId);
       formData.append("aromaId", aromaId);
-      productImagesF.forEach((file, index) => {
-        formData.append(`productimagesf[${index}]`, JSON.stringify(file));
+      productImagesF.forEach((file) => {
+        formData.append(`productimagesf`, file,file.name);
       });
-      console.log({formData})
-      const response = await axios.post(url, formData, {
-        method: "POST",
+      console.log(Array.from(formData))
+      console.log(tokenData)
+      const response = await axios.put(url, formData, {
         headers: {
-                'Content-Type': 'multipart/form-data; charset=utf-8; boundary="another cool boundary";'
-        },
-        body: formData,
+          'Authorization': `Bearer ${tokenData.token}`
+        }
       });
 
 
-      // const response=axios.post(url,{
-      //   'name':name,
-      //   'description':description,
-      //   'price':price,
-      //   'count':count,
-      //   'discount':discount,
-      //   'productcategoryid':productCategoryId,
-      //   'brandid':brandId,
-      //   'aromaid':aromaId,
-      //   'productimagesf[...productimagesf]':productImagesF
-      // },{headers:{
-      //   'Content-Type': 'multipart/form-data'
-      // }})
+      console.log(response.data)
+      history(-1)
 
 
       console.log(response.data)
@@ -94,7 +114,7 @@ setProduct(res.data.data)
 
   return (
     <div className="AdminPanelForm">
-      <h2>Create new Product {id} </h2>
+      <h2>Update Product {id} </h2>
       <form action='post' encType='multipart/form-data' className='productCreate adminCreate'>
 
         <input type="text" id='name' value={name} onChange={(e) => { setName(e.target.value) }} placeholder='Ad daxil edin' />
@@ -127,7 +147,7 @@ setProduct(res.data.data)
 
 
         <button onClick={handleCreate} type='submit'>
-          Create
+          Update
         </button>
 
       </form>

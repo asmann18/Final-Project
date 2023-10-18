@@ -22,7 +22,6 @@ const Login = () => {
             const res = await axios.post(url, {
                 "email": email, "password": password
             })
-            console.log(res.data)
             localStorage.setItem("tokenData", JSON.stringify(res.data.data))
             if (res.data.data.role == "Admin" || res.data.data.role == "Moderator") {
                 history("/admin")

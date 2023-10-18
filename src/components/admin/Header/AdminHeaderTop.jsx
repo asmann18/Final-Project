@@ -8,7 +8,6 @@ const AdminHeaderTop = () => {
   useEffect(()=>{
 axios.get('https://localhost:7066/api/Users/UserGetInfo').then(res=>{
     setUsername(res.data.result.data.username)
-    // console.log(username)
   
 })
   },[])

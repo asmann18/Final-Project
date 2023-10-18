@@ -7,7 +7,6 @@ const [tokenData,setTokenData]=useState([])
 
 useEffect(()=>{
 setTokenData(JSON.parse(localStorage.getItem("tokenData")));
-console.log(tokenData)
 },[])
 
   return (

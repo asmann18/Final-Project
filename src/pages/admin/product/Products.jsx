@@ -8,7 +8,6 @@ const Products = () => {
     const [products, setProducts] = useState([])
     useEffect(() => {
         axios.get('https://localhost:7066/api/Products/GetAllProducts').then(res => {
-            console.log(res.data.data);
             setProducts(res.data.data);
         }).catch(error => {
             console.error(error);

@@ -15,7 +15,6 @@ const ProductDetail = () => {
     axios.get("https://localhost:7066/api/Products/GetProductById/" + id).then(res => {
       setProduct(res.data.data)
       setIsLoading(true);
-      console.log(product)
     })
   }, [])
   function Increase() {

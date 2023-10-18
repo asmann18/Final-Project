@@ -19,7 +19,6 @@ const Register = () => {
             const response=await axios.post(url,{
                 fullname,username,email,password,passwordConfirm
             })
-            console.log(response.data.data)
             history("/login")
         }catch(error){
             console.log(error.response)

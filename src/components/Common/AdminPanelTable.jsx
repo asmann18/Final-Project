@@ -28,7 +28,6 @@ const AdminPanelTable = ({Rows,Columns}) => {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const rows=Rows;
     const columns=Columns;
-    // console.log(Rows)
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
     };

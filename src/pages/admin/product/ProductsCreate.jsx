@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { json, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const ProductsCreate = () => {
   const [name, setName] = useState("")
@@ -12,7 +12,14 @@ const ProductsCreate = () => {
   const [brandId, setBrandId] = useState(null)
   const [aromaId, setAromaId] = useState(null)
   const [productImagesF, setProductImagesF] = useState([])
+  
+  const history=useNavigate();
+  const [tokenData,setTokenData]=useState([])
 
+
+useEffect(()=>{
+setTokenData(JSON.parse(localStorage.getItem("tokenData")));
+},[])
 
   const [categories, setCategories] = useState([])
   const [aromas, setAromas] = useState([])
@@ -44,35 +51,21 @@ const ProductsCreate = () => {
       formData.append("productcategoryid", productCategoryId);
       formData.append("brandid", brandId);
       formData.append("aromaId", aromaId);
-      productImagesF.forEach((file, index) => {
-        formData.append(`productimagesf[${index}]`, JSON.stringify(file));
+      productImagesF.forEach((file) => {
+        formData.append(`productimagesf`, file,file.name);
       });
-      console.log({formData})
+      console.log(Array.from(formData))
+      console.log(tokenData)
       const response = await axios.post(url, formData, {
-        method: "POST",
         headers: {
-                'Content-Type': 'multipart/form-data; charset=utf-8; boundary="another cool boundary";'
-        },
-        body: formData,
+          'Authorization': `Bearer ${tokenData.token}`
+        }
       });
-
-
-      // const response=axios.post(url,{
-      //   'name':name,
-      //   'description':description,
-      //   'price':price,
-      //   'count':count,
-      //   'discount':discount,
-      //   'productcategoryid':productCategoryId,
-      //   'brandid':brandId,
-      //   'aromaid':aromaId,
-      //   'productimagesf[...productimagesf]':productImagesF
-      // },{headers:{
-      //   'Content-Type': 'multipart/form-data'
-      // }})
 
 
       console.log(response.data)
+      history(-1)
+      
 
     } catch (error) {
       console.log(error.response)

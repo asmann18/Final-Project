@@ -9,7 +9,6 @@ const HomeSection4 = () => {
     useEffect(() => {  
     axios.get("https://localhost:7066/api/Products/GetDiscountProducts").then(res=>{
         setProducts(res.data.data);
-        console.log(res.data)
     })},[])
   return (
     <div className='newProducts bgRed'>
