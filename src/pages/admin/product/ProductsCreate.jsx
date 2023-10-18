@@ -39,8 +39,7 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      console.log({productImagesF})
-      console.log('hi')
+     
       
       const formData = new FormData();
       formData.append("name", name);
@@ -54,8 +53,7 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
       productImagesF.forEach((file) => {
         formData.append(`productimagesf`, file,file.name);
       });
-      console.log(Array.from(formData))
-      console.log(tokenData)
+     
       const response = await axios.post(url, formData, {
         headers: {
           'Authorization': `Bearer ${tokenData.token}`

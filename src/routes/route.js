@@ -20,6 +20,8 @@ import ProductsDetail from "../pages/admin/product/ProductsDetail"
 import ProductsUpdate from "../pages/admin/product/ProductsUpdate"
 import ProductDelete from "../pages/admin/product/ProductDelete"
 import ProductsCreate from "../pages/admin/product/ProductsCreate"
+import ProductCategoriesCreate from "../pages/admin/productCategory/ProductCategoriesCreate"
+import ProductCategoriesUpdate from "../pages/admin/productCategory/ProductCategoriesUpdate"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -45,13 +47,13 @@ export const ROUTES = [{
             element: <Moves />
         },
         {
-            path:"productDetail/:id",
-            element:<ProductDetail/>
+            path: "productDetail/:id",
+            element: <ProductDetail />
 
         },
         {
-            path:"register",
-            element:<Register/>
+            path: "register",
+            element: <Register />
         },
         {
             path: "*",
@@ -69,59 +71,71 @@ export const ROUTES = [{
                 element: <Dashboard />
             },
             {
-                path:"products",
-                element:<Products/>
-               
+                path: "products",
+                element: <Products />
+
             },
-    
+
             {
-                path:"products/:id",
-                element:<ProductsDetail/>
-            },
-            {
-                path:"products/update/:id",
-                element:<ProductsUpdate/>
+                path: "products/:id",
+                element: <ProductsDetail />
             },
             {
-                path:"products/delete/:id",
-                element:<ProductDelete/>
+                path: "products/update/:id",
+                element: <ProductsUpdate />
             },
             {
-                path:"products/create",
-                element:<ProductsCreate/>
+                path: "products/delete/:id",
+                element: <ProductDelete />
+            },
+            {
+                path: "products/create",
+                element: <ProductsCreate />
             },
 
 
 
             {
-                path:"productCategories",
-                element:<ProductCategories/>
+                path: "productCategories",
+                element: <ProductCategories />
             },
             {
-                path:"brands",
-                element:<Brands/>
+                path: "productCategories/create",
+                element: <ProductCategoriesCreate />
+            }, 
+            {
+                path: "productCategories/update/:id",
+                element:<ProductCategoriesUpdate/>
+            },
+
+
+
+
+            {
+                path: "brands",
+                element: <Brands />
             },
             {
-                path:"aromas",
-                element: <Aromas/>
+                path: "aromas",
+                element: <Aromas />
             },
 
             {
-                path:"blogs",
-                element:<Blogs/>
+                path: "blogs",
+                element: <Blogs />
             },
             {
-                path:"blogCategories",
-                element:<BlogCategories/>
+                path: "blogCategories",
+                element: <BlogCategories />
             },
 
             {
-                path:"parts",
-                element:<Parts/>
+                path: "parts",
+                element: <Parts />
             },
             {
-                path:"moves",
-                element:<Moves/>
+                path: "moves",
+                element: <Moves />
             }
 
         ]

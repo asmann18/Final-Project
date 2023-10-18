@@ -33,7 +33,7 @@ const HomeBrandsSection = () => {
   
   const [brands,setBrands]=useState([])
   useEffect(()=>{
-    axios.get("https://localhost:7066/api/Brands/GetAllProducts").then(res=>{
+    axios.get("https://localhost:7066/api/Brands/GetAllBrands").then(res=>{
       setBrands(res.data.data)
     })
   },[])
