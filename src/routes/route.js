@@ -22,6 +22,12 @@ import ProductDelete from "../pages/admin/product/ProductDelete"
 import ProductsCreate from "../pages/admin/product/ProductsCreate"
 import ProductCategoriesCreate from "../pages/admin/productCategory/ProductCategoriesCreate"
 import ProductCategoriesUpdate from "../pages/admin/productCategory/ProductCategoriesUpdate"
+import ProductCategoriesDelete from "../pages/admin/productCategory/ProductCategoriesDelete"
+import ProductCategoriesDetail from "../pages/admin/productCategory/ProductCategoriesDetail"
+import BrandsCreate from "../pages/admin/brand/BrandsCreate"
+import BrandsUpdate from "../pages/admin/brand/BrandsUpdate"
+import BrandsDelete from "../pages/admin/brand/BrandsDelete"
+import BrandsDetail from "../pages/admin/brand/BrandsDetail"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -107,6 +113,15 @@ export const ROUTES = [{
                 path: "productCategories/update/:id",
                 element:<ProductCategoriesUpdate/>
             },
+            {
+                path:"productCategories/delete/:id",
+                element:<ProductCategoriesDelete/>
+            },
+            {
+                path:"productCategories/:id",
+                element:<ProductCategoriesDetail/>
+            },
+
 
 
 
@@ -114,7 +129,27 @@ export const ROUTES = [{
             {
                 path: "brands",
                 element: <Brands />
+            },{
+                path:"brands/create",
+                element:<BrandsCreate/>
             },
+            {
+                path:"brands/update/:id",
+                element:<BrandsUpdate/>
+            },
+            {
+                path:"brands/delete/:id",
+                element:<BrandsDelete/>
+            },
+            {
+                path:"brands/:id",
+                element:<BrandsDetail/>
+            },
+
+
+
+
+
             {
                 path: "aromas",
                 element: <Aromas />

@@ -12,14 +12,14 @@ const ProductsCreate = () => {
   const [brandId, setBrandId] = useState(null)
   const [aromaId, setAromaId] = useState(null)
   const [productImagesF, setProductImagesF] = useState([])
-  
-  const history=useNavigate();
-  const [tokenData,setTokenData]=useState([])
+
+  const history = useNavigate();
+  const [tokenData, setTokenData] = useState([])
 
 
-useEffect(()=>{
-setTokenData(JSON.parse(localStorage.getItem("tokenData")));
-},[])
+  useEffect(() => {
+    setTokenData(JSON.parse(localStorage.getItem("tokenData")));
+  }, [])
 
   const [categories, setCategories] = useState([])
   const [aromas, setAromas] = useState([])
@@ -39,8 +39,8 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-     
-      
+
+
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
@@ -51,9 +51,9 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
       formData.append("brandid", brandId);
       formData.append("aromaId", aromaId);
       productImagesF.forEach((file) => {
-        formData.append(`productimagesf`, file,file.name);
+        formData.append(`productimagesf`, file, file.name);
       });
-     
+
       const response = await axios.post(url, formData, {
         headers: {
           'Authorization': `Bearer ${tokenData.token}`
@@ -63,7 +63,7 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
 
       console.log(response.data)
       history(-1)
-      
+
 
     } catch (error) {
       console.log(error.response)
@@ -85,21 +85,21 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
         <input type="number" id='count' value={count} onChange={(e) => { setCount(e.target.value) }} placeholder='Miqdar daxil edin' />
         <input type="number" id='discount' value={discount} onChange={(e) => { setDiscount(e.target.value) }} placeholder='Endirim daxil edin' />
         <select name="ProductCategoryId" id="categoryId" value={productCategoryId} onChange={(e) => setProductCategoryId(e.target.value)}>
-          <option  value="">Kategoriya seçin</option>
+          <option value="">Kategoriya seçin</option>
           {categories.map((category, i) => {
             return <option key={i} value={category.id}>{category.name}</option>
           })}
         </select>
 
         <select name="BrandId" id="brandId" value={brandId} onChange={(e) => setBrandId(e.target.value)}>
-          <option  value="">Brand seçin</option>
+          <option value="">Brand seçin</option>
           {brands.map((brand, i) => {
             return <option key={i} value={brand.id}>{brand.name}</option>
           })}
         </select>
 
         <select name="AromaId" id="aromaId" value={aromaId} onChange={(e) => setAromaId(e.target.value)}>
-          <option  value="">Aroma seçin</option>
+          <option value="">Aroma seçin</option>
           {aromas.map((aroma, i) => {
             return <option key={i} value={aroma.id}>{aroma.name}</option>
           })}

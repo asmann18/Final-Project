@@ -11,30 +11,32 @@ const [name, setName] = useState("");
 const [description, setDescription] = useState("");
 
 useEffect(()=>{
-    axios.get(`https://localhost:7066/api/ProductCategories/GetAllProductsInCategoryById/${id}`).then(res=>{
+    axios.get(`https://localhost:7066/api/ProductCategories/GetProductCategoryById/${id}`).then(res=>{
         setCategory(res.data.data)
         setName(res.data.data.name)
         setDescription(res.data.data.description)
-        console.log(res.data)
 
     }).catch=(err)=>{
         console.log(err)
     }
 },[])
 
-const url='https://localhost:7066/api/ProductCategories/PutProductById';
+const url='https://localhost:7066/api/ProductCategories/PutProductCategoryById';
 const updateCategory=async (e)=>{
     e.preventDefault();
     try{
         const response=await axios.put(url,{id,name,description})
+    
         console.log(response.data);
+        history(-1);
+
     }catch(err){
         console.log(err);
     }
 }
   return (
     <div className="AdminPanelForm">
-    <h2>Create new Product Category</h2>
+    <h2>Update Product Category</h2>
     <form action='post'  className='productCreate adminCreate'>
 
         <input type="text" id='name' value={name} onChange={(e) => { setName(e.target.value) }} placeholder='Ad daxil edin' />
@@ -42,7 +44,7 @@ const updateCategory=async (e)=>{
 
 
         <button onClick={updateCategory} type='submit'>
-            Create
+            Update
         </button>
 
     </form>
