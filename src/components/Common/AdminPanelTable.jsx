@@ -9,19 +9,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link } from 'react-router-dom';
 
-const columns=[
-    {id:'id',label:'Id',minWidth:170},
-    {id:'name',label:'Name',minWidth:170},
-    {id:'description',label:'Description',minWidth:170},
-    {id:'price',label:'Price',minWidth:170},
-]
-
-const rows=[
-    {id:1,name:"Asiman",description:"yaxsi oglan",price:100},
-    {id:2,name:"Sahub",description:"yaxsi oglan",price:200},
-    {id:3,name:"Ali",description:"yaxsi oglan",price:300},
-    
-]
 
 const AdminPanelTable = ({Rows,Columns}) => {
     const [page, setPage] = React.useState(0);
@@ -71,7 +58,8 @@ const AdminPanelTable = ({Rows,Columns}) => {
                                                             ? column.format(value)
                                                             : (column.id==='buttons'?(
                                                               <div className='buttons'>
-                                                              <Link className='btn btn-primary' to={value.detail}>Detail</Link>
+                                                              
+                                                                {value.detail ? <Link className='btn btn-primary' to={value.detail}>Detail</Link> :"" }
                                                               <Link className='btn btn-warning' to={value.update}>Update</Link>
                                                               <Link className='btn btn-danger' to={value.delete}>Delete</Link>
                                                               </div>

@@ -28,6 +28,13 @@ import BrandsCreate from "../pages/admin/brand/BrandsCreate"
 import BrandsUpdate from "../pages/admin/brand/BrandsUpdate"
 import BrandsDelete from "../pages/admin/brand/BrandsDelete"
 import BrandsDetail from "../pages/admin/brand/BrandsDetail"
+import AromasCreate from "../pages/admin/aroma/AromasCreate"
+import AromasUpdate from "../pages/admin/aroma/AromasUpdate"
+import AromasDelete from "../pages/admin/aroma/AromasDelete"
+import BlogsCreate from "../pages/admin/blog/BlogsCreate"
+import BlogsUpdate from "../pages/admin/blog/BlogsUpdate"
+import BlogsDelete from "../pages/admin/blog/BlogsDelete"
+import BlogsDetail from "../pages/admin/blog/BlogsDetail"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -108,18 +115,18 @@ export const ROUTES = [{
             {
                 path: "productCategories/create",
                 element: <ProductCategoriesCreate />
-            }, 
+            },
             {
                 path: "productCategories/update/:id",
-                element:<ProductCategoriesUpdate/>
+                element: <ProductCategoriesUpdate />
             },
             {
-                path:"productCategories/delete/:id",
-                element:<ProductCategoriesDelete/>
+                path: "productCategories/delete/:id",
+                element: <ProductCategoriesDelete />
             },
             {
-                path:"productCategories/:id",
-                element:<ProductCategoriesDetail/>
+                path: "productCategories/:id",
+                element: <ProductCategoriesDetail />
             },
 
 
@@ -129,21 +136,21 @@ export const ROUTES = [{
             {
                 path: "brands",
                 element: <Brands />
-            },{
-                path:"brands/create",
-                element:<BrandsCreate/>
+            }, {
+                path: "brands/create",
+                element: <BrandsCreate />
             },
             {
-                path:"brands/update/:id",
-                element:<BrandsUpdate/>
+                path: "brands/update/:id",
+                element: <BrandsUpdate />
             },
             {
-                path:"brands/delete/:id",
-                element:<BrandsDelete/>
+                path: "brands/delete/:id",
+                element: <BrandsDelete />
             },
             {
-                path:"brands/:id",
-                element:<BrandsDetail/>
+                path: "brands/:id",
+                element: <BrandsDetail />
             },
 
 
@@ -154,11 +161,48 @@ export const ROUTES = [{
                 path: "aromas",
                 element: <Aromas />
             },
+            {
+                path: "aromas/create",
+                element: <AromasCreate />
+            },
+            {
+                path: "aromas/update/:id",
+                element:<AromasUpdate/>
+            },
+            {
+                path:"aromas/delete/:id",
+                element:<AromasDelete/>
+            },
+
+
+
+
+
 
             {
                 path: "blogs",
                 element: <Blogs />
             },
+            {
+                path:"blogs/create",
+                element:<BlogsCreate/>
+            },
+            {
+             path:"blogs/update/:id",
+             element:<BlogsUpdate/>   
+            },
+            {
+                path:"blogs/delete/:id",
+                element:<BlogsDelete/>
+            },
+            {
+                path:"blogs/:id",
+                element:<BlogsDetail/>
+            },
+
+
+
+
             {
                 path: "blogCategories",
                 element: <BlogCategories />

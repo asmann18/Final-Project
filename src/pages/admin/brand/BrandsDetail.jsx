@@ -11,7 +11,7 @@ const BrandsDetail = () => {
         axios.get(`https://localhost:7066/api/Brands/GetBrandById/${id}`).then(res => {
             setBrand(res.data.data)
         })
-    }, [])
+    }, [id])
   return (
     <div className='adminPanelDetail brandDetail'>{brand ? (<div className="brand">
     <div className="info">

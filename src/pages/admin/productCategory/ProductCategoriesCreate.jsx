@@ -10,15 +10,12 @@ const ProductCategoriesCreate = () => {
     const createCategory = async (e) => {
         e.preventDefault();
         try {
-            // const formData = new FormData();
-            // formData.append("name", name);
-            // formData.append("description", description)
+          
             const response = await axios.post(url, {
                 'name':name,
                 'description':description
             })
-            // console.log(Array.from(formData))
-            console.log(response.data)
+           
             history(-1);
 
         } catch (error) {
