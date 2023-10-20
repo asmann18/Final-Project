@@ -28,13 +28,13 @@ const DeleteCategory=async (e)=>{
 }
 
   return (
-    <div className='adminPanelDelete productDelete'>
-    <h2>Product Delete</h2>
-    {category ? (   <div className="product">
+    <div className='adminPanelDelete productCategoryDelete'>
+    <h2>Category Delete</h2>
+    {category ? (   <div className="category">
       <div className="info">
          
           <p>{category.name}</p>
-          <span>{category.price}</span>
+          <span>{category.description}</span>
       </div>
       <div className="action">
         <p>Bu kategoriyani silmək istəyirsiniz?</p>

@@ -1,7 +1,7 @@
 import Home from "../pages/site/Home/Home"
 import Blog from "../pages/site/Blog/Blog"
 import Contact from "../pages/site/Contact/Contact"
-import Moves from "../pages/site/Moves/Moves"
+import Moves from "../pages/admin/move/Moves"
 import Shop from "../pages/site/Shop/Shop"
 import AdminRoot from "../pages/admin/adminRoute/AdminRoot";
 import Dashboard from "../pages/admin/dashboard/Dashboard";
@@ -35,6 +35,17 @@ import BlogsCreate from "../pages/admin/blog/BlogsCreate"
 import BlogsUpdate from "../pages/admin/blog/BlogsUpdate"
 import BlogsDelete from "../pages/admin/blog/BlogsDelete"
 import BlogsDetail from "../pages/admin/blog/BlogsDetail"
+import BlogsCategoriesCreate from "../pages/admin/blogCategory/BlogsCategoriesCreate"
+import BlogCategoriesUpdate from "../pages/admin/blogCategory/BlogCategoriesUpdate"
+import BlogCategoriesDelete from "../pages/admin/blogCategory/BlogCategoriesDelete"
+import PartsCreate from "../pages/admin/part/PartsCreate"
+import PartsUpdate from "../pages/admin/part/PartsUpdate"
+import PartsDelete from "../pages/admin/part/PartsDelete"
+import PartsDetail from "../pages/admin/part/PartsDetail"
+import MovesDetail from "../pages/admin/move/MovesDetail"
+import MovesCreate from "../pages/admin/move/MovesCreate"
+import MovesUpdate from "../pages/admin/move/MovesUpdate"
+import MovesDelete from "../pages/admin/move/MovesDelete"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -167,11 +178,11 @@ export const ROUTES = [{
             },
             {
                 path: "aromas/update/:id",
-                element:<AromasUpdate/>
+                element: <AromasUpdate />
             },
             {
-                path:"aromas/delete/:id",
-                element:<AromasDelete/>
+                path: "aromas/delete/:id",
+                element: <AromasDelete />
             },
 
 
@@ -184,21 +195,22 @@ export const ROUTES = [{
                 element: <Blogs />
             },
             {
-                path:"blogs/create",
-                element:<BlogsCreate/>
+                path: "blogs/create",
+                element: <BlogsCreate />
             },
             {
-             path:"blogs/update/:id",
-             element:<BlogsUpdate/>   
+                path: "blogs/update/:id",
+                element: <BlogsUpdate />
             },
             {
-                path:"blogs/delete/:id",
-                element:<BlogsDelete/>
+                path: "blogs/delete/:id",
+                element: <BlogsDelete />
             },
             {
-                path:"blogs/:id",
-                element:<BlogsDetail/>
+                path: "blogs/:id",
+                element: <BlogsDetail />
             },
+          
 
 
 
@@ -207,15 +219,73 @@ export const ROUTES = [{
                 path: "blogCategories",
                 element: <BlogCategories />
             },
+            {
+                path: "blogCategories/create",
+                element: <BlogsCategoriesCreate />
+            },
+            {
+                path:"blogCategories/update/:id",
+                element:<BlogCategoriesUpdate/>
+            },
+            {
+                path:"blogCategories/delete/:id",
+                element:<BlogCategoriesDelete/>
+            },
+
+
+
+
+
+
 
             {
                 path: "parts",
                 element: <Parts />
             },
             {
+                path:"parts/create",
+                element:<PartsCreate/>
+            },
+            {
+                path:"parts/update/:id",
+                element:<PartsUpdate/>
+            },  
+            {
+                path:"parts/delete/:id",
+                element:<PartsDelete/>
+            },
+            {
+                path:"parts/:id",
+                element:<PartsDetail/>
+            },
+
+
+
+
+
+
+
+            {
                 path: "moves",
                 element: <Moves />
-            }
+            },
+            {
+                path:"moves/:id",
+                element:<MovesDetail/>
+            },
+            {
+                path:"moves/create",
+                element:<MovesCreate/>
+            },
+            {
+                path:"moves/update/:id",
+                element:<MovesUpdate/>
+            },
+            {
+                path:"moves/delete/:id",
+                element:<MovesDelete/>
+
+            },
 
         ]
 }

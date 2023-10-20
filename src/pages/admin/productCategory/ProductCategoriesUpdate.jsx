@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const ProductCategoriesUpdate = () => {
 const {id}=useParams();
-const [category,setCategory]=useState({name:"",description:""})
 const history=useNavigate()
 
 const [name, setName] = useState(""); 
@@ -12,7 +11,6 @@ const [description, setDescription] = useState("");
 
 useEffect(()=>{
     axios.get(`https://localhost:7066/api/ProductCategories/GetProductCategoryById/${id}`).then(res=>{
-        setCategory(res.data.data)
         setName(res.data.data.name)
         setDescription(res.data.data.description)
 

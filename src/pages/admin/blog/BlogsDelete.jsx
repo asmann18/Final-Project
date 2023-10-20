@@ -28,7 +28,7 @@ const BlogsDelete = () => {
     return (
         <div className='adminPanelDelete blogDelete'>
         <h2>Blog Delete</h2>
-        {blog ? (<div className="product">
+        {blog ? (<div className="blog">
           <div className="info">
             <div className="img">
               <img src={blog.blogImagePaths[0]} alt="blogImage" />

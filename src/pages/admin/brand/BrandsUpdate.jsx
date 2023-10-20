@@ -7,14 +7,12 @@ const {id}=useParams()
 const [name,setName]=useState("")
 const [description,setDescription]=useState("")
 const [imageF,setImageF]=useState()
-const [brand,setBrand]=useState()
 const history=useNavigate()
 
 const url='https://localhost:7066/api/Brands/UpdateBrand'
 
 useEffect(()=>{
     axios.get(`https://localhost:7066/api/Brands/GetBrandById/${id}`).then(res=>{
-        setBrand(res.data.data)
         console.log(res.data)
         setName(res.data.data.name)
         setDescription(res.data.data.description)

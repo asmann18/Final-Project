@@ -42,8 +42,8 @@ const BlogCreate=async (e)=>{
 
   return (
     <div className="AdminPanelForm">
-    <h2>Create new Product</h2>
-    <form action='post' encType='multipart/form-data' className='productCreate adminCreate'>
+    <h2>Create new Blog</h2>
+    <form action='post' encType='multipart/form-data' className='blogCreate adminCreate'>
 
       <input type="text" id='name' value={name} onChange={(e) => { setName(e.target.value) }} placeholder='Ad daxil edin' />
       <input type="text" id='description' value={description} onChange={(e) => { setDescription(e.target.value) }} placeholder='Açıqlama daxil edin' />
