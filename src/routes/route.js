@@ -46,6 +46,8 @@ import MovesDetail from "../pages/admin/move/MovesDetail"
 import MovesCreate from "../pages/admin/move/MovesCreate"
 import MovesUpdate from "../pages/admin/move/MovesUpdate"
 import MovesDelete from "../pages/admin/move/MovesDelete"
+import MovesPage from "../pages/site/Moves/Moves"
+import MoveDetail from "../pages/site/Moves/MoveDetail"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -68,8 +70,14 @@ export const ROUTES = [{
         },
         {
             path: "moves",
-            element: <Moves />
+            element: <MovesPage />
         },
+        {
+            path:"moves/:id",
+            element:<MoveDetail/>
+        },
+
+
         {
             path: "productDetail/:id",
             element: <ProductDetail />

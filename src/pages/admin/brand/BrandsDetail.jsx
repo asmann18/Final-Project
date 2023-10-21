@@ -13,7 +13,7 @@ const BrandsDetail = () => {
         })
     }, [id])
   return (
-    <div className='adminPanelDetail brandDetail'>{brand ? (<div className="brand">
+    <div className='adminPanelDetail productDetail'>{brand ? (<div className="brand">
     <div className="info">
         <div className="img">
             <img src={brand.image.path} alt="brandImage" />

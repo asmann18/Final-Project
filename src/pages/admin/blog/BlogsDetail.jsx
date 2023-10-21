@@ -17,7 +17,7 @@ const BlogsDetail = () => {
 
 
   return (
-    <div className='adminPanelDetail blogDetail'>
+    <div className='adminPanelDetail productDetail'>
     <h2>Blog Detail</h2>
     {blog ? (<div className="blog">
       <div className="info">

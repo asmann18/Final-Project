@@ -20,7 +20,7 @@ useEffect(()=>{
 
 
   return (
-    <div className='adminPanelDetail moveDetail'>
+    <div className='adminPanelDetail productDetail'>
     <h2>move Detail</h2>
     {move ? (<div className="move">
       <div className="info">

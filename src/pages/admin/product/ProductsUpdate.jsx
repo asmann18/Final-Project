@@ -27,9 +27,9 @@ const ProductsUpdate = () => {
     const [price, setPrice] = useState(0);
     const [count, setCount] = useState(0);
     const [discount, setDiscount] = useState(0);
-    const [productCategoryId, setProductCategoryId] = useState("");
-    const [brandId, setBrandId] = useState("");
-    const [aromaId, setAromaId] = useState("");
+    const [productCategoryId, setProductCategoryId] = useState(0);
+    const [brandId, setBrandId] = useState(0);
+    const [aromaId, setAromaId] = useState(0);
     const [productImagesF, setProductImagesF] = useState([]);
   
     useEffect(() => {
@@ -122,6 +122,7 @@ const ProductsUpdate = () => {
         <input type="number" id='price' value={price} onChange={(e) => { setPrice(e.target.value) }} placeholder='Qiymet daxil edin' />
         <input type="number" id='count' value={count} onChange={(e) => { setCount(e.target.value) }} placeholder='Miqdar daxil edin' />
         <input type="number" id='discount' value={discount} onChange={(e) => { setDiscount(e.target.value) }} placeholder='Endirim daxil edin' />
+        
         <select name="ProductCategoryId" id="categoryId" value={productCategoryId} onChange={(e) => setProductCategoryId(e.target.value)}>
           <option  value="">Kategoriya seçin</option>
           {categories.map((category, i) => {

@@ -3,7 +3,7 @@ import ArrowImage from '../../../assets/images/right_arrow.png'
 import SliderPhoto1 from '../../../assets/images/boy.png'
 import SliderPhoto2 from '../../../assets/images/man.png'
 import SliderPhoto3 from '../../../assets/images/man2.png'
-const HomeSection2 = () => {
+const   HomeSection2 = () => {
   return (
     <div className='sliderSection'>
         <div className="slider">

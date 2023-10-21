@@ -15,7 +15,7 @@ const PartsDetail = () => {
     },[id])
 
   return (
-    <div className='adminPanelDetail partDetail'>{part ? (<div className="part">
+    <div className='adminPanelDetail productDetail'>{part ? (<div className="part">
     <div className="info">
         <div className="img">
             <img src={part.image.path} alt="partImage" />

@@ -97,7 +97,8 @@ const ProductsDetail = () => {
         <p>Brand: {brand ? brand.name : ""}</p>
         <p>Aroma: {aroma ? aroma.name : ""}</p>
         </div>
-        <button onClick={()=>history(-1)}>Back</button>
+        <button onClick={() => history(-1)} className='btn btn-primary'>Back</button>
+
       </div>
     </div>
   )

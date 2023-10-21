@@ -76,7 +76,7 @@ const AdminPanelTable = ({Rows,Columns}) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[1,3, 5,10,100]}
+          rowsPerPageOptions={[1,3,5,10,20,50,100]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

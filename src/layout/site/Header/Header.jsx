@@ -8,6 +8,7 @@ import SiteHeaderMobileNavbar from '../../../components/site/Header/SiteHeaderMo
 import Login from '../../../components/site/Home/Login'
 import MainContext from '../../../contexts/MainContext'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 const Header = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   const data = { toggleLogin, setToggleLogin }
@@ -19,9 +20,9 @@ const Header = () => {
     <MainContext.Provider value={data}>
 
       <header className='header'>
-        <div className="headerLeft">
+        <Link to={"/"} className="headerLeft">
           <SiteHeaderLogo className='siteHeaderLogo' />
-        </div>
+        </Link>
 
 
         <div className="headerCenter">

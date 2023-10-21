@@ -14,13 +14,15 @@ const ProductCategoriesDetail = () => {
     }
   },[])
   return (
-    <div className='adminPanelDetail categoryDetail'>
+    <div className='adminPanelDetail productDetail'>
       Product Category Detail
       {category ? <div className="category">
         <p>id:{category.id}</p>
         <p>name:{category.name}</p>
         <p>description:{category.description}</p>
       </div> :""}
+      <button onClick={() => history(-1)} className='btn btn-primary'>Back</button>
+
         
     </div>
   )
