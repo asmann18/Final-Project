@@ -8,4 +8,5 @@ public interface IUserService
 
     Task<ResultDto> CreateUserAsync(UserPostDto userPostDto);
     Task<ResultDto> CreateRoleAsync();
+    Task<DataResultDto<UserInfoDto>> GetUserInfo();
 }

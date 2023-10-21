@@ -2,7 +2,7 @@
 
 namespace Atlet.Business.Exceptions.Blogs.BlogExceptions;
 
-public class BlogNotFoundException:Exception
+public class BlogNotFoundException:Exception,IBaseException
 {
     public int StatusCode { get; set; } = (int)HttpStatusCode.NotFound;
     public string Message { get; set; } = "Blog is not found!";

@@ -3,6 +3,7 @@ using Atlet.Business.DTOs.Identity;
 using Atlet.Business.Exceptions.Identity;
 using Atlet.Business.Services.Interfaces.Identity;
 using Atlet.Core.Entities.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -60,8 +61,8 @@ public class AuthService : IAuthService
 
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         string token = tokenHandler.WriteToken(jwtSecurityToken);
-
-        return new TokenResponseDto(token, jwtSecurityToken.ValidTo, user.UserName);
+        
+        return new TokenResponseDto(token, jwtSecurityToken.ValidTo, user.UserName, roles[0]);
     }
 
     public async Task<DataResultDto<TokenResponseDto>> Login(UserLoginDto userLoginDto)
@@ -75,6 +76,8 @@ public class AuthService : IAuthService
             throw new LoginFailedException();
 
         var tokenResponse = CreateToken(user).Result;
+
+   
         return new DataResultDto<TokenResponseDto>(tokenResponse);
     }
 }

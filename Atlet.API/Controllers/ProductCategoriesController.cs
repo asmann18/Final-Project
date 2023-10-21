@@ -30,7 +30,7 @@ namespace Atlet.API.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> GetProductByIdAsync([FromRoute] int id)
+        public async Task<IActionResult> GetProductCategoryByIdAsync([FromRoute] int id)
         {
 
 
@@ -39,20 +39,20 @@ namespace Atlet.API.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin,Moderator")]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductCategoryPostDto productCategoryPostDto)
+        public async Task<IActionResult> CreateProductCategory([FromBody] ProductCategoryPostDto productCategoryPostDto)
         {
             return Ok(await _productCategoryService.CreateCategoryAsync(productCategoryPostDto));
         }
         [HttpPut("[action]")]
         [Authorize(Roles = "Admin,Moderator")]
-        public async Task<IActionResult> PutProductById([FromBody] ProductCategoryPutDto productCategoryPutDto)
+        public async Task<IActionResult> PutProductCategoryById([FromBody] ProductCategoryPutDto productCategoryPutDto)
         {
             return Ok(await _productCategoryService.UpdateCategoryAsync(productCategoryPutDto));
         }
 
         [HttpDelete("[action]/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteProductById([FromRoute] int id)
+        public async Task<IActionResult> DeleteProductCategoryById([FromRoute] int id)
         {
             return Ok(await _productCategoryService.DeleteCategoryAsync(id));
         }

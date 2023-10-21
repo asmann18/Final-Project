@@ -2,6 +2,8 @@
 using Atlet.Business.Services.Interfaces.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Atlet.API.Controllers;
 
@@ -18,7 +20,13 @@ public class AuthController : ControllerBase
     [HttpPost("[action]")]
     public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
     {
+        var result = await _authService.Login(userLoginDto);
 
-        return Ok(await _authService.Login(userLoginDto));
+        Response.Cookies.Append("tokenData", JsonConvert.SerializeObject(result), new CookieOptions
+        {
+            SameSite = SameSiteMode.None,
+            Secure = true 
+        });
+        return Ok(result);
     }
 }

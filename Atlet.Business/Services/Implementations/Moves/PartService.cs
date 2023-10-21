@@ -80,8 +80,10 @@ public class PartService : IPartService
         isExist=await _partRepository.IsExistAsync(p=>p.Id==partPutDto.Id);
         if (!isExist)
             throw new PartNotFoundException();
-        var part=_mapper.Map<Part>(partPutDto);
-        part.ImageId = await _imageService.UpdateImage(part.ImageId, partPutDto.ImageF);
+        var existPart = await _partRepository.GetByIdAsync(partPutDto.Id);
+        var part=_mapper.Map(partPutDto,existPart);
+        if(partPutDto.ImageF is not null)
+            part.ImageId = await _imageService.UpdateImage(part.ImageId, partPutDto.ImageF);
         _partRepository.Update(part);
         await _partRepository.SaveAsync();
         return new ResultDto(true,"Part is successfully uptaded");

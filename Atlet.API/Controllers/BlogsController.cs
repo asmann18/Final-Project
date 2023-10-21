@@ -23,7 +23,7 @@ public class BlogsController : ControllerBase
     }
 
     [HttpGet("[action]/{id}")]
-    public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+    public async Task<IActionResult> GetBlogById([FromRoute] int id)
     {
         return Ok(await _blogService.GetBlogByIdAsync(id));
     }

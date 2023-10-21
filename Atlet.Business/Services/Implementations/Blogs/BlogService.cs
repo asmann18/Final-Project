@@ -4,6 +4,7 @@ using Atlet.Business.Exceptions.Blogs.BlogExceptions;
 using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.Blogs;
 using Atlet.Core.Entities.Blogs;
+using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.DataAccess.Repostories.Interfaces.Blogs;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -81,12 +82,32 @@ public class BlogService : IBlogService
             throw new BlogNotFoundException();
 
         var blog = _mapper.Map(blogPutDto,uptadedBlog);
-        _blogRepository.Update(blog);
-        if(blogPutDto.BlogImagesF.Length is not 0)
+        if(blogPutDto.BlogImagesF is not null)
         {
-            await _imageService.UpdateBlogImages(blogPutDto.Id,blogPutDto.BlogImagesF);
+            var images=await _imageService.UpdateBlogImages(blogPutDto.Id,blogPutDto.BlogImagesF);
+            blog.BlogImages = images;
         }
+
+        _blogRepository.Update(blog);
         await _blogRepository.SaveAsync();
         return new ResultDto(true, "Blog is successfully uptaded");
+    }
+
+    public async Task<ResultDto> AddBlogImages(int blogId,BlogImage BlogImage)
+    {
+        var blog=await _blogRepository.GetByIdAsync(blogId);
+
+        blog.BlogImages.Add(BlogImage);
+        await _blogRepository.SaveAsync();
+        return new ResultDto("successfully");
+    }
+
+    public async Task<ResultDto> RemoveBlogImages(int blogId, BlogImage BlogImage)
+    {
+        var blog = await _blogRepository.GetByIdAsync(blogId);
+
+        blog.BlogImages.Remove(BlogImage);
+        await _blogRepository.SaveAsync();
+        return new ResultDto("successfully");
     }
 }

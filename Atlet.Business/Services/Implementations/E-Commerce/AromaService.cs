@@ -38,6 +38,7 @@ public class AromaService : IAromaService
             throw new AromaNotFoundException();
         
         _aromaRepository.Delete(aroma);
+        await _aromaRepository.SaveAsync();
         return new ResultDto(true, "Aroma successfully deleted");
     }
 

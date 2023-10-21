@@ -6,7 +6,7 @@ public interface IBlogImageService
 {
     Task<List<BlogImage>> GetBlogImageUrlsByIdAsync(int BlogId);
     Task DeleteBlogImages(int BlogId);
-    Task<int> CreateBlogImage(int BlogId, int imageId);
+    Task<BlogImage> CreateBlogImage(int BlogId, int imageId);
 
 
 }

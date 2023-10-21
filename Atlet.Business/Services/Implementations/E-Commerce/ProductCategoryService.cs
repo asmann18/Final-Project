@@ -3,6 +3,7 @@ using Atlet.Business.DTOs.E_Commerce.ProductCategoryDtos;
 using Atlet.Business.DTOs.E_Commerce.ProductDtos;
 using Atlet.Business.Exceptions.E_Commerce.ProductCategoryExceptions;
 using Atlet.Business.Exceptions.E_Commerce.ProductExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
@@ -15,11 +16,13 @@ public class ProductCategoryService : IProductCategoryService
 {
     private readonly IProductCategoryRepository _productCategoryRepository;
     private readonly IMapper _mapper;
+    private readonly IImageService _imageService;
 
-    public ProductCategoryService(IProductCategoryRepository productCategoryRepository,IMapper mapper)
+    public ProductCategoryService(IProductCategoryRepository productCategoryRepository, IMapper mapper, IImageService imageService)
     {
         _productCategoryRepository = productCategoryRepository;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<ResultDto> CreateCategoryAsync(ProductCategoryPostDto productCategoryPostDto)
@@ -59,6 +62,10 @@ public class ProductCategoryService : IProductCategoryService
         if (productCategory is null)
             throw new ProductCategoryNotFoundException();
         var productDtos = _mapper.Map<List<ProductRelationDto>>(productCategory.Products);
+        foreach (var dto in productDtos)
+        {
+            dto.ProductImagePaths= await _imageService.GetProductImageUrlsByIdAsync(dto.Id);
+        }
         return new DataResultDto<List<ProductRelationDto>>(productDtos);
 
     }

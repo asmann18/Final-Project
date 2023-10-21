@@ -23,7 +23,7 @@ namespace Atlet.API.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+        public async Task<IActionResult> GetMoveById([FromRoute] int id)
         {
             return Ok(await _moveService.GetMoveByIdAsync(id));
         }

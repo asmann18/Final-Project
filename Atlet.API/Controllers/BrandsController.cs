@@ -17,7 +17,7 @@ public class BrandsController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> GetAllProducts([FromQuery]string? search)
+    public async Task<IActionResult> GetAllBrands([FromQuery]string? search)
     {
         return Ok(await _brandService.GetAllBrandsAsync(search));
     }
@@ -28,7 +28,7 @@ public class BrandsController : ControllerBase
         return Ok(await _brandService.GetAllProductsInBrandByBrandIdAsync(id));
     }
     [HttpGet("[action]/{id}")]
-    public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+    public async Task<IActionResult> GetBrandById([FromRoute] int id)
     {
         return Ok(await _brandService.GetBrandByIdAsync(id));
     }

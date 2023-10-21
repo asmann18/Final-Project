@@ -82,9 +82,17 @@ public class BrandService : IBrandService
         isExist = await _brandRepository.IsExistAsync(b => b.Id == brandPutDto.Id);
         if (!isExist)
             throw new BrandNotFoundException();
+        var existingBrand = await _brandRepository.GetByIdAsync(brandPutDto.Id);
 
-        var brand = _mapper.Map<Brand>(brandPutDto);
-        brand.ImageId=await _imageService.UpdateImage(brandPutDto.Id, brandPutDto.ImageF);
+        if (existingBrand == null)
+            throw new BrandNotFoundException();
+
+            var brand = _mapper.Map(brandPutDto,existingBrand);
+        if(brandPutDto.ImageF is not null)
+        {
+            brand.ImageId=await _imageService.UpdateImage(brandPutDto.Id, brandPutDto.ImageF);
+
+        }
         _brandRepository.Update(brand);
         await _brandRepository.SaveAsync();
             return new ResultDto(true,"Product successfully uptaded");

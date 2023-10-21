@@ -1,17 +1,14 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.Services.Interfaces;
-using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Business.Services.Interfaces.ManyToMany;
 using Atlet.Core.Entities;
+using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.Moves;
 using Atlet.DataAccess.Repostories.Interfaces;
-using AutoMapper;
 using FireSharp.Config;
 using FireSharp.Interfaces;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.Business.Services.Implementations;
 
@@ -22,6 +19,7 @@ public class ImageService : IImageService
     private readonly IMoveImageService _moveImageService;
     private readonly IBlogImageService _blogImageService;
     private readonly ICloudinaryService _cloudinaryService;
+
 
 
     public ImageService(IImageRepository imageRepository, IProductImageService productImageService, IMoveImageService moveImageService, IBlogImageService blogImageService, ICloudinaryService cloudinaryService)
@@ -132,25 +130,27 @@ public class ImageService : IImageService
 
 
 
-    public async Task CreateBlogImages(int blogId, IFormFile[] images)
+    public async Task<List<BlogImage>> CreateBlogImages(int blogId, IFormFile[] images)
     {
+        List<BlogImage> imagesList = new List<BlogImage>();
         foreach (var img in images)
         {
             Image image = new Image(await _cloudinaryService.FileCreateAsync(img));
             await _imageRepository.CreateAsync(image);
-            await _blogImageService.CreateBlogImage(blogId, image.Id);
+            var i=await _blogImageService.CreateBlogImage(blogId, image.Id);
+            imagesList.Add(i);
         }
-        return;
+        return imagesList;
     }
 
     public async Task DeleteBlogImages(int blogId)
     {
         await _blogImageService.DeleteBlogImages(blogId);
     }
-    public async Task UpdateBlogImages(int blogId, IFormFile[] images)
+    public async Task<List<BlogImage>> UpdateBlogImages(int blogId, IFormFile[] images)
     {
         await DeleteBlogImages(blogId);
-        await CreateBlogImages(blogId, images);
+       return await CreateBlogImages(blogId, images);
     }
 
 

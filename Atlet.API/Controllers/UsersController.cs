@@ -1,5 +1,6 @@
 ﻿using Atlet.Business.DTOs.Identity;
 using Atlet.Business.Services.Interfaces.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atlet.API.Controllers;
@@ -21,6 +22,14 @@ public class UsersController : ControllerBase
         var response = await _userService.CreateUserAsync(userPostDto);
         return StatusCode((int)response.statusCode, response.message);
     }
+    [HttpGet("[action]")]
+    [Authorize]
+    public async Task<IActionResult> UserGetInfo()
+    {
+        return Ok(_userService.GetUserInfo());
+    }
+
+
     //[HttpPost("[action]")]
     //public async Task<IActionResult> CreateRoles()
     //{

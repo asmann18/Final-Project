@@ -75,7 +75,8 @@ public class BlogCategoryService : IBlogCategoryService
         isExist=await _blogCategoryRepository.IsExistAsync(c=>c.Id==blogCategoryPutDto.Id);
         if(!isExist)
             throw new BlogCategoryNotFoundException();
-        var category=_mapper.Map<BlogCategory>(blogCategoryPutDto);
+        var existCategory =await _blogCategoryRepository.GetByIdAsync(blogCategoryPutDto.Id);
+        var category=_mapper.Map(blogCategoryPutDto,existCategory);
         _blogCategoryRepository.Update(category);
         await _blogCategoryRepository.SaveAsync();
         return new ResultDto(true,"BlogCategory is successfully uptaded");

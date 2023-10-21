@@ -1,4 +1,5 @@
 ﻿using Atlet.Business.DTOs.Common;
+using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.Core.Entities.Moves;
 using Microsoft.AspNetCore.Http;
@@ -22,9 +23,9 @@ public interface IImageService
 
 
 
-    Task CreateBlogImages(int blogId,IFormFile[] images);
+    Task<List<BlogImage>> CreateBlogImages(int blogId,IFormFile[] images);
     Task DeleteBlogImages(int blogId);
-    Task UpdateBlogImages(int blogId, IFormFile[] images);
+    Task<List<BlogImage>> UpdateBlogImages(int blogId, IFormFile[] images);
     Task CreateMoveImages(int moveId,IFormFile[] images);
     Task DeleteMoveImages(int moveId);
     Task UpdateMoveImages(int moveId, IFormFile[] images);

@@ -14,4 +14,6 @@ public class ProductRelationDto:IDto
     public int Discount { get; init; }
     public int SalesCount { get; init; }
     public double Rating { get; init; }
+    public List<string> ProductImagePaths { get; set; } = new List<string>();
+
 }

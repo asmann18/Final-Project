@@ -8,5 +8,5 @@ public class PartPutDto:IDto
 {
     public int Id { get; set; }
     public string Name { get; init; }
-    public IFormFile ImageF { get; init; }
+    public IFormFile? ImageF { get; init; }
 }

@@ -51,14 +51,14 @@ namespace Atlet.API.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize]
         public async Task<IActionResult> CreateProduct([FromForm] ProductPostDto productPostDto)
         {
             return Ok(await _productService.CreateProductAsync(productPostDto));
         }
         [HttpPut("[action]")]
         [Authorize(Roles = "Admin,Moderator")]
-        public async Task<IActionResult> PutProductById([FromForm]ProductPutDto productPutDto)
+        public async Task<IActionResult> UpdateProduct([FromForm]ProductPutDto productPutDto)
         {
             return Ok(await _productService.UpdateProductAsync(productPutDto));
         }

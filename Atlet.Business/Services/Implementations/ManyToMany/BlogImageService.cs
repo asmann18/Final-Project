@@ -1,4 +1,5 @@
-﻿using Atlet.Business.Services.Interfaces.ManyToMany;
+﻿using Atlet.Business.Services.Interfaces.Blogs;
+using Atlet.Business.Services.Interfaces.ManyToMany;
 using Atlet.Core.Entities.Blogs.ManyToMany;
 using Atlet.DataAccess.Repostories.Implementations.ManyToMany;
 using Atlet.DataAccess.Repostories.Interfaces.ManyToMany;
@@ -15,18 +16,21 @@ public class BlogImageService : IBlogImageService
         _blogImageRepository = blogImageRepository;
     }
 
-    public async Task<int> CreateBlogImage(int BlogId, int imageId)
+    public async Task<BlogImage> CreateBlogImage(int BlogId, int imageId)
     {
         BlogImage image = new BlogImage(BlogId, imageId);
+        
         await _blogImageRepository.CreateAsync(image);
-        return image.Id;
+
+        return image;
     }
-    public async Task DeleteBlogImages(int MoveId)
+    public async Task DeleteBlogImages(int blogID)
     {
-        var images = await GetBlogImageUrlsByIdAsync(MoveId);
+        var images = await GetBlogImageUrlsByIdAsync(blogID);
         foreach (var image in images)
         {
             _blogImageRepository.Delete(image);
+            
 
         }
         await _blogImageRepository.SaveAsync();

@@ -8,4 +8,5 @@ public interface IAuthService
 {
     Task<DataResultDto<TokenResponseDto>> Login(UserLoginDto userLoginDto);
     Task<TokenResponseDto> CreateToken(AppUser user);
+
 }

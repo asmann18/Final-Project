@@ -17,6 +17,6 @@ public class ProductPutDto:IDto
     public int BrandId { get; init; }
 
     public int AromaId { get; init; }
-    public IFormFile[] ProductImages { get; init; }
+    public IFormFile[]? ProductImagesF { get; init; }
 
 }

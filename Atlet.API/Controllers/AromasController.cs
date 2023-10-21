@@ -2,6 +2,7 @@
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Atlet.API.Controllers;
 
@@ -19,7 +20,9 @@ public class AromasController : ControllerBase
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAllAromas([FromQuery] string? search)
     {
-        return Ok(await _aromaService.GetAllAromasAsync(search));
+        var result = await _aromaService.GetAllAromasAsync(search);
+       
+        return Ok(result);
     }
     [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetAllProductsByAromaId([FromRoute] int id)
@@ -27,7 +30,7 @@ public class AromasController : ControllerBase
         return Ok(await _aromaService.GetAllProductsAsync(id));
     }
     [HttpGet("[action]/{id}")]
-    public async Task<IActionResult> GetBlogCategoryById([FromRoute] int id)
+    public async Task<IActionResult> GetAromaById([FromRoute] int id)
     {
         return Ok(await _aromaService.GetAromaByIdAsync(id));
     }

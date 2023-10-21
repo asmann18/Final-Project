@@ -9,5 +9,5 @@ public class MovePutDto:IDto
     public string Name { get; init; }
     public string Description { get; init; }
     public int PartId { get; init; }
-    public IFormFile[] MoveImagesF { get; init; }
+    public IFormFile[]? MoveImagesF { get; init; }
 }

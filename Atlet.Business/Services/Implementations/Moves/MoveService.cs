@@ -38,7 +38,7 @@ public class MoveService : IMoveService
 
     public async Task<ResultDto> DeleteMoveAsync(int Id)
     {
-        var move = await _moveRepository.GetByIdAsync(Id);
+        var move = await _moveRepository.GetByIdAsync(Id,"Part");
         if (move is null)
             throw new MoveNotFoundExceptions();
         _moveRepository.Delete(move);
@@ -65,7 +65,7 @@ public class MoveService : IMoveService
 
     public async Task<DataResultDto<MoveGetDto>> GetMoveByIdAsync(int Id)
     {
-        var move = await _moveRepository.GetByIdAsync(Id);
+        var move = await _moveRepository.GetByIdAsync(Id,"Part");
         if (move is null)
             throw new MoveNotFoundExceptions();
         var moveDto = _mapper.Map<MoveGetDto>(move);
@@ -81,11 +81,12 @@ public class MoveService : IMoveService
         isExist = await _moveRepository.IsExistAsync(m => m.Id == movePutDto.Id);
         if (!isExist)
             throw new MoveNotFoundExceptions();
-        if(movePutDto.MoveImagesF.Length is not 0)
+        if(movePutDto.MoveImagesF is not null)
         {
-            await _imageService.UpdateMoveImages(movePutDto.Id,movePutDto.MoveImagesF);
+           await _imageService.UpdateMoveImages(movePutDto.Id,movePutDto.MoveImagesF);
         }
-        var move = _mapper.Map<Move>(movePutDto);
+        var existMove = await _moveRepository.GetByIdAsync(movePutDto.Id,"Part");
+        var move = _mapper.Map(movePutDto,existMove);
         _moveRepository.Update(move);
         await _moveRepository.SaveAsync();
         return new ResultDto(true, "Move is successfully uptated");

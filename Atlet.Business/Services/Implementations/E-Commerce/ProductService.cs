@@ -69,9 +69,9 @@ public class ProductService : IProductService
             throw new ProductNotFoundException();
 
         var product=_mapper.Map(productPutDto,uptadedProduct);
-        if(productPutDto.ProductImages.Length is not 0)
+        if(productPutDto.ProductImagesF is not null)
         {
-            await _imageService.UpdateProductImages(productPutDto.Id, productPutDto.ProductImages);
+            await _imageService.UpdateProductImages(productPutDto.Id, productPutDto.ProductImagesF);
         }
         _productRepository.Update(product);
         await _productRepository.SaveAsync();
