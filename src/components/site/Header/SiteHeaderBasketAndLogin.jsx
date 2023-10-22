@@ -7,6 +7,7 @@ import  '../../../assets/styles/site/layout/Header.scss'
 import  '../../../assets/styles/site/layout/Header.scss'
 import CloseIcon from '@mui/icons-material/Close';
 import MainContext from '../../../contexts/MainContext';
+import { Link } from 'react-router-dom';
 
 const SiteHeaderBasketAndLogin = () => {
   const[toggleMenu,setToggleMenu]=useState(false);
@@ -21,9 +22,14 @@ const SiteHeaderBasketAndLogin = () => {
   }
   return (
     <div className='siteHeaderBasketAndLogin'>
+    <Link to={"/basket"}>
+
     <div className="basket">
+        
         <ShoppingCartIcon  />
+        
     </div>
+    </Link>
     <div onClick={loginToggle} className="login ">
        <PersonIcon />
     </div>

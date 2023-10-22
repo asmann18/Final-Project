@@ -13,8 +13,8 @@ const Footer = () => {
       <div className="top">
         <SiteFooterAbout/>
         <div className="shortcuts">
-        <SiteFooterCategories className="categories"/>
-        <SiteFooterMenu className="menux"/>
+        {/* <SiteFooterCategories className="categories"/> */}
+        <SiteFooterMenu />
         </div>
       </div>
       <div className="bottom">

@@ -1,14 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 const SiteFooterMenu = () => {
   return (
-    <div>
+    <div className="menu">
     <h3>Menu</h3>
     <ul>
-        <li>Əsas Səhifə</li>
-        <li>Mağaza</li>
-        <li>Blog</li>
-        <li>Məşq Hərəkətləri</li>
-        <li>Əlaqə</li>
+        <Link to={"/"}>Əsas Səhifə</Link>
+        
+        <Link to={"/shop"}>Mağaza</Link>
+        <Link to={"/blog"}>Blog</Link>
+        <Link to={"moves"}>Məşq Hərəkətləri</Link>
+        <Link to={"/contact"}>Əlaqə</Link>
     </ul>
     </div>
   )

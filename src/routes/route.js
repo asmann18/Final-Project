@@ -48,6 +48,8 @@ import MovesUpdate from "../pages/admin/move/MovesUpdate"
 import MovesDelete from "../pages/admin/move/MovesDelete"
 import MovesPage from "../pages/site/Moves/Moves"
 import MoveDetail from "../pages/site/Moves/MoveDetail"
+import BlogDetail from "../pages/site/Blog/BlogDetail"
+import Basket from "../pages/site/Basket/Basket"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -60,6 +62,11 @@ export const ROUTES = [{
             path: "blog",
             element: <Blog />
         },
+        {
+            path:"blog/:id",
+            element:<BlogDetail/>
+        },
+
         {
             path: "contact",
             element: <Contact />
@@ -86,6 +93,10 @@ export const ROUTES = [{
         {
             path: "register",
             element: <Register />
+        },
+        {
+            path:"basket",
+            element:<Basket/>
         },
         {
             path: "*",

@@ -27,12 +27,18 @@ const ProductsCreate = () => {
   useEffect(() => {
     axios.get('https://localhost:7066/api/ProductCategories/GetAllProductCategories').then(res => {
       setCategories(res.data.data)
+    }).catch(e => {
+      console.log(e)
     })
     axios.get('https://localhost:7066/api/Brands/GetAllBrands').then(res => {
       setBrands(res.data.data)
+    }).catch(e => {
+      console.log(e)
     })
     axios.get('https://localhost:7066/api/Aromas/GetAllAromas').then(res => {
       setAromas(res.data.data)
+    }).catch(e => {
+      console.log(e)
     })
   }, [])
   const url = 'https://localhost:7066/api/Products/CreateProduct'

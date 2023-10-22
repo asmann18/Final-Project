@@ -13,7 +13,7 @@ const BlogsUpdate = () => {
     const history=useNavigate()
     const url='https://localhost:7066/api/Blogs/UpdateBlog'
     useEffect(()=>{
-        axios.get(`https://localhost:7066/api/Blogs/GetBlogCategoryById/${id}`).then(res=>{
+        axios.get(`https://localhost:7066/api/Blogs/GetBlogById/${id}`).then(res=>{
             setName(res.data.data.name)
             setDescription(res.data.data.description)
             setBlogCategoryId(res.data.data.blogCategoryId)

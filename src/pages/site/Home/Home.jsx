@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SiteHeaderMobileNavbar from '../../../components/site/Header/SiteHeaderMobileNavbar'
 import HomeSection1 from '../../../components/site/Home/HomeSection1'
 import HomeSection2 from '../../../components/site/Home/HomeSection2'
@@ -11,7 +11,10 @@ import Swipper from '../../../components/site/Home/Swipper'
 import Advertising from '../../../components/Common/Advertising'
 import HomeBrandsSection from '../../../components/site/Home/HomeBrandsSection'
 const Home = () => {
+  const [isLoading,setIsLoading]=useState(true)
   return (
+
+
     <>
     <div className='text-center'>
     <HomeSection1/>

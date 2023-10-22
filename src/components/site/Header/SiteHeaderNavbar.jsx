@@ -30,39 +30,24 @@ const SiteHeaderNavbar = () => {
                 </li>
                 <li  >
                     <Link to={"/shop"}>
-                        Mağaza<ArrowDropDownIcon/>
+                        Mağaza
                     </Link>
-                    <ul className="siteHeaderNavbarInfo">
-                      {productCategories.map((category,i)=>{
-                        return (<li key={i}>{category.name}</li>)
-                      })}
-                    </ul>
                 </li>
                 <li>
                     <Link to={"/blog"}>
-                        Blog<ArrowDropDownIcon/>
+                        Blog
                     </Link>
-                    <ul className="siteHeaderNavbarInfo">
-                      {blogCategories.map((category,i)=>{
-                        return (<li key={i}>{category.name}</li>)
-                      })}
-                    </ul>
                 </li>
                 <li>
                     <Link to={"/moves"}>
-                        Məşq Hərəkətləri<ArrowDropDownIcon/>
+                        Məşq Hərəkətləri
                     </Link>
-                    <ul className="siteHeaderNavbarInfo">
-                      {parts.map((part,i)=>{
-                        return (<li key={i}>{part.name}</li>)
-                      })}
-                    </ul>
                 </li>
-                <li>
+                {/* <li>
                     <Link to={"contact"}>
                         Əlaqə
                     </Link>
-                </li>
+                </li> */}
               
 
             </ul>

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Icon from '@mui/icons-material/FitnessCenter';
 import { Link } from 'react-router-dom';
+import NotFound from './NotFound';
 
 const SiteTable = () => {
     const [parts, setParts] = useState([])
@@ -45,16 +46,14 @@ const SiteTable = () => {
                 })}
             </ul>
             <ul className="rows">
-                {moves.map((move, i) => {
+                {moves.length>0 ? moves.map((move, i) => {
                     return <Link to={`${move.id}`} key={i}>
                         <Icon />
                         <p>{move.name}</p>
                     </Link>
-                })}
+                }) : <NotFound/>}
             </ul>
-            <ul className="filters">
-                hi
-            </ul>
+         
 
         </div>
     )

@@ -29,6 +29,17 @@ const ProductDetail = () => {
       setBasketCount(basketCount - 1)
     }
   }
+
+const AddToBasket=async (e)=>{
+  e.preventDefault()
+  try{
+    axios.post('https://localhost:7066/api/BasketItems/AddToBasket',{productid:id,count:basketCount})
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
   return (
     isLoading ? <div className='productDetail'>
       <div className="detailName">
@@ -86,7 +97,7 @@ const ProductDetail = () => {
                 </div>
               </div>
               <div className="buy">
-                <button>Almaq</button>
+                <button onClick={AddToBasket} >Almaq</button>
               </div>
             </div>
           </div>

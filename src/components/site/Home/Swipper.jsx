@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SampleArrow(props) {
   const { className, style, onClick } = props;
@@ -94,8 +95,8 @@ useEffect(()=>{
     </h2>
     <div className="moves">
       <Slider className="slider" {...settings2}>
-{moves.map((move,i)=>{
-  return(   <div key={i} className="sliderItem">
+{moves.slice(0,4).map((move,i)=>{
+  return(   <Link to={`/moves/${move.id}`} key={i} className="sliderItem">
   <div className="img">
     <img src={move.moveImagePaths[0]} alt="move" />
   </div>
@@ -104,7 +105,7 @@ useEffect(()=>{
     <p>{move.name}</p>
     <span><CalendarTodayIcon/> {move.modifiedTime.substring(0,10)}</span>
   </div>
-</div>)
+</Link>)
 })}
      
 

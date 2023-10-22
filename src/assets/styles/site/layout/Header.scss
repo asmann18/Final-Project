@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Roboto:wght@300&display=swap');
+
 .containerCss {
     margin: 0 auto;
     // padding: 0 20px;
@@ -17,7 +18,7 @@
     background-color: black;
     color: white;
     font-family: 'Montserrat', sans-serif;
-  
+
     // font-family: 'Roboto', sans-serif;
 
     li {
@@ -87,11 +88,12 @@
     gap: 15px;
     align-items: center;
 
-    li{
+    li {
         display: flex;
         flex-direction: column;
         align-items: center;
-        .siteHeaderNavbarInfo{
+
+        .siteHeaderNavbarInfo {
             display: none;
             position: fixed;
             background-color: white;
@@ -103,41 +105,48 @@
             gap: 8px;
             margin-top: 23px;
             font-size: 12px;
-            li{
+
+            li {
                 cursor: pointer;
 
             }
-            li:hover{
+
+            li:hover {
                 color: #D50000;
                 transition: 0.4s;
             }
-            
+
 
         }
-        a{
+
+        a {
 
             display: flex;
             align-items: center;
         }
     }
-    li:hover .siteHeaderNavbarInfo{
-        
-            display: flex;
-        
+
+    li:hover .siteHeaderNavbarInfo {
+
+        display: flex;
+
     }
 
 }
-.headerBottomHamburgerMenu{
+
+.headerBottomHamburgerMenu {
     display: none;
 }
+
 .siteHeaderBasketAndLogin {
     display: flex;
 
     div {
         cursor: pointer;
-        
+
     }
-    .basket{
+
+    .basket {
         padding-bottom: 37px;
     }
 
@@ -164,7 +173,8 @@
         height: 100%;
     }
 }
-.loginFormBg{
+
+.loginFormBg {
     position: fixed;
     z-index: 5;
     top: -0;
@@ -176,14 +186,16 @@
     height: 100vh;
     background: #0000002b;
 }
-.loginFormSection{
+
+.loginFormSection {
     width: 100%;
     z-index: 3;
     position: absolute;
+
     // top: 50%;
     // right: 50%;
     // transform: translate(50%,50%);
-    a{
+    a {
         color: black;
     }
 }
@@ -201,9 +213,18 @@
         font-size: 9px;
         justify-content: space-between;
         padding: 0 10px;
-        .headerBottomHamburgerMenu{
+
+        .siteHeaderBasketAndLogin {
+            display: flex;
+            align-items: center;
+
+            height: 100%;
+        }
+
+        .headerBottomHamburgerMenu {
             display: block;
         }
+
         .siteHeaderInfoIcons {
             gap: 12px;
 
@@ -214,7 +235,7 @@
         }
 
         .siteHeaderLogo {
-            position: static;
+            // position: static;
             left: 5px;
         }
 
@@ -230,21 +251,25 @@
 
 //mobile
 @media (min-width: 100px) and (max-width: 779px) {
-    .containerCss{
+    .containerCss {
         padding: 0px 10px;
         margin: 0;
     }
+
     .header {
         width: 100%;
         padding: 0 10px;
         align-items: center;
-        padding: 0px;
+        padding: 0px 5px;
+        padding-left: 7px;
         justify-content: center;
-        gap:1px;
+        gap: 1px;
+        min-width: none;
 
         .headerCenter {
             padding: 1px;
         }
+
         // .headerLeft{
         //     padding: 0;
         // }
@@ -331,7 +356,8 @@
                 background-color: black;
 
                 svg {
-                    color: #D50000;;
+                    color: #D50000;
+                    ;
                 }
             }
 

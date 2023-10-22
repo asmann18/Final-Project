@@ -8,7 +8,7 @@ const BlogsDetail = () => {
     const [blog, setBlog] = useState()
     const history=useNavigate()
     useEffect(() => {
-        axios.get(`https://localhost:7066/api/Blogs/GetBlogCategoryById/${id}`).then(res => {
+        axios.get(`https://localhost:7066/api/Blogs/GetBlogById/${id}`).then(res => {
             setBlog(res.data.data)
         }).catch(e => {
             console.log(e)
