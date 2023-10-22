@@ -1,6 +1,7 @@
 ﻿using Atlet.Business.DTOs.Common;
 using Atlet.Business.DTOs.E_Commerce.BasketItemDtos;
 using Atlet.Business.Exceptions.E_Commerce.BasketItemExceptions;
+using Atlet.Business.Services.Interfaces;
 using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Core.Entities.E_Commerce;
 using Atlet.DataAccess.Repostories.Interfaces.E_Commerce;
@@ -20,14 +21,16 @@ public class BasketItemService : IBasketItemService
     private readonly bool _isAuthenticated;
     private const string COOKIE_BASKET_ITEM_KEY = "mybasketitemkey";
     private readonly IOrderService _orderService;
+    private readonly IImageService _imageService;
 
-    public BasketItemService(IHttpContextAccessor contextAccessor, IMapper mapper, IBasketItemRepository basketItemRepository, IOrderService orderService)
+    public BasketItemService(IHttpContextAccessor contextAccessor, IMapper mapper, IBasketItemRepository basketItemRepository, IOrderService orderService, IImageService imageService)
     {
         _contextAccessor = contextAccessor;
         _mapper = mapper;
         _basketItemRepository = basketItemRepository;
         _isAuthenticated = _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
         _orderService = orderService;
+        _imageService = imageService;
     }
 
 
@@ -62,7 +65,7 @@ public class BasketItemService : IBasketItemService
 
         if (_isAuthenticated)
         {
-            var BasketItem = await _basketItemRepository.GetByIdAsync(id, "Products");
+            var BasketItem = await _basketItemRepository.GetByIdAsync(id, "Product");
             if (BasketItem is null)
                 throw new BasketItemNotFoundException();
             if (BasketItem.AppUserId == _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
@@ -87,8 +90,12 @@ public class BasketItemService : IBasketItemService
         if (_isAuthenticated)
         {
             var id = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var basketItems = await _basketItemRepository.GetFiltered(i => i.AppUserId == id && i.IsSold==false).ToListAsync();
+            var basketItems = await _basketItemRepository.GetFiltered(i => i.AppUserId == id && i.IsSold == false, "AppUser","Product").ToListAsync();
             var itemDtos=_mapper.Map<List<BasketItemGetDto>>(basketItems);
+            foreach (var item in itemDtos)
+            {
+                item.Product.ProductImagePaths=await _imageService.GetProductImageUrlsByIdAsync(item.ProductId);
+            }
             return new DataResultDto<List<BasketItemGetDto>>(itemDtos);
         }
         var CookieBasketItems= GetBasketItemsFromCookie();

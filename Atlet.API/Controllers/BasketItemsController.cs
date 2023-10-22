@@ -28,7 +28,7 @@ public class BasketItemsController : ControllerBase
 
         return Ok(await _basketItemService.AddAsync(basketItemPostDto));
     }
-    [HttpDelete("[action]")]
+    [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> DeleteToBasket([FromRoute]int Id)
     {
         return Ok(await _basketItemService.DeleteByIdAsync(Id));

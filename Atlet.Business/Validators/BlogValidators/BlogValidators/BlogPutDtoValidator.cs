@@ -9,6 +9,6 @@ internal class BlogPutDtoValidator:AbstractValidator<BlogPutDto>
     public BlogPutDtoValidator()
     {
         RuleFor(b => b.Name).NotEmpty().NotNull().MaximumLength(64).MinimumLength(2);
-        RuleFor(b => b.Description).NotEmpty().NotNull().MaximumLength(256).MinimumLength(3);
+        RuleFor(b => b.Description).NotEmpty().NotNull().MaximumLength(5000).MinimumLength(3);
     }
 }
