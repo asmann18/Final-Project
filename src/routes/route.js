@@ -50,6 +50,11 @@ import MovesPage from "../pages/site/Moves/Moves"
 import MoveDetail from "../pages/site/Moves/MoveDetail"
 import BlogDetail from "../pages/site/Blog/BlogDetail"
 import Basket from "../pages/site/Basket/Basket"
+import Orders from "../pages/site/Orders/Orders"
+import OrdersAdmin from "../pages/admin/order/Orders"
+import OrderUpdate from "../pages/admin/order/OrderUpdate"
+import Users from "../pages/admin/user/Users"
+import UserUpdate from "../pages/admin/user/UserUpdate"
 export const ROUTES = [{
     path: "/",
     element: <SiteRoot />,
@@ -97,6 +102,10 @@ export const ROUTES = [{
         {
             path:"basket",
             element:<Basket/>
+        },
+        {
+            path:"orders",
+            element:<Orders/>
         },
         {
             path: "*",
@@ -305,6 +314,21 @@ export const ROUTES = [{
                 element:<MovesDelete/>
 
             },
+            {
+                path:"orders",
+                element:<OrdersAdmin/>
+            },
+            {
+                path:"orders/update/:id",
+                element:<OrderUpdate/>
+            },
+            {
+                path:"users",
+                element:<Users/>
+            },  {
+                path:"users/update/:id",
+                element:<UserUpdate/>
+            }
 
         ]
 }

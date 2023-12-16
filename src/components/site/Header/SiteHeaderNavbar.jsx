@@ -43,11 +43,11 @@ const SiteHeaderNavbar = () => {
                         Məşq Hərəkətləri
                     </Link>
                 </li>
-                {/* <li>
+                <li>
                     <Link to={"contact"}>
                         Əlaqə
                     </Link>
-                </li> */}
+                </li>
               
 
             </ul>

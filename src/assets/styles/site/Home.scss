@@ -8,9 +8,10 @@ a{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    // padding: 20px;
 
 
-    min-height: 250px;
+    min-height: 290px;
     width: 100%;
 
 }
@@ -39,6 +40,8 @@ a{
         justify-content: space-between;
         gap: 100px;
         padding: 0 10px;
+        
+        width: 27%;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0px 0px 10px rgba(0, 0.5, 0.5, 0.5);
@@ -75,9 +78,10 @@ a{
     .products {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: left;
         padding: 10px;
         gap: 30px;
+        justify-content: center;
 
         .product {
             background: white;
@@ -102,11 +106,31 @@ a{
                 font-weight: 700;
 
             }
-
+            
             span {
-                color: red;
+                color: #D50000;
                 font-weight: 700;
                 font-size: medium;
+            }
+
+
+            .icons{
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                color: rgba(128, 128, 128, 0.588);
+                display: none;
+            }
+        }
+        .product:hover{
+            transition: 1s;
+            scale: 1.01;
+            border:1px solid #D50000;
+            .icons{
+                display: block;
+                svg:hover{
+                    color: #D50000;
+                }
             }
         }
     }
@@ -150,6 +174,9 @@ a{
 
             .info {
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-content: space-around;
                 
                 p {
                     font-size: large;
@@ -177,6 +204,19 @@ a{
             }
 
             background-color: white;
+           
+        }
+        
+        &:hover{
+            button{
+
+                background-color: rgb(203,3,3);
+                border: 0.5px solid white;
+                
+            }
+            a{
+                color: white;
+            }
         }
     }
 }
@@ -279,18 +319,18 @@ h2{
 }
 }
 .brandsSlider{
-    height: 130px;
+    height: 100px;
     overflow: hidden;
     display: flex;
     align-items: start;
    
     .sliderItem{
         // width: 200px;
-        height: 130px;
+        height: 100px;
         
         img{
             width: 100%;
-            height: 130px;
+            height: 100px;
             object-fit: cover;
         }
 
@@ -324,9 +364,11 @@ h2{
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-evenly;
+                
 
 
             }
+          
         }
     }
 
@@ -357,8 +399,14 @@ h2{
             .product {
                 width: 95%;
                 flex-direction: row;
-                align-items: center;
-                justify-content: space-evenly;
+                align-items: flex-start;
+                justify-content: space-between;
+                .productInfo{
+                    p{
+                        font-size: 12px;
+                    }
+                }
+                
 
 
             }

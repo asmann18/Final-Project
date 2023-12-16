@@ -12,7 +12,7 @@ const HomeBlogSection = () => {
     return (
         <div className='blogSection bgRed'>
             <div className="txt"><h2>Bloqlar</h2></div>
-            <div className="blogs">{blogs.slice(0, 4).map((blog, index) => {
+            <div className="blogs">{blogs.slice(0, 5).map((blog, index) => {
                 return (
                     <Link to={`/blog/${blog.id}`} key={index} className="blog">
                         <div className="image">

@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom';
 
 const AdminHeaderTop = () => {
   const [username, setUsername] = useState("")
+  const [error,setError] = useState("")
+  const [dummy,setDummy] = useState(false)
 
   useEffect(() => {
-    const thread = setTimeout(() => {
-      axios.get('https://localhost:7066/api/Users/UserGetInfo').then(res => {
-        setUsername(res.data.result.data.username)
+    axios.get("https://localhost:7066/api/Users/UserGetInfo").then(res=>{
+      setUsername(res.data.data.username)
+      setDummy(!dummy)
+    }).catch(err=>{
+      setError(err.message)
+      // setDummy(!dummy)
 
-      }).catch(e => {
-        console.log(e)
-      })
-    }, 1000)
+    })
 
   }, [])
   return (

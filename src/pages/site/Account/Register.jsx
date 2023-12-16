@@ -11,6 +11,9 @@ const Register = () => {
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordconfirm] = useState("")
     const url = "https://localhost:7066/api/Users/Register";
+
+    const [errors,setErrors]=useState([])
+
     const history=useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,9 +22,10 @@ const Register = () => {
             const response=await axios.post(url,{
                 fullname,username,email,password,passwordConfirm
             })
-            history("/login")
+            history("/")
         }catch(error){
             console.log(error.response)
+            setErrors(error.response)
         }
     
     

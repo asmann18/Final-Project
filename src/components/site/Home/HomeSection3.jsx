@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import ProductImage from '../../../assets/images/1061961.jpg'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const HomeSection3 = () => {
     const [newProducts, setNewProducts] = useState([])
     useEffect(() => {
@@ -9,6 +10,11 @@ const HomeSection3 = () => {
             setNewProducts(res.data.data)
         })
     }, [])
+
+
+    
+      
+
     return (
         <div className='newProducts'>
             <div className="txt">
@@ -17,7 +23,7 @@ const HomeSection3 = () => {
             </div>
             <div className="products">
                 {newProducts.map((product, i) => {
-                    return (<Link to={"productDetail/"+(product.id)} key={i} className="product">
+                    return (<Link to={"productDetail/" + (product.id)} key={i} className="product">
                         <div className="image">
 
                             <img src={product.productImagePaths[0]} alt="product" />
@@ -25,6 +31,12 @@ const HomeSection3 = () => {
                         <div className="productInfo">
                             <p>{product.name}</p>
                             <span>{product.price}$</span>
+                            {/* <span className='icons'>
+                                
+                                    <ShoppingCartIcon  />
+
+                                <FavoriteBorderIcon />
+                            </span> */}
                         </div>
                     </Link>)
                 })}

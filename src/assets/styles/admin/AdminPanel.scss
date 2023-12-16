@@ -5,6 +5,7 @@
     padding: 10px;
     margin: 0 auto;
     gap: 10px;
+    min-height: 70vh;
 
     .listInfo {
         display: flex;
@@ -12,6 +13,20 @@
         justify-content: space-around;
     }
 
+}
+
+.dashboardAdmin {
+    padding: 30px;
+    color: #D50000;
+    gap: 20px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+        width: 150px;
+        height: 150px;
+    }
 }
 
 .btn {
@@ -81,9 +96,11 @@
     align-items: center;
     padding: 30px;
     gap: 10px;
-    h2{
+
+    h2 {
         color: #DC3545;
     }
+
     .adminCreate {
         display: flex;
         flex-direction: column;
@@ -120,11 +137,13 @@
             outline: none;
             padding: 10px 15px;
             color: #DC3545;
-            option{
+
+            option {
                 color: #DC3545;
             }
         }
-        button{
+
+        button {
             padding: 10px 15px;
             width: 60%;
             border: none;
@@ -132,6 +151,176 @@
             background: #DC3545;
             color: white;
             cursor: pointer;
+        }
+    }
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        font-weight: 500;
+    }
+}
+
+// .orderProductsList{
+//     margin: 0 auto;
+//     text-align: center;
+//         width: 80%;
+//         display: flex;
+//         justify-content: space-between;
+//         flex-direction: column;padding: 10px;
+//         thead{
+//             display: flex;
+//             justify-content: space-between;
+//         }
+
+//     tr{
+//         display: flex;
+//         justify-content: space-between;
+//         width: 100%;
+
+//     }
+//     td{
+
+//         img{
+//             width: 50px !important;
+//             height: 50px !important;
+//             overflow: hidden !important;
+//         }
+//     }
+//     .basketItem{
+
+//         .name{
+//             width: 200px;
+//         }
+//         .img{
+//             width: 50px;
+//             height: 50px;
+//             img{
+//                 width: 100%;
+//                 object-fit: cover;
+//             }
+//         }
+//     }
+// }
+.adminPanelDetail {
+    padding: 30px;
+    padding: 10px;
+
+    &.productDetail {
+        margin-bottom: 50px;
+
+        .part {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            .info {
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                p {
+                    margin: 5px 0;
+                    font-size: 16px;
+                }
+            }
+
+            .orderProductsList {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+
+                th,
+                td {
+                    border: 1px solid #ddd;
+                    padding: 12px;
+                    text-align: center;
+                }
+
+                .columns {
+                    background-color: #f5f5f5;
+                    font-weight: bold;
+                }
+
+                .rows {
+                    .basketItem {
+                        transition: background-color 0.3s;
+
+                        &:hover {
+                            background-color: #f9f9f9;
+                        }
+
+                        .img {
+                            img {
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 4px;
+                                object-fit: cover;
+                            }
+                        }
+
+                        .name,
+                        .count,
+                        .price,
+                        .total {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+
+            .button {
+                display: flex;
+                gap: 10px;
+                margin-top: 10px;
+
+                .btn {
+                    padding: 12px 20px;
+                    background-color: #007bff;
+                    color: #fff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 16px;
+
+                    &:hover {
+                        background-color: #0056b3;
+                    }
+
+                }
+
+                .btn-danger {
+                    background-color: red;
+
+                    &:hover {
+                        background-color: #DC3545;
+                    }
+
+                }
+
+                .btn-warning {
+                    background-color: #FFC107;
+
+                    &:hover {
+                        background-color: #ffc107aa;
+                    }
+                }
+
+                .btn-success {
+                    background-color: #24973E;
+
+                    &:hover {
+                        background-color: #24973fd3;
+                    }
+                }
+            }
         }
     }
 }

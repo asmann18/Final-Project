@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import logo from '../../../assets/images/logo_red.png'
 const Dashboard = () => {
 
 const [tokenData,setTokenData]=useState([])
@@ -10,7 +10,10 @@ setTokenData(JSON.parse(localStorage.getItem("tokenData")));
 },[])
 
   return (
-    <div>Dashboard</div>
+    <section className='dashboardAdmin'>
+    <div>Welcome to Atlet.az Admin Panel</div>
+    <img src={logo} alt="" />
+    </section>
   )
 }
 

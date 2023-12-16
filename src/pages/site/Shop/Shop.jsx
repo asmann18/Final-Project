@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import BannerSlider from '../../../components/site/Common/BannerSlider'
 import NotFound from '../../../components/site/Common/NotFound'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Shop = () => {
+const Shop = (toastify) => {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([{ id: 1, name: "hu", productImagePaths: ["hi"] }])
   const [active, setActive] = useState(1)
   const [aromas, setAromas] = useState([])
   const [brands, setBrands] = useState([])
-  const [aromaId, setAromaId] = useState(null)
-  const [brandId, setBrandId] = useState(null)
-  const [fromPrice, setFromPrice] = useState(null)
-  const [toPrice, setToPrice] = useState(null)
-  const [fromRating, setFromRating] = useState(null)
-  const [toRating, setToRating] = useState(null)
-
+  const [aromaId, setAromaId] = useState()
+  const [brandId, setBrandId] = useState()
+  const [fromPrice, setFromPrice] = useState()
+  const [toPrice, setToPrice] = useState()
+  const [fromRating, setFromRating] = useState()
+  const [toRating, setToRating] = useState()
+  const location=useLocation()
+  const notify = () => toast.success("Sifarişiniz qeydə alındı,sizinlə əlaqə saxlanılacaq!");
+  
+  
+  
+  const [activeCategoryId, setActiveCategoryId] = useState(1)
+  
   useEffect(() => {
+    
+    console.log({toastify});
+    if (toastify===true) {
+      notify();
+    }
+
+
+
+
     axios.get('https://localhost:7066/api/ProductCategories/GetAllProductCategories').then(res => {
       setCategories(res.data.data)
       axios.get(`https://localhost:7066/api/ProductCategories/GetAllProductsInCategoryById/${res.data.data[0].id}`).then(response => {
@@ -43,7 +60,7 @@ const Shop = () => {
     })
 
 
-  }, [])
+  }, [location,toastify])
 
   const SwitchProducts = async (e, id) => {
     e.preventDefault()
@@ -51,12 +68,31 @@ const Shop = () => {
       axios.get(`https://localhost:7066/api/ProductCategories/GetAllProductsInCategoryById/${id}`).then(response => {
         setProducts(response.data.data)
         setActive(id)
+        setActiveCategoryId(id)
       }).catch(e => {
         console.log(e)
       })
 
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  const ResetProducts = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(`https://localhost:7066/api/ProductCategories/GetAllProductsInCategoryById/${activeCategoryId}`)
+      setProducts(response.data.data)
+      setActive(activeCategoryId)
+      setAromaId(null)
+      setBrandId(null)
+      setFromPrice(null)
+      setToPrice(null)
+      setFromRating(null)
+      setToRating(null)
+
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -86,11 +122,10 @@ const Shop = () => {
       console.log(e)
     }
   }
-
   return (
 
     <div className='shopPage'>
-
+      <ToastContainer />
       <BannerSlider content={"MAĞAZA"} />
       <div className="shopTable">
         <ul className="columns">
@@ -101,7 +136,7 @@ const Shop = () => {
           })}
         </ul>
         <ul className="rows">
-          {products.length>0 ? products.map((product, i) => {
+          {products.length > 0 ? products.map((product, i) => {
             return (<Link to={`/productDetail/${product.id}`} key={i} className="product">
               <div className="image">
                 <img src={product.productImagePaths[0]} alt="" />
@@ -112,7 +147,7 @@ const Shop = () => {
                 <span>{product.price}$</span>
               </div>
             </Link>)
-          }) : <NotFound/>}
+          }) : <NotFound />}
         </ul>
         <form action='post' className="filters">
 
@@ -139,6 +174,7 @@ const Shop = () => {
           </div>
 
           <button onClick={FilterProducts} className='btn btn-success'>Filterlə</button>
+          <button onClick={ResetProducts} className='btn btn-secondary'>Sıfırla</button>
 
         </form>
       </div>

@@ -20,6 +20,9 @@ const AdminHeaderBottom = (root) => {
 
         <Link onClick={() => changeColor('part')}  className={selectClass === 'part' ? 'active' : ''} to={"/admin/parts"}>Parts</Link>
         <Link onClick={() => changeColor('move')}  className={selectClass === 'move' ? 'active' : ''} to={"/admin/moves"}>Moves</Link>
+        <Link onClick={() => changeColor('order')}  className={selectClass === 'order' ? 'active' : ''} to={"/admin/orders"}>Orders</Link>
+        
+        <Link onClick={() => changeColor('user')}  className={selectClass === 'user' ? 'active' : ''} to={"/admin/users"}>Users</Link>
     </div>
   )
 }

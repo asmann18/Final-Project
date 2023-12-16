@@ -5,18 +5,31 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Loading from '../../../components/Common/Loading';
 import '../../../assets/styles/site/Shop.scss';
+import { CircularProgress } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+import CommentArea from '../../../components/site/Shop/CommentArea';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [basketCount, setBasketCount] = useState(1);
+  const[addBasketLoading,setAddBasketLoading]=useState(false)
+  const notify = () => toast.success("Səbətə uğurla əlavə olundu");
+
   useEffect(() => {
     axios.get("https://localhost:7066/api/Products/GetProductById/" + id).then(res => {
       setProduct(res.data.data)
       setIsLoading(true);
+      setBasketCount(1)
+    }).catch(e=>{
+      console.log(e);
     })
-  }, [])
+  }, [id])
   function Increase() {
     if (basketCount < product.count) {
 
@@ -24,7 +37,7 @@ const ProductDetail = () => {
     }
   }
   function Decrease() {
-    if (basketCount > 0) {
+    if (basketCount > 1) {
 
       setBasketCount(basketCount - 1)
     }
@@ -33,8 +46,13 @@ const ProductDetail = () => {
 const AddToBasket=async (e)=>{
   e.preventDefault()
   try{
+    setAddBasketLoading(true)
+    notify()
     axios.post('https://localhost:7066/api/BasketItems/AddToBasket',{productid:id,count:basketCount})
-  }
+    setTimeout(async () => {
+      setAddBasketLoading(false);
+    }, 1000);
+  }  
   catch(e){
     console.log(e)
   }
@@ -42,6 +60,8 @@ const AddToBasket=async (e)=>{
 
   return (
     isLoading ? <div className='productDetail'>
+      <ToastContainer />
+
       <div className="detailName">
         <h2>{product.name}</h2>
         <p>Brand:{product.brand.name}</p>
@@ -67,7 +87,7 @@ const AddToBasket=async (e)=>{
                 <p>Rating:</p>
                 <div className="starts">
 
-                  {Array.from({ length: product.rating }, (v, i) => (<StarIcon key={i} />))}
+                  {/* {Array.from({ length: product.rating }, (v, i) => (<StarIcon key={i} />))}
                   {product.rating == 0 ?
 
 
@@ -81,7 +101,9 @@ const AddToBasket=async (e)=>{
                     : ""
 
 
-                  }
+                  } */}
+
+      <Rating name="read-only" value={product.rating} readOnly />
                 </div>
               </div>
               <div className="count">
@@ -97,7 +119,9 @@ const AddToBasket=async (e)=>{
                 </div>
               </div>
               <div className="buy">
-                <button onClick={AddToBasket} >Almaq</button>
+              <button  onClick={AddToBasket} disabled={addBasketLoading || product.count==0 }>
+            {addBasketLoading ? <CircularProgress className='loading'/> : "Almaq"}
+          </button>
               </div>
             </div>
           </div>
@@ -106,6 +130,7 @@ const AddToBasket=async (e)=>{
           </div>
         </div>
       </div>
+      <CommentArea  />  
     </div> : <Loading />
   )
 }

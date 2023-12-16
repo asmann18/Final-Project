@@ -3,7 +3,7 @@ import React from 'react'
 const SiteFooterAbout = () => {
     return (
         <div className='about'>
-            <h3>INFO</h3>
+            <h3>Haqqımızda</h3>
             <div className="text">
 
             <p>ATLET.AZ — idman qidalarının satışı üzrə, Azərbaycanda ən böyük mağazalar şəbəkəsidir.</p>

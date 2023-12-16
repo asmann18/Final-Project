@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const AdminPanelTable = ({Rows,Columns}) => {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const rows=Rows;
     const columns=Columns;
     const handleChangePage = (event, newPage) => {
@@ -26,7 +26,7 @@ const AdminPanelTable = ({Rows,Columns}) => {
   
     return (
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ minHeight: 500 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -60,8 +60,8 @@ const AdminPanelTable = ({Rows,Columns}) => {
                                                               <div className='buttons'>
                                                               
                                                                 {value.detail ? <Link className='btn btn-primary' to={value.detail}>Detail</Link> :"" }
-                                                              <Link className='btn btn-warning' to={value.update}>Update</Link>
-                                                              <Link className='btn btn-danger' to={value.delete}>Delete</Link>
+                                                             {value.update ? <Link className='btn btn-warning' to={value.update}>Update</Link>:"" }
+                                                              {value.delete?<Link className='btn btn-danger' to={value.delete}>Delete</Link>:""}
                                                               </div>
                                                             )
                                                               :value)
@@ -76,7 +76,7 @@ const AdminPanelTable = ({Rows,Columns}) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[1,3,5,10,20,50,100]}
+          rowsPerPageOptions={[1,5,10,50,100]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

@@ -31,6 +31,7 @@
     background-color: white;
     border: 1px solid whitesmoke;
     width: 60%;
+    min-height: 60vh;
     margin: 10px auto;
     padding: 30px;
     padding-left: 0;
@@ -109,7 +110,6 @@
 
 .moveDetail {
     .detail {
-
         width: 80%;
         margin: 10px auto;
         background: white;
@@ -118,12 +118,14 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         padding: 30px;
 
         .imgs {
             display: flex;
             // height: 200px;
+            justify-content: center ;
             gap: 10px;
             width: 80%;
             flex-wrap: wrap;

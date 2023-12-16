@@ -95,14 +95,14 @@ useEffect(()=>{
     </h2>
     <div className="moves">
       <Slider className="slider" {...settings2}>
-{moves.slice(0,4).map((move,i)=>{
+{moves.slice(0,8).map((move,i)=>{
   return(   <Link to={`/moves/${move.id}`} key={i} className="sliderItem">
   <div className="img">
     <img src={move.moveImagePaths[0]} alt="move" />
   </div>
   <div className="info">
 
-    <p>{move.name}</p>
+    <p>{move.name.substring(0,20)}</p>
     <span><CalendarTodayIcon/> {move.modifiedTime.substring(0,10)}</span>
   </div>
 </Link>)

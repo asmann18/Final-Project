@@ -14,7 +14,7 @@ const BlogTable = () => {
             setCategories(res.data.data)
             axios.get(`https://localhost:7066/api/BlogCategories/GetAllBlogByCategoryId/${res.data.data[0].id}`).then(response => {
                 setBlogs(response.data.data)
-                setActive(response.data.data[0].id)
+                // setActive(response.data.data[0].id)
 
             })
         }).catch(e => {

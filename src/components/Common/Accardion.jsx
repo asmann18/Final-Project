@@ -1,27 +1,21 @@
-import React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-const Accardion = ({Title,Children}) => {
-  return (
-    <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>{Title}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-            {Children.map((child,index)=>{
-                return <Typography key={index}>{child}</Typography>
-            })}
-          
-        </AccordionDetails>
-      </Accordion>
-  )
-}
+import React, { useState } from 'react';
 
-export default Accardion
+const Accordion = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="accordion">
+      <div className="accordion-header" onClick={toggleAccordion}>
+        <h3>{title}</h3>
+      
+      </div>
+      {isOpen && <div className="accordion-content">{children}</div>}
+    </div>
+  );
+};
+
+export default Accordion;

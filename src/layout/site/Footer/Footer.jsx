@@ -11,9 +11,10 @@ const Footer = () => {
   return (
     <footer className='footer'>
       <div className="top">
+       
         <SiteFooterAbout/>
         <div className="shortcuts">
-        {/* <SiteFooterCategories className="categories"/> */}
+        <SiteFooterCategories className="categories"/>
         <SiteFooterMenu />
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const HomeSection5 = () => {
     const [popProducts, setPopProducts] = useState([])
     useEffect(() => {
-        axios.get("https://localhost:7066/api/Products/GetPopularProducts").then(res => {
+        axios.get("https://localhost:7066/api/Products/GetBestSellerProducts").then(res => {
             setPopProducts(res.data.data)
         })
     }, [])
