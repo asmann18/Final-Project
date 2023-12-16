@@ -11,6 +11,6 @@ public class BasketItemGetDto:IDto
     public int Count { get; set; }
     public string AppUserId { get; set; }
     public string ProductName { get; set; }
-    public double Price { get; set; }
+    public double? StaticPrice { get; set; }
     //public bool IsDeleted { get; set; }
 }

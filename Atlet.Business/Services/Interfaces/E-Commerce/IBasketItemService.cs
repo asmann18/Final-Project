@@ -11,5 +11,5 @@ public interface IBasketItemService
     Task<IResult> DeleteByIdAsync(int id);
     Task<ResultDto> Increase(BasketItemPostDto basketItemPostDto);
     Task<ResultDto> Decrease(BasketItemPostDto basketItemPostDto);
-    Task<ResultDto> BuyTheBasket();
+    Task<ResultDto> BuyTheBasket(string? location);
 }

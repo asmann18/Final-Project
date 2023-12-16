@@ -27,7 +27,7 @@ public class CommentService : ICommentService
         _mapper = mapper;
         _commentRepository = commentRepository;
         _contextAccessor = contextAccessor;
-        _userID = contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        _userID = contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         _userManager = userManager;
         _productService = productService;
     }
@@ -77,6 +77,12 @@ public class CommentService : ICommentService
     {
         var product=await _productService.GetProductByIdAsync(productId);
         var CommentDtos = _mapper.Map<List<CommentGetDto>>(product.data.Comments);
+        foreach (var dto in CommentDtos)
+        {
+            dto.AppUserName = (await _userManager.FindByIdAsync(dto.AppUserID)).UserName;
+        }
+
+
         return new(CommentDtos);
     }
 

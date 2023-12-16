@@ -29,7 +29,7 @@ public class ProductService : IProductService
 
     public async Task<DataResultDto<List<ProductGetDto>>> GetAllProductsAsync(string? search)
     {
-        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").ToListAsync();
+        var Products =await _productRepository.GetFiltered(p=> !string.IsNullOrWhiteSpace(search) ? p.Name.Contains(search):true, "ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(x=>x.Id).ToListAsync();
         var query=_mapper.Map<List<ProductGetDto>>(Products);
         if (query.Count == 0)
             throw new ProductNotFoundException();
@@ -46,7 +46,7 @@ public class ProductService : IProductService
         if (product is null)
             throw new ProductNotFoundException();
         var productDto = _mapper.Map<ProductGetDto>(product);
-        productDto.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(productDto.Id);
+        productDto.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(Id);
         return new DataResultDto<ProductGetDto>(productDto);
     }
 
@@ -159,14 +159,14 @@ public class ProductService : IProductService
     {
         var products = _productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(p => p.Discount);
         List<ProductGetDto> productDtos=new List<ProductGetDto>();
-        if (products.Count() > 8)
+        if (products.Count() > 10)
         {
-            productDtos = _mapper.Map<List<ProductGetDto>>(await products.Take(8).ToListAsync());
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x=>x.Discount).Take(10).ToListAsync());
         }
         else
         {
 
-            productDtos = _mapper.Map<List<ProductGetDto>>(await products.ToListAsync());
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x => x.Discount).ToListAsync());
         }
         foreach (var item in productDtos)
         {
@@ -179,14 +179,14 @@ public class ProductService : IProductService
     {
         var products = _productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(p => p.SalesCount);
         List<ProductGetDto> productDtos = new List<ProductGetDto>();
-        if (products.Count() > 8)
+        if (products.Count() > 10)
         {
-            productDtos = _mapper.Map<List<ProductGetDto>>(await products.Take(8).ToListAsync());
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x=>x.Rating).Take(10).ToListAsync());
         }
         else
         {
 
-            productDtos = _mapper.Map<List<ProductGetDto>>(await products.ToListAsync());
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x => x.Rating).ToListAsync());
         }
         foreach (var item in productDtos)
         {
@@ -194,5 +194,25 @@ public class ProductService : IProductService
         }
         return new DataResultDto<List<ProductGetDto>>(productDtos, true);
 
+    }
+
+    public async Task<DataResultDto<List<ProductGetDto>>> GetBestSellerProducts()
+    {
+        var products = _productRepository.GetAll("ProductCategory", "Brand", "Aroma", "Comments", "ProductImages").OrderByDescending(p => p.Discount);
+        List<ProductGetDto> productDtos = new List<ProductGetDto>();
+        if (products.Count() > 10)
+        {
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x => x.SalesCount).Take(10).ToListAsync());
+        }
+        else
+        {
+
+            productDtos = _mapper.Map<List<ProductGetDto>>(await products.OrderByDescending(x => x.SalesCount).ToListAsync());
+        }
+        foreach (var item in productDtos)
+        {
+            item.ProductImagePaths = await _imageService.GetProductImageUrlsByIdAsync(item.Id);
+        }
+        return new DataResultDto<List<ProductGetDto>>(productDtos, true);
     }
 }

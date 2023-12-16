@@ -1,7 +1,5 @@
 ﻿using Atlet.Business.DTOs.E_Commerce.BasketItemDtos;
 using Atlet.Business.Services.Interfaces.E_Commerce;
-using Atlet.Business.Services.Interfaces.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,9 +39,9 @@ public class BasketItemsController : ControllerBase
 
     [HttpGet("[action]")]
     [Authorize]
-    public async Task<IActionResult> BuyTheBasket()
+    public async Task<IActionResult> BuyTheBasket([FromQuery]string? location)
     {
-        return Ok(await _basketItemService.BuyTheBasket());
+        return Ok(await _basketItemService.BuyTheBasket(location));
     }
     
 }

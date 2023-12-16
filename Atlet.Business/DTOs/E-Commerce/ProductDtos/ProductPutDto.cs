@@ -1,6 +1,4 @@
-﻿ using Atlet.Business.DTOs.Abstract;
-using Atlet.Core.Entities.E_Commerce.ManyToMany;
-using Atlet.Core.Entities.E_Commerce;
+﻿using Atlet.Business.DTOs.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace Atlet.Business.DTOs.E_Commerce.ProductDtos;

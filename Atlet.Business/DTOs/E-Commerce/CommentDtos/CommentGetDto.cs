@@ -9,6 +9,9 @@ public class CommentGetDto:IDto
     public string Text { get; init; }
     public int Rating { get; init; }
     public string AppUserID { get; init; }
+    public string AppUserName { get; set; }
+    public string CreatedBy { get; set; }
+
     public int ProductId { get; init; }
     public int? ParentId { get; init; }
 }

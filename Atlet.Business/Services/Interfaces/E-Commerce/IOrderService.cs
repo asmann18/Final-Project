@@ -8,6 +8,15 @@ public interface IOrderService
 {
     Task<DataResultDto<List<OrderGetDto>>> GetAllOrderssAsync();
     Task<DataResultDto<OrderGetDto>> GetOrderByIdAsync(int Id);
-    Task<ResultDto> CreateOrderAsync(List<BasketItem> basketItems);
+    Task<DataResultDto<OrderGetDto>> CreateOrderAsync(List<BasketItem> basketItems,string? location);
+    Task<ResultDto> ChangeOrderStatus(int id);
+    Task<ResultDto> ChangeOrderStatusReverse(int id);
+    Task<ResultDto> ChangeOrderStatus(int id,bool? status);
+
     Task<ResultDto> UpdateOrderAsync(OrderPutDto orderPutDto);
+    Task<DataResultDto<List<OrderGetDto>>> GetUserOrders();
+
+
+    Task<ResultDto> DeleteOrderAsync(int id);
+
 }

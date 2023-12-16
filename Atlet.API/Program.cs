@@ -15,11 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 
-builder.Services.AddControllers().AddNewtonsoftJson(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining(typeof(ProductPostDtoValidators)));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")); 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
 builder.Services.AddCors(options =>
@@ -89,8 +89,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin","Member","Moderator"));
-    options.AddPolicy("Moderator", policy => policy.RequireRole("Moderator","Member"));
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin", "Member", "Moderator"));
+    options.AddPolicy("Moderator", policy => policy.RequireRole("Moderator", "Member"));
     options.AddPolicy("Member", policy => policy.RequireRole("Member"));
 });
 
@@ -109,8 +109,8 @@ builder.Services.AddRepositoriesService();
 builder.Services.AddScoped<BaseAuditableInterceptor>();
 builder.Services.AddScoped<BasketItemInterceptor>();
 builder.Services.AddScoped<CommentInterceptor>();
-
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });

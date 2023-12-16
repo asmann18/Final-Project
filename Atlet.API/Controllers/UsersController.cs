@@ -26,10 +26,35 @@ public class UsersController : ControllerBase
     [Authorize]
     public async Task<IActionResult> UserGetInfo()
     {
-        return Ok(_userService.GetUserInfo());
+        return Ok(await _userService.GetUserInfo());
     }
 
+    [HttpGet("[action]")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        return Ok(await _userService.GetAllUserAsync());
+    }
 
+    [HttpPost("[action]")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> ChangeUserRole([FromBody]UserChangeRoleDto dto)
+    {
+        return Ok(await _userService.ChangeUserRoleAsync(dto));
+    }
+
+    [HttpGet("[action]")]
+    [Authorize(Roles="Admin")]
+    public async Task<IActionResult> GetAllRolesAsync()
+    {
+        return Ok(await _userService.GetRolesAsync());
+    }
+    [HttpGet("[action]/{id}")]
+    [Authorize(Roles ="Admin")]
+    public async Task<IActionResult> GetUserInfoByIdAsync(string id)
+    {
+        return Ok(await _userService.GetUserByIdAsync(id));
+    }
     //[HttpPost("[action]")]
     //public async Task<IActionResult> CreateRoles()
     //{

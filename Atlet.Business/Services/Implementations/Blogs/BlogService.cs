@@ -51,7 +51,7 @@ public class BlogService : IBlogService
 
     public async Task<DataResultDto<List<BlogGetDto>>> GetAllBlogsAsync(string? search)
     {
-        var blogs=await _blogRepository.GetFiltered(b=> !string.IsNullOrWhiteSpace(search) ? b.Name.ToLower().Contains(search.ToLower()) : true,"BlogCategory" ).ToListAsync();
+        var blogs=await _blogRepository.GetFiltered(b=> !string.IsNullOrWhiteSpace(search) ? b.Name.ToLower().Contains(search.ToLower()) : true,"BlogCategory" ).OrderByDescending(x=>x.Id).ToListAsync();
         if(blogs.Count==0) throw new BlogNotFoundException();
         var blogDtos=_mapper.Map<List<BlogGetDto>>(blogs);
         foreach (var item in blogDtos)

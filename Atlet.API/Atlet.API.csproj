@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
@@ -18,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Atlet.Business\Atlet.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\images\ProductImages\" />
   </ItemGroup>
 
 </Project>

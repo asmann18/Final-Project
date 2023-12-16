@@ -49,7 +49,7 @@ public class MoveService : IMoveService
 
     public async Task<DataResultDto<List<MoveGetDto>>> GetAllMovesAsync(string? search)
     {
-        var moves = await _moveRepository.GetFiltered(m => !string.IsNullOrWhiteSpace(search) ? m.Name.ToLower().Contains(search.ToLower()) : true, "Part").ToListAsync();
+        var moves = await _moveRepository.GetFiltered(m => !string.IsNullOrWhiteSpace(search) ? m.Name.ToLower().Contains(search.ToLower()) : true, "Part").OrderByDescending(x => x.Id).ToListAsync();
         if (moves.Count == 0)
             throw new MoveNotFoundExceptions();
         var moveDtos = _mapper.Map<List<MoveGetDto>>(moves);

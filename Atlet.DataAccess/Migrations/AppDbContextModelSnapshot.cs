@@ -277,6 +277,10 @@ namespace Atlet.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -290,12 +294,24 @@ namespace Atlet.DataAccess.Migrations
                     b.Property<bool?>("IsStatus")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Location")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("ModifiedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("isDelivery")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -821,7 +837,7 @@ namespace Atlet.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Atlet.Core.Entities.E_Commerce.ManyToMany.Order", "Order")
-                        .WithMany()
+                        .WithMany("BasketItems")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("Atlet.Core.Entities.E_Commerce.Product", "Product")
@@ -1029,6 +1045,11 @@ namespace Atlet.DataAccess.Migrations
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Brand", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.ManyToMany.Order", b =>
+                {
+                    b.Navigation("BasketItems");
                 });
 
             modelBuilder.Entity("Atlet.Core.Entities.E_Commerce.Product", b =>

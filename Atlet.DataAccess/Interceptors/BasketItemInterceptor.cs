@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Atlet.Core.Entities.E_Commerce.ManyToMany;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Security.Claims;
 
@@ -29,6 +30,9 @@ public class BasketItemInterceptor:SaveChangesInterceptor
     {
         if (context is null) return;
         foreach (var entry in context.ChangeTracker.Entries<BasketItem>())
+        {
+            entry.Entity.AppUserId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }foreach (var entry in context.ChangeTracker.Entries<Order>())
         {
             entry.Entity.AppUserId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }

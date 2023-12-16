@@ -11,6 +11,7 @@ using Atlet.Business.Services.Interfaces.E_Commerce;
 using Atlet.Business.Services.Interfaces.Identity;
 using Atlet.Business.Services.Interfaces.ManyToMany;
 using Atlet.Business.Services.Interfaces.Moves;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Atlet.API.Extensions;
 
@@ -42,6 +43,11 @@ public static class AddServicesExtension
 
         services.AddAutoMapper(typeof(ProductAutoMapper).Assembly);
         services.AddScoped<ICloudinaryService,CloudinaryService>();
+
+        //services.AddSession();
+
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
         return services;
     }
 }

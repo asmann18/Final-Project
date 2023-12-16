@@ -8,6 +8,8 @@ public class CommentRelationDto:IDto
     public string Text { get; init; }
     public int Rating { get; init; }
     public string AppUserID { get; init; }
+    public string CreatedBy { get; init; }
+
     public int ProductId { get; init; }
     public int? ParentId { get; init; }
 }
